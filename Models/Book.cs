@@ -49,7 +49,7 @@ namespace BookSYS.Models
             }
             if (book.Id > 9999)
             {
-                errorMessage = "Id cannot be longer than six digits.";
+                errorMessage = "Id cannot be larger than 9999.";
                 return false;
             }
             #endregion
