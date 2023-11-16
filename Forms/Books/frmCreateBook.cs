@@ -28,16 +28,9 @@ namespace BookSYS.Forms.Books
             newBook = null;
             errorMessage = null;
 
-            string title = txtTitle.Text;
-            string author = txtAuthor.Text;
-            string description = txtDescription.Text;
-            string pageCount = txtPageCount.Text;
-            string price = txtPrice.Text;
-            string quantity = txtQuantity.Text;
-
             #region Check if fields are empty.
-            
-            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPageCount, txtPrice, txtQuantity }, out TextBox firstEmpty))
+
+            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPageCount, txtPrice, txtQuantity, txtISBN }, out TextBox firstEmpty))
             {
                 firstEmpty.Focus();
                 errorMessage = "Field cannot be empty.";
@@ -46,15 +39,23 @@ namespace BookSYS.Forms.Books
 
             #endregion
 
+            string title = txtTitle.Text;
+            string author = txtAuthor.Text;
+            string description = txtDescription.Text;
+            string pageCount = txtPageCount.Text;
+            string price = txtPrice.Text;
+            string quantity = txtQuantity.Text;
+            string ISBN = txtISBN.Text;
+
             Book book = new Book();
 
-            book.Id = db.NextBookId();
+            book.BookId = db.NextBookId();
             book.Title = title;
             book.Author = author;
             book.Description = description;
-            book.Available = true;
+            book.ISBN = ISBN;
 
-            if (db.GetBooks().Where(x => x.Id == book.Id).FirstOrDefault() != null)
+            if (db.GetBooks().Where(x => x.BookId == book.BookId).FirstOrDefault() != null)
             {
                 errorMessage = "Specified Id already exists, choose another or delete the existing entry.";
                 return false;
@@ -80,12 +81,14 @@ namespace BookSYS.Forms.Books
             {
                 txtQuantity.Focus();
                 errorMessage = "Quantity must be a whole number.";
+                return false;
             }
 
             book.PageCount = pageCountNum;
             book.Price = priceNum;
             book.Quantity = quantityNum;
 
+            // No Errors were encountered in the view inputs
             errorMessage = null;
             newBook = book;
 
@@ -104,13 +107,18 @@ namespace BookSYS.Forms.Books
 
             db.AddBook(newBook);
             MessageBox.Show("The book: " + newBook.ToString() + " has been added.", "Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearInputs();
+        }
 
+        private void ClearInputs()
+        {
             txtTitle.Clear();
             txtAuthor.Clear();
             txtDescription.Clear();
             txtPageCount.Clear();
             txtPrice.Clear();
             txtQuantity.Clear();
+            txtISBN.Clear();
         }
     }
 }

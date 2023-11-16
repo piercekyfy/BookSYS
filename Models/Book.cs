@@ -4,35 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BookSYS.Models
 {
     public class Book
     {
-        public int Id { get; set; }
+        public int BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
         public int PageCount { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public bool Available { get; set; }
+        public string ISBN { get; set; }
+        public char Status { get; set; }
 
         public Book()
         {
 
         }
 
-        public Book(int id, string title, string author, string description, int pageCount, double price, int quantity, bool available)
+        public Book(int id, string title, string author, string description, int pageCount, double price, int quantity, string ISBN)
         {
-            Id = id;
+            BookId = id;
             Title = title;
             Author = author;
             Description = description;
             PageCount = pageCount;
             Price = price;
             Quantity = quantity;
-            Available = available;
+            this.ISBN = ISBN;
+            Status = 'A';
         }
 
         public static bool VerifyBook(Book book, out string errorMessage)
@@ -42,12 +45,12 @@ namespace BookSYS.Models
             // Verification
 
             #region BookId
-            if(book.Id < 0)
+            if(book.BookId < 0)
             {
                 errorMessage = "Id cannot be less than zero.";
                 return false;
             }
-            if (book.Id > 9999)
+            if (book.BookId > 9999)
             {
                 errorMessage = "Id cannot be larger than 9999.";
                 return false;
@@ -103,6 +106,26 @@ namespace BookSYS.Models
                 return false;
             }
             #endregion
+            #region ISBN
+            if(String.IsNullOrEmpty(book.ISBN))
+            {
+                errorMessage = "ISBN is a required field.";
+                return false;
+            }
+            if(book.ISBN.Length < 7)
+            {
+                errorMessage = "ISBN must be a 7 digit number.";
+                return false;
+            }
+            foreach (char character in book.ISBN)
+            {
+                if (!char.IsDigit(character))
+                {
+                    errorMessage = "ISBN must be a 7 digit number.";
+                    return false;
+                }
+            }
+            #endregion
 
             errorMessage = null;
             return true;
@@ -110,7 +133,7 @@ namespace BookSYS.Models
 
         public override string ToString()
         {
-            return this.Id.ToString() + " (" + this.Title.ToString() + ")";
+            return this.BookId.ToString() + " (" + this.Title.ToString() + ")";
         }
     }
 }

@@ -35,12 +35,12 @@ namespace BookSYS.Forms.Books
         {
             cboId.Items.Clear();
 
-            List<Book> books = db.GetBooksByAproxTitle(title).ToList();
+            List<Book> books = db.GetBooksByApproximateTitle(title).ToList();
 
             if (books.Count() == 0)
                 return;
 
-            foreach(Book book in db.GetBooksByAproxTitle(title))
+            foreach(Book book in books)
             {
                 cboId.Items.Add(book);
             }
@@ -65,7 +65,7 @@ namespace BookSYS.Forms.Books
             txtPageCount.Text = selected.PageCount.ToString();
             txtPrice.Text = selected.Price.ToString();
             txtQuantity.Text = selected.Quantity.ToString();
-            ckbAvailable.Checked = selected.Available;
+            txtISBN.Text = selected.ISBN.ToString();
 
             grpBook.Show();
         }
@@ -94,17 +94,9 @@ namespace BookSYS.Forms.Books
             newBook = null;
             errorMessage = null;
 
-            string title = txtTitle.Text;
-            string author = txtAuthor.Text;
-            string description = txtDescription.Text;
-            string pageCount = txtPageCount.Text;
-            string price = txtPrice.Text;
-            string quantity = txtQuantity.Text;
-            bool available = ckbAvailable.Checked;
+            #region Check if required fields are empty.
 
-            #region Check if fields are empty.
-
-            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPageCount, txtPrice, txtQuantity }, out TextBox firstEmpty))
+            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPageCount, txtPrice, txtQuantity, txtISBN }, out TextBox firstEmpty))
             {
                 firstEmpty.Focus();
                 errorMessage = "Field cannot be empty.";
@@ -113,13 +105,21 @@ namespace BookSYS.Forms.Books
 
             #endregion
 
+            string title = txtTitle.Text;
+            string author = txtAuthor.Text;
+            string description = txtDescription.Text;
+            string pageCount = txtPageCount.Text;
+            string price = txtPrice.Text;
+            string quantity = txtQuantity.Text;
+            string ISBN = txtISBN.Text;
+
             Book book = new Book();
 
-            book.Id = selected.Id;
+            book.BookId = selected.BookId;
             book.Title = title;
             book.Author = author;
             book.Description = description;
-            book.Available = available;
+            book.ISBN = ISBN;
 
             int pageCountNum;
             float priceNum;
@@ -141,15 +141,18 @@ namespace BookSYS.Forms.Books
             {
                 txtQuantity.Focus();
                 errorMessage = "Quantity must be a whole number.";
+                return false;
             }
 
             book.PageCount = pageCountNum;
             book.Price = priceNum;
             book.Quantity = quantityNum;
 
+            // No Errors were encountered in the view inputs
             errorMessage = null;
             newBook = book;
 
+            // Verify the model
             return Book.VerifyBook(book, out errorMessage);
         }
 

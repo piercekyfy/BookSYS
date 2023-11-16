@@ -45,6 +45,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.txtISBN = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.mnuCreateBook.SuspendLayout();
             this.grpBook.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +80,8 @@
             // 
             // grpBook
             // 
+            this.grpBook.Controls.Add(this.txtISBN);
+            this.grpBook.Controls.Add(this.label3);
             this.grpBook.Controls.Add(this.btnSubmit);
             this.grpBook.Controls.Add(this.txtQuantity);
             this.grpBook.Controls.Add(this.txtPrice);
@@ -94,14 +98,14 @@
             this.grpBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.grpBook.Location = new System.Drawing.Point(17, 72);
             this.grpBook.Name = "grpBook";
-            this.grpBook.Size = new System.Drawing.Size(356, 366);
+            this.grpBook.Size = new System.Drawing.Size(356, 371);
             this.grpBook.TabIndex = 18;
             this.grpBook.TabStop = false;
             this.grpBook.Text = "Details";
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(196, 305);
+            this.btnSubmit.Location = new System.Drawing.Point(196, 337);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
             this.btnSubmit.TabIndex = 32;
@@ -212,11 +216,28 @@
             this.label14.TabIndex = 20;
             this.label14.Text = "Title:";
             // 
+            // txtISBN
+            // 
+            this.txtISBN.Location = new System.Drawing.Point(117, 309);
+            this.txtISBN.Name = "txtISBN";
+            this.txtISBN.Size = new System.Drawing.Size(133, 26);
+            this.txtISBN.TabIndex = 34;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label3.Location = new System.Drawing.Point(16, 312);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 22);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "ISBN:";
+            // 
             // frmCreateBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(390, 450);
+            this.ClientSize = new System.Drawing.Size(390, 455);
             this.Controls.Add(this.grpBook);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mnuCreateBook);
@@ -251,5 +272,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtISBN;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="IDBContext.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
@@ -81,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Books\frmUpdateBook.resx">
       <DependentUpon>frmUpdateBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Clients\frmOpenClientAccount.resx">
+      <DependentUpon>frmOpenClientAccount.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

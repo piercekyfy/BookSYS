@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BookSYS.Forms.Books
+namespace BookSYS.Forms
 {
     public class DummyDbSingleton : IDBContext
     {
@@ -34,7 +34,7 @@ namespace BookSYS.Forms.Books
         {
             foreach (var storedBook in books)
             {
-                if(storedBook.Id == book.Id)
+                if(storedBook.BookId == book.BookId)
                 {
                     storedBook.Title = book.Title;
                     storedBook.Author = book.Author;
@@ -42,26 +42,39 @@ namespace BookSYS.Forms.Books
                     storedBook.PageCount = book.PageCount;
                     storedBook.Price = book.Price;
                     storedBook.Quantity = book.Quantity;
-                    storedBook.Available = book.Available;
+                    storedBook.ISBN = book.ISBN;
 
                     return;
                 }
             }
 
-            throw new Exception("Attempted to update non-existant book");
+            throw new Exception("Attempted to update non-existent book");
+        }
+
+        public void RemoveBook(int bookId)
+        {
+            foreach (var storedBook in books)
+            {
+                if(storedBook.BookId == bookId)
+                {
+                    books.Remove(storedBook);
+                    return;
+                }
+            }
         }
 
         public IEnumerable<Book> GetBooks()
         {
             foreach (var book in books)
             {
-                yield return book;
+                if(book.Status == 'A')
+                    yield return book;
             }
         }
 
-        public IEnumerable<Book> GetBooksByAproxTitle(string title)
+        public IEnumerable<Book> GetBooksByApproximateTitle(string title)
         {
-            foreach(var book in books)
+            foreach(var book in GetBooks())
             {
                 if (book.Title.ToUpper().Contains(title.ToUpper()))
                 {
@@ -75,9 +88,9 @@ namespace BookSYS.Forms.Books
             int largest = -1;
             foreach(var book in books)
             {
-                if(book.Id > largest)
+                if(book.BookId > largest)
                 {
-                    largest = book.Id;
+                    largest = book.BookId;
                 }
             }
 
@@ -91,9 +104,9 @@ namespace BookSYS.Forms.Books
 
         public void Debug_PopulateBooks()
         {
-            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", 320, 15.45f, 80, true));
-            AddBook(new Book(0002, "Mice and Men", "That Guy", "He shoots him! Gasp.", 200, 10f, 200, true));
-            AddBook(new Book(0003, "Cherub", "Robert Something", "Spies!", 250, 25f, 45, true));
+            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", 320, 15.45f, 80, "9780520201798"));
+            AddBook(new Book(0002, "Mice and Men", "That Guy", "He shoots him! Gasp.", 200, 10f, 200, "9780230201798"));
+            AddBook(new Book(0003, "Cherub", "Robert Something", "Spies!", 250, 25f, 45, "8180520201798"));
         }
     }
 }

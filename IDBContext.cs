@@ -9,10 +9,17 @@ namespace BookSYS
 {
     public interface IDBContext
     {
+        /// <summary>
+        /// Gets all available books (Books with a Status of 'A')
+        /// </summary>
         IEnumerable<Book> GetBooks();
-        IEnumerable<Book> GetBooksByAproxTitle(string title);
+        /// <summary>
+        /// Gets all available books (Books with a Status of 'A') whose title's contain the specified string
+        /// </summary>
+        IEnumerable<Book> GetBooksByApproximateTitle(string title);
         void AddBook(Book book);
         void UpdateBook(Book book);
+        void RemoveBook(int bookId);
         int NextBookId();
     }
 }

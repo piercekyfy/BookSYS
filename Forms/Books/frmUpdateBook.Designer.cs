@@ -34,6 +34,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cboId = new System.Windows.Forms.ComboBox();
             this.grpBook = new System.Windows.Forms.GroupBox();
+            this.txtISBN = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.txtPageCount = new System.Windows.Forms.TextBox();
@@ -46,11 +49,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnSubmit = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.txtTitleSearch = new System.Windows.Forms.TextBox();
-            this.ckbAvailable = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.mnuCreateBook.SuspendLayout();
             this.grpBook.SuspendLayout();
             this.SuspendLayout();
@@ -103,8 +103,8 @@
             // 
             // grpBook
             // 
+            this.grpBook.Controls.Add(this.txtISBN);
             this.grpBook.Controls.Add(this.label9);
-            this.grpBook.Controls.Add(this.ckbAvailable);
             this.grpBook.Controls.Add(this.btnSubmit);
             this.grpBook.Controls.Add(this.txtQuantity);
             this.grpBook.Controls.Add(this.txtPrice);
@@ -121,11 +121,38 @@
             this.grpBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.grpBook.Location = new System.Drawing.Point(15, 85);
             this.grpBook.Name = "grpBook";
-            this.grpBook.Size = new System.Drawing.Size(356, 340);
+            this.grpBook.Size = new System.Drawing.Size(356, 381);
             this.grpBook.TabIndex = 7;
             this.grpBook.TabStop = false;
             this.grpBook.Text = "Update {Title}";
             this.grpBook.Visible = false;
+            // 
+            // txtISBN
+            // 
+            this.txtISBN.Location = new System.Drawing.Point(117, 308);
+            this.txtISBN.Name = "txtISBN";
+            this.txtISBN.Size = new System.Drawing.Size(133, 26);
+            this.txtISBN.TabIndex = 36;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label9.Location = new System.Drawing.Point(16, 311);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 22);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "ISBN:";
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(196, 340);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(154, 29);
+            this.btnSubmit.TabIndex = 32;
+            this.btnSubmit.Text = "Update";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // txtQuantity
             // 
@@ -230,16 +257,6 @@
             this.label3.TabIndex = 20;
             this.label3.Text = "Title:";
             // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Location = new System.Drawing.Point(196, 305);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(154, 29);
-            this.btnSubmit.TabIndex = 32;
-            this.btnSubmit.Text = "Update";
-            this.btnSubmit.UseVisualStyleBackColor = true;
-            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -258,32 +275,11 @@
             this.txtTitleSearch.TabIndex = 34;
             this.txtTitleSearch.TextChanged += new System.EventHandler(this.txtTitleSearch_TextChanged);
             // 
-            // ckbAvailable
-            // 
-            this.ckbAvailable.AutoSize = true;
-            this.ckbAvailable.Checked = true;
-            this.ckbAvailable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbAvailable.Location = new System.Drawing.Point(117, 312);
-            this.ckbAvailable.Name = "ckbAvailable";
-            this.ckbAvailable.Size = new System.Drawing.Size(15, 14);
-            this.ckbAvailable.TabIndex = 32;
-            this.ckbAvailable.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label9.Location = new System.Drawing.Point(16, 308);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 22);
-            this.label9.TabIndex = 33;
-            this.label9.Text = "Available:";
-            // 
             // frmUpdateBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 450);
+            this.ClientSize = new System.Drawing.Size(388, 473);
             this.Controls.Add(this.txtTitleSearch);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.grpBook);
@@ -325,7 +321,7 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtTitleSearch;
+        private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox ckbAvailable;
     }
 }
