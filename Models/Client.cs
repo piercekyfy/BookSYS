@@ -17,7 +17,8 @@ namespace BookSYS.Models
         public string Eircode { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public char Status { get; set; }
+        public char Status { get { return char.ToUpper(_status); } set { _status = value; } }
+        private char _status;
 
         public Client()
         {

@@ -18,7 +18,7 @@ namespace BookSYS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmUpdateClientAccount());
+            Application.Run(new frmCloseClientAccount());
         }
     }
 }
