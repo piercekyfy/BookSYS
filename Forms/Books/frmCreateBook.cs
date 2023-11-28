@@ -55,12 +55,6 @@ namespace BookSYS.Forms.Books
             book.Description = description;
             book.ISBN = ISBN;
 
-            if (db.GetBooks().Where(x => x.BookId == book.BookId).FirstOrDefault() != null)
-            {
-                errorMessage = "Specified Id already exists, choose another or delete the existing entry.";
-                return false;
-            }
-
             int pageCountNum;
             float priceNum;
             int quantityNum;
@@ -97,8 +91,7 @@ namespace BookSYS.Forms.Books
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Book newBook = null;
-
+            Book newBook;
             if (!ProcessInput(out newBook, out string errorMessage))
             {
                 MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

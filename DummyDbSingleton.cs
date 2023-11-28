@@ -2,10 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BookSYS.Forms
 {
+    /// <summary>
+    /// This class simulates a database. It does not perform any validation, including checking for existing Ids.
+    /// </summary>
     public class DummyDbSingleton : IDBContext
     {
         private static DummyDbSingleton _instance;
@@ -21,9 +26,11 @@ namespace BookSYS.Forms
         private DummyDbSingleton()
         {
             this.Debug_PopulateBooks();
+            this.Debug_PopulateClients();
         }
 
         List<Book> books = new List<Book>();
+        List<Client> clients = new List<Client>();
 
         public void AddBook(Book book)
         {
@@ -48,7 +55,7 @@ namespace BookSYS.Forms
                 }
             }
 
-            throw new Exception("Attempted to update non-existent book");
+            throw new Exception("Attempted to update non-existent book.");
         }
 
         public void RemoveBook(int bookId)
@@ -96,7 +103,85 @@ namespace BookSYS.Forms
 
             if(largest + 1 > 9999)
             {
-                throw new Exception("Couldn't find a largest valid Id");
+                throw new Exception("Couldn't find a largest valid Id.");
+            }
+
+            return largest + 1;
+        }
+
+        public void AddClient(Client client)
+        {
+            clients.Add(client);
+        }
+
+        public void UpdateClient(Client client)
+        {
+            foreach (var storedClient in clients)
+            {
+                if (storedClient.ClientId == client.ClientId)
+                {
+                    storedClient.Name = client.Name;
+                    storedClient.Street = client.Street;
+                    storedClient.City = client.City;
+                    storedClient.County = client.County;
+                    storedClient.Eircode = client.Eircode;
+                    storedClient.Email = client.Email;
+                    storedClient.Phone = client.Phone;
+
+                    return;
+                }
+            }
+
+            throw new Exception("Attempted to update non-existent client.");
+        }
+
+        public void RemoveClient(int clientId)
+        {
+            foreach (var storedClient in clients)
+            {
+                if (storedClient.ClientId == clientId)
+                {
+                    clients.Remove(storedClient);
+                    return;
+                }
+            }
+        }
+
+        public IEnumerable<Client> GetClients()
+        {
+            foreach (var client in clients)
+            {
+                if (client.Status == 'O')
+                    yield return client;
+            }
+        }
+
+        public IEnumerable<Client> GetClientsByApproximateName(string name)
+        {
+            foreach (var client in GetClients())
+            {
+                if (client.Name.ToUpper().Contains(name.ToUpper()))
+                {
+                    yield return client;
+                }
+
+            }
+        }
+
+        public int NextClientId()
+        {
+            int largest = -1;
+            foreach (var client in clients)
+            {
+                if (client.ClientId > largest)
+                {
+                    largest = client.ClientId;
+                }
+            }
+
+            if (largest + 1 > 9999)
+            {
+                throw new Exception("Couldn't find a largest valid Id.");
             }
 
             return largest + 1;
@@ -107,6 +192,13 @@ namespace BookSYS.Forms
             AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", 320, 15.45f, 80, "9780520201798"));
             AddBook(new Book(0002, "Mice and Men", "That Guy", "He shoots him! Gasp.", 200, 10f, 200, "9780230201798"));
             AddBook(new Book(0003, "Cherub", "Robert Something", "Spies!", 250, 25f, 45, "8180520201798"));
+        }
+
+        public void Debug_PopulateClients()
+        {
+            AddClient(new Client(0001, "Lil' Bookstore", "43 Moyderwell", "Tralee", "Kerry", "V92PX56", "lilbookstore@gmail.com", "894054052"));
+            AddClient(new Client(0002, "Big Book(s)store!", "32 Castle Street Upper", "Tralee", "Kerry", "V92RX64", "internal@bigbooks.com", "892055452"));
+            AddClient(new Client(0003, "Crazy Books", "40 Pembroke Square", "Tralee", "Kerry", "V92EHH3", "crazyybooks@gmail.com", "872088122"));
         }
     }
 }

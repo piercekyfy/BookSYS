@@ -87,6 +87,7 @@ namespace BookSYS.Forms.Books
             MessageBox.Show("The book: " + newBook.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             UpdateSelected(null);
+            UpdateIdSelection(txtTitleSearch.Text);
         }
 
         public bool ProcessInput(out Book newBook, out string errorMessage)

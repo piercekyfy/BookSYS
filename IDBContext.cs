@@ -21,5 +21,12 @@ namespace BookSYS
         void UpdateBook(Book book);
         void RemoveBook(int bookId);
         int NextBookId();
+
+        IEnumerable<Client> GetClients();
+        IEnumerable<Client> GetClientsByApproximateName(string name);
+        void AddClient(Client client);
+        void UpdateClient(Client client);
+        void RemoveClient(int clientId);
+        int NextClientId();
     }
 }

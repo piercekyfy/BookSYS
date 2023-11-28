@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BookSYS.Models
 {
     public class Client
     {
-        public int Id { get; set; }
+        public int ClientId { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
@@ -16,6 +17,7 @@ namespace BookSYS.Models
         public string Eircode { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public char Status { get; set; }
 
         public Client()
         {
@@ -24,7 +26,7 @@ namespace BookSYS.Models
 
         public Client(int id, string name, string street, string city, string county, string eircode, string email, string phone)
         {
-            Id = id;
+            ClientId = id;
             Name = name;
             Street = street;
             City = city;
@@ -32,17 +34,18 @@ namespace BookSYS.Models
             Eircode = eircode;
             Email = email;
             Phone = phone;
+            Status = 'O';
         }
 
         public static bool VerifyClient(Client client, out string errorMessage)
         {
             #region ClientId
-            if (client.Id < 0)
+            if (client.ClientId < 0)
             {
                 errorMessage = "Id cannot be less than zero.";
                 return false;
             }
-            if (client.Id > 9999)
+            if (client.ClientId > 9999)
             {
                 errorMessage = "Id cannot be larger than 9999.";
                 return false;
@@ -119,8 +122,35 @@ namespace BookSYS.Models
                 errorMessage = "Email has a maximum length of 32 characters.";
                 return false;
             }
-            // ([a-zA-Z][^ \n()*]*@[^ \n,@%*0-9]*)
-            // wip regex ^
+            if(!Regex.Match(client.Email, @"([a-zA-Z][^ \n() *]*@[^ \n,@% *0-9]*)").Success)
+            {
+                errorMessage = "Invalid Email entered.";
+                return false;
+            }
+            #endregion
+            #region Phone
+            
+            if(client.Phone.Length != 9)
+            {
+                errorMessage = "Phone number must be 9 characters long.";
+                return false;
+            }
+            foreach (char c in client.Phone)
+            {
+                if(!char.IsDigit(c)) 
+                {
+                    errorMessage = "Phone number must be a number.";
+                    return false;
+                }
+            }
+            #endregion
+            // TODO, IMPLEMENT REGEX FOR ABOVE THREE ^
+            #region Status
+            if(client.Status != 'O' && client.Status != 'C')
+            {
+                errorMessage = "Client Status must be 'O' or 'C'";
+                return false;
+            }
             #endregion
 
             errorMessage = null;
@@ -129,7 +159,7 @@ namespace BookSYS.Models
 
         public override string ToString()
         {
-            return this.Id.ToString() + " (" + this.Name.ToString() + ")";
+            return this.ClientId.ToString() + " (" + this.Name.ToString() + ")";
         }
     }
 }

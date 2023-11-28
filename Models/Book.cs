@@ -126,6 +126,13 @@ namespace BookSYS.Models
                 }
             }
             #endregion
+            #region Status
+            if(book.Status != 'A' && book.Status != 'N')
+            {
+                errorMessage = "Book Status must be 'A' or 'N'";
+                return false;
+            }
+            #endregion
 
             errorMessage = null;
             return true;

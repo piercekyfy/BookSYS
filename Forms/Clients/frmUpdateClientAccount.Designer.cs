@@ -1,6 +1,6 @@
 ﻿namespace BookSYS.Forms.Clients
 {
-    partial class frmOpenClientAccount
+    partial class frmUpdateClientAccount
     {
         /// <summary>
         /// Required designer variable.
@@ -48,6 +48,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtNameSearch = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cboId = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.grpClient.SuspendLayout();
             this.mnuCreateBook.SuspendLayout();
             this.SuspendLayout();
@@ -71,12 +75,13 @@
             this.grpClient.Controls.Add(this.txtName);
             this.grpClient.Controls.Add(this.label14);
             this.grpClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.grpClient.Location = new System.Drawing.Point(17, 72);
+            this.grpClient.Location = new System.Drawing.Point(17, 94);
             this.grpClient.Name = "grpClient";
             this.grpClient.Size = new System.Drawing.Size(356, 366);
             this.grpClient.TabIndex = 19;
             this.grpClient.TabStop = false;
             this.grpClient.Text = "Details";
+            this.grpClient.Visible = false;
             // 
             // txtPhone
             // 
@@ -176,7 +181,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
             this.btnSubmit.TabIndex = 32;
-            this.btnSubmit.Text = "Open";
+            this.btnSubmit.Text = "Update";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
@@ -244,16 +249,57 @@
             this.mnuExit.Size = new System.Drawing.Size(38, 20);
             this.mnuExit.Text = "Exit";
             // 
-            // frmOpenClientAccount
+            // txtNameSearch
+            // 
+            this.txtNameSearch.Location = new System.Drawing.Point(77, 65);
+            this.txtNameSearch.Name = "txtNameSearch";
+            this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
+            this.txtNameSearch.TabIndex = 38;
+            this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label10.Location = new System.Drawing.Point(13, 63);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(62, 22);
+            this.label10.TabIndex = 37;
+            this.label10.Text = "Name:";
+            // 
+            // cboId
+            // 
+            this.cboId.FormattingEnabled = true;
+            this.cboId.Location = new System.Drawing.Point(245, 66);
+            this.cboId.Name = "cboId";
+            this.cboId.Size = new System.Drawing.Size(126, 21);
+            this.cboId.TabIndex = 36;
+            this.cboId.SelectedIndexChanged += new System.EventHandler(this.cboId_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label7.Location = new System.Drawing.Point(207, 65);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 22);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "ID:";
+            // 
+            // frmUpdateClientAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 450);
+            this.ClientSize = new System.Drawing.Size(392, 474);
+            this.Controls.Add(this.txtNameSearch);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.cboId);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.mnuCreateBook);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grpClient);
-            this.Name = "frmOpenClientAccount";
-            this.Text = "frmOpenClientAccount";
+            this.Name = "frmUpdateClientAccount";
+            this.Text = "frmUpdateClientAccount";
             this.grpClient.ResumeLayout(false);
             this.grpClient.PerformLayout();
             this.mnuCreateBook.ResumeLayout(false);
@@ -285,5 +331,9 @@
         private System.Windows.Forms.TextBox txtAdd_Eircode;
         private System.Windows.Forms.TextBox txtAdd_County;
         private System.Windows.Forms.TextBox txtAdd_City;
+        private System.Windows.Forms.TextBox txtNameSearch;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cboId;
+        private System.Windows.Forms.Label label7;
     }
 }

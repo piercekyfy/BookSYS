@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BookSYS.Forms.Books;
+using BookSYS.Forms.Clients;
 
 namespace BookSYS
 {
@@ -17,7 +18,7 @@ namespace BookSYS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmUpdateBook());
+            Application.Run(new frmUpdateClientAccount());
         }
     }
 }
