@@ -248,6 +248,45 @@ namespace BookSYS.Forms
             order.Status = 'D';
         }
 
+        public void CancelOrder(int orderId)
+        {
+            Order order = GetOrderById(orderId);
+
+            if (order == null)
+                throw new ArgumentException("Invalid OrderId");
+
+            order.Status = 'C';
+        }
+
+        public void PayOrder(int orderId)
+        {
+            Order order = GetOrderById(orderId);
+
+            if (order == null)
+                throw new ArgumentException("Invalid OrderId");
+
+            order.Paid = true;
+        }
+
+        public int NextOrderId()
+        {
+            int largest = -1;
+            foreach (var order in orders)
+            {
+                if (order.OrderId > largest)
+                {
+                    largest = order.OrderId;
+                }
+            }
+
+            if (largest + 1 > 9999)
+            {
+                throw new Exception("Couldn't find a largest valid Id.");
+            }
+
+            return largest + 1;
+        }
+
         #endregion
 
         #region BookOrders

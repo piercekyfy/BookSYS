@@ -18,7 +18,7 @@ namespace BookSYS.Models
         public double Price { get; set; }
         public int Quantity { get; set; }
         public string ISBN { get; set; }
-        public char Status { get; set; }
+        public char Status { get; set; } = 'A';
 
         public Book()
         {

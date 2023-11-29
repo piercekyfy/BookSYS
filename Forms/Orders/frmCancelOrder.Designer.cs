@@ -1,6 +1,6 @@
 ﻿namespace BookSYS.Forms.Clients
 {
-    partial class frmDispatchOrder
+    partial class frmCancelOrder
     {
         /// <summary>
         /// Required designer variable.
@@ -106,7 +106,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
             this.btnSubmit.TabIndex = 32;
-            this.btnSubmit.Text = "Dispatch Order";
+            this.btnSubmit.Text = "Cancel Order";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
@@ -116,9 +116,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.label1.Location = new System.Drawing.Point(12, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 29);
+            this.label1.Size = new System.Drawing.Size(157, 29);
             this.label1.TabIndex = 20;
-            this.label1.Text = "Dispatch Order";
+            this.label1.Text = "Cancel Order";
             // 
             // mnuCreateBook
             // 
@@ -184,7 +184,7 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "Client:";
             // 
-            // frmDispatchOrder
+            // frmCancelOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,8 +197,8 @@
             this.Controls.Add(this.mnuCreateBook);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grpOrder);
-            this.Name = "frmDispatchOrder";
-            this.Text = "frmDispatchOrder";
+            this.Name = "frmCancelOrder";
+            this.Text = "frmCancelOrder";
             this.grpOrder.ResumeLayout(false);
             this.grpOrder.PerformLayout();
             this.mnuCreateBook.ResumeLayout(false);

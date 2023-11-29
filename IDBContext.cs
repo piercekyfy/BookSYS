@@ -38,6 +38,9 @@ namespace BookSYS
         IEnumerable<Order> GetOrdersByClient(Client client);
         void AddOrder(Order order);
         void DispatchOrder(int orderId);
+        void CancelOrder(int orderId);
+        void PayOrder(int orderId);
+        int NextOrderId();
 
         #endregion
 

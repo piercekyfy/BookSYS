@@ -12,14 +12,14 @@ using System.Windows.Forms.VisualStyles;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmDispatchOrder : Form
+    public partial class frmCancelOrder : Form
     {
         IDBContext db;
 
         Client selectedClient = null;
         Order selectedOrder = null;
 
-        public frmDispatchOrder()
+        public frmCancelOrder()
         {
             InitializeComponent();
 
@@ -123,9 +123,14 @@ namespace BookSYS.Forms.Clients
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            db.DispatchOrder(selectedOrder.OrderId);
+            db.CancelOrder(selectedOrder.OrderId);
 
-            MessageBox.Show($"{selectedOrder} has been dispatched.", "Dispatched", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{selectedOrder} has been cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (selectedOrder.Paid)
+            {
+                MessageBox.Show($"Order was paid for, total will be refunded to the client in 2-3 business days.", "Refund", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             Reset();
             UpdateSelectedClient(null);

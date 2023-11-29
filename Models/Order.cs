@@ -11,7 +11,7 @@ namespace BookSYS.Models
         public int OrderId { get; set; }
         public Client Client { get; set; }
         public DateTime OrderDate { get; set; }
-        public char Status { get; set; }
+        public char Status { get; set; } = 'U';
         public bool Paid { get; set; }
 
         public Order()

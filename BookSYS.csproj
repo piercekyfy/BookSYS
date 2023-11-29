@@ -89,6 +89,18 @@
     <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Orders\frmProcessPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Orders\frmProcessPayment.Designer.cs">
+      <DependentUpon>frmProcessPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Orders\frmCancelOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Orders\frmCancelOrder.Designer.cs">
+      <DependentUpon>frmCancelOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Orders\frmDispatchOrder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +141,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Orders\frmProcessPayment.resx">
+      <DependentUpon>frmProcessPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Orders\frmCancelOrder.resx">
+      <DependentUpon>frmCancelOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Orders\frmDispatchOrder.resx">
       <DependentUpon>frmDispatchOrder.cs</DependentUpon>

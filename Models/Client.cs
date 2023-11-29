@@ -18,7 +18,7 @@ namespace BookSYS.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public char Status { get { return char.ToUpper(_status); } set { _status = value; } }
-        private char _status;
+        private char _status = 'O';
 
         public Client()
         {

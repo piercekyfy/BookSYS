@@ -192,6 +192,7 @@ namespace BookSYS.Forms.Clients
             if (confirmation == DialogResult.No)
                 return;
 
+            order.OrderId = db.NextOrderId();
             order.Client = selectedClient;
             order.OrderDate = DateTime.UtcNow;
             order.Status = 'U';

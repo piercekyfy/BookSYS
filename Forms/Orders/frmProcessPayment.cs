@@ -12,14 +12,14 @@ using System.Windows.Forms.VisualStyles;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmDispatchOrder : Form
+    public partial class frmProcessPayment : Form
     {
         IDBContext db;
 
         Client selectedClient = null;
         Order selectedOrder = null;
 
-        public frmDispatchOrder()
+        public frmProcessPayment()
         {
             InitializeComponent();
 
@@ -66,7 +66,7 @@ namespace BookSYS.Forms.Clients
 
             foreach(Order order in db.GetOrdersByClient(selectedClient))
             {
-                if(order.Status == 'U')
+                if(order.Paid == false && order.Status != 'C')
                 {
                     cboOrderId.Items.Add(order);
                 }
@@ -123,9 +123,9 @@ namespace BookSYS.Forms.Clients
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            db.DispatchOrder(selectedOrder.OrderId);
+            db.PayOrder(selectedOrder.OrderId);
 
-            MessageBox.Show($"{selectedOrder} has been dispatched.", "Dispatched", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{selectedOrder} has been registered as paid.", "Payment Processed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Reset();
             UpdateSelectedClient(null);
