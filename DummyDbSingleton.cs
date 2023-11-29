@@ -27,6 +27,8 @@ namespace BookSYS.Forms
         {
             this.Debug_PopulateBooks();
             this.Debug_PopulateClients();
+            this.Debug_PopulateOrders();
+            this.Debug_PopulateBookOrders();
         }
 
         List<Book> books = new List<Book>();
@@ -208,11 +210,23 @@ namespace BookSYS.Forms
 
         #region Orders
 
+        public Order GetOrderById(int id)
+        {
+            foreach(var order in orders)
+            {
+                if(order.OrderId == id)
+                {
+                    return order;
+                }
+            }
+            return null;
+        }
+
         public IEnumerable<Order> GetOrdersByClient(Client client)
         {
             foreach(Order order in orders)
             {
-                if(order.Client == client)
+                if(order.Client == client && order.Status != 'C')
                 {
                     yield return order;
                 }
@@ -224,11 +238,21 @@ namespace BookSYS.Forms
             orders.Add(order);
         }
 
+        public void DispatchOrder(int orderId)
+        {
+            Order order = GetOrderById(orderId);
+
+            if (order == null)
+                throw new ArgumentException("Invalid OrderId");
+
+            order.Status = 'D';
+        }
+
         #endregion
 
         #region BookOrders
 
-        public IEnumerable<BookOrder> GetBookOrders(Order order)
+        public IEnumerable<BookOrder> GetBookOrdersByOrder(Order order)
         {
             foreach (BookOrder bookOrder in bookOrders)
             {
@@ -260,6 +284,18 @@ namespace BookSYS.Forms
             AddClient(new Client(0003, "Crazy Books", "40 Pembroke Square", "Tralee", "Kerry", "V92EHH3", "crazyybooks@gmail.com", "872088122"));
         }
 
-        
+        public void Debug_PopulateOrders()
+        {
+            AddOrder(new Order(0001, clients[0], DateTime.UtcNow, 'U', false));
+            AddOrder(new Order(0002, clients[1], DateTime.UtcNow, 'U', false));
+            AddOrder(new Order(0003, clients[2], DateTime.UtcNow, 'U', false));
+        }
+
+        public void Debug_PopulateBookOrders()
+        {
+            AddBookOrder(new BookOrder(orders[0], books[0], books[0].Price, 45));
+            AddBookOrder(new BookOrder(orders[1], books[1], books[1].Price, 25));
+            AddBookOrder(new BookOrder(orders[2], books[2], books[2].Price, 30));
+        }
     }
 }

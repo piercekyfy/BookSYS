@@ -37,12 +37,13 @@ namespace BookSYS
 
         IEnumerable<Order> GetOrdersByClient(Client client);
         void AddOrder(Order order);
+        void DispatchOrder(int orderId);
 
         #endregion
 
         #region BookOrders
 
-        IEnumerable<BookOrder> GetBookOrders(Order order);
+        IEnumerable<BookOrder> GetBookOrdersByOrder(Order order);
         void AddBookOrder(BookOrder bookOrder);
 
         #endregion

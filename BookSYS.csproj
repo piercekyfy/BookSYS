@@ -89,6 +89,12 @@
     <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Orders\frmDispatchOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Orders\frmDispatchOrder.Designer.cs">
+      <DependentUpon>frmDispatchOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Orders\frmCreateOrder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Orders\frmDispatchOrder.resx">
+      <DependentUpon>frmDispatchOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Orders\frmCreateOrder.resx">
       <DependentUpon>frmCreateOrder.cs</DependentUpon>

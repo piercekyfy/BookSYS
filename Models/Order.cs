@@ -30,7 +30,7 @@ namespace BookSYS.Models
 
         public override string ToString()
         {
-            return $"Order ({OrderId}) by {Client.Name}";
+            return $"Order ({OrderId} - {OrderDate.ToString("dd/MM/yy")}) by {Client.Name}";
         }
     }
 }
