@@ -9,6 +9,7 @@ namespace BookSYS
 {
     public interface IDBContext
     {
+        #region Books
         /// <summary>
         /// Gets all available books (Books with a Status of 'A')
         /// </summary>
@@ -21,12 +22,29 @@ namespace BookSYS
         void UpdateBook(Book book);
         void RemoveBook(int bookId);
         int NextBookId();
+        #endregion
 
+        #region Clients
         IEnumerable<Client> GetClients();
         IEnumerable<Client> GetClientsByApproximateName(string name);
         void AddClient(Client client);
         void UpdateClient(Client client);
         void RemoveClient(int clientId);
         int NextClientId();
+        #endregion
+
+        #region Orders
+
+        IEnumerable<Order> GetOrdersByClient(Client client);
+        void AddOrder(Order order);
+
+        #endregion
+
+        #region BookOrders
+
+        IEnumerable<BookOrder> GetBookOrders(Order order);
+        void AddBookOrder(BookOrder bookOrder);
+
+        #endregion
     }
 }

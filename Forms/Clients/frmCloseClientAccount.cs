@@ -102,7 +102,7 @@ namespace BookSYS.Forms.Clients
                 UpdateSelected(null);
                 return;
             }
-            Console.WriteLine("confirm");
+
             var confirmation = MessageBox.Show("Are you sure you wish to close this client's account?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirmation == DialogResult.Yes)
@@ -110,7 +110,7 @@ namespace BookSYS.Forms.Clients
                 db.RemoveClient(selected.ClientId);
             }
 
-            MessageBox.Show("The book: " + selected.ToString() + " has been removed.", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("The client account: " + selected.ToString() + " has been closed.", "Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             UpdateSelected(null);
             UpdateIdSelection(txtNameSearch.Text);

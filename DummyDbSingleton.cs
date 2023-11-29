@@ -31,7 +31,10 @@ namespace BookSYS.Forms
 
         List<Book> books = new List<Book>();
         List<Client> clients = new List<Client>();
+        List<Order> orders = new List<Order>();
+        List<BookOrder> bookOrders = new List<BookOrder>();
 
+        #region Books
         public void AddBook(Book book)
         {
             books.Add(book);
@@ -64,7 +67,8 @@ namespace BookSYS.Forms
             {
                 if(storedBook.BookId == bookId)
                 {
-                    books.Remove(storedBook);
+                    storedBook.Status = 'N';
+                    //books.Remove(storedBook);
                     return;
                 }
             }
@@ -81,6 +85,11 @@ namespace BookSYS.Forms
 
         public IEnumerable<Book> GetBooksByApproximateTitle(string title)
         {
+            if (title == null)
+            {
+                yield break;
+            }
+
             foreach(var book in GetBooks())
             {
                 if (book.Title.ToUpper().Contains(title.ToUpper()))
@@ -108,7 +117,9 @@ namespace BookSYS.Forms
 
             return largest + 1;
         }
+        #endregion
 
+        #region Clients
         public void AddClient(Client client)
         {
             clients.Add(client);
@@ -141,7 +152,8 @@ namespace BookSYS.Forms
             {
                 if (storedClient.ClientId == clientId)
                 {
-                    clients.Remove(storedClient);
+                    storedClient.Status = 'C';
+                    //clients.Remove(storedClient);
                     return;
                 }
             }
@@ -158,6 +170,11 @@ namespace BookSYS.Forms
 
         public IEnumerable<Client> GetClientsByApproximateName(string name)
         {
+            if (name == null)
+            {
+                yield break;
+            }
+
             foreach (var client in GetClients())
             {
                 if (client.Name.ToUpper().Contains(name.ToUpper()))
@@ -187,11 +204,53 @@ namespace BookSYS.Forms
             return largest + 1;
         }
 
+        #endregion
+
+        #region Orders
+
+        public IEnumerable<Order> GetOrdersByClient(Client client)
+        {
+            foreach(Order order in orders)
+            {
+                if(order.Client == client)
+                {
+                    yield return order;
+                }
+            }
+        }
+
+        public void AddOrder(Order order)
+        {
+            orders.Add(order);
+        }
+
+        #endregion
+
+        #region BookOrders
+
+        public IEnumerable<BookOrder> GetBookOrders(Order order)
+        {
+            foreach (BookOrder bookOrder in bookOrders)
+            {
+                if (bookOrder.Order == order)
+                {
+                    yield return bookOrder;
+                }
+            }
+        }
+
+        public void AddBookOrder(BookOrder bookOrder)
+        {
+            bookOrders.Add(bookOrder);
+        }
+
+        #endregion
+
         public void Debug_PopulateBooks()
         {
-            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", 320, 15.45f, 80, "9780520201798"));
-            AddBook(new Book(0002, "Mice and Men", "That Guy", "He shoots him! Gasp.", 200, 10f, 200, "9780230201798"));
-            AddBook(new Book(0003, "Cherub", "Robert Something", "Spies!", 250, 25f, 45, "8180520201798"));
+            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", 320, 15.45, 80, "9780520201798"));
+            AddBook(new Book(0002, "Mice and Men", "That Guy", "He shoots him! Gasp.", 200, 10, 200, "9780230201798"));
+            AddBook(new Book(0003, "Cherub", "Robert Something", "Spies!", 250, 25, 45, "8180520201798"));
         }
 
         public void Debug_PopulateClients()
@@ -200,5 +259,7 @@ namespace BookSYS.Forms
             AddClient(new Client(0002, "Big Book(s)store!", "32 Castle Street Upper", "Tralee", "Kerry", "V92RX64", "internal@bigbooks.com", "892055452"));
             AddClient(new Client(0003, "Crazy Books", "40 Pembroke Square", "Tralee", "Kerry", "V92EHH3", "crazyybooks@gmail.com", "872088122"));
         }
+
+        
     }
 }
