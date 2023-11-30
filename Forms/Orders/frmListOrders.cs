@@ -136,5 +136,10 @@ namespace BookSYS.Forms.Clients
 
             SetSelectedOrder((Order)libOrders.SelectedItem);
         }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

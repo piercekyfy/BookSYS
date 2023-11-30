@@ -93,8 +93,12 @@ namespace BookSYS
             next.Show();
         }
 
+
         #endregion
 
-
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

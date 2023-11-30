@@ -136,6 +136,7 @@
             this.mnuExit.Name = "mnuExit";
             this.mnuExit.Size = new System.Drawing.Size(38, 20);
             this.mnuExit.Text = "Exit";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
             // txtNameSearch
             // 

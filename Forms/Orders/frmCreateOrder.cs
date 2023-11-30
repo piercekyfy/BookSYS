@@ -304,5 +304,10 @@ namespace BookSYS.Forms.Clients
         {
             PlaceOrder();
         }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

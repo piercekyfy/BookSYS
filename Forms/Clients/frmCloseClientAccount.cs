@@ -131,5 +131,10 @@ namespace BookSYS.Forms.Clients
             txtEmail.Clear();
             txtPhone.Clear();
         }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

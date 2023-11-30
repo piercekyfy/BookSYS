@@ -45,9 +45,9 @@
             this.mnuDispatchOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProcessPayment = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCancelOrder = new System.Windows.Forms.ToolStripMenuItem();
+            this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
-            this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picBookRow)).BeginInit();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
@@ -144,6 +144,7 @@
             this.mnuExit.Name = "mnuExit";
             this.mnuExit.Size = new System.Drawing.Size(38, 20);
             this.mnuExit.Text = "Exit";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
             // ordersToolStripMenuItem
             // 
@@ -160,30 +161,37 @@
             // mnuCreateOrder
             // 
             this.mnuCreateOrder.Name = "mnuCreateOrder";
-            this.mnuCreateOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuCreateOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuCreateOrder.Text = "Create Order";
             this.mnuCreateOrder.Click += new System.EventHandler(this.mnuCreateOrder_Click);
             // 
             // mnuDispatchOrder
             // 
             this.mnuDispatchOrder.Name = "mnuDispatchOrder";
-            this.mnuDispatchOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuDispatchOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuDispatchOrder.Text = "Dispatch Order";
             this.mnuDispatchOrder.Click += new System.EventHandler(this.mnuDispatchOrder_Click);
             // 
             // mnuProcessPayment
             // 
             this.mnuProcessPayment.Name = "mnuProcessPayment";
-            this.mnuProcessPayment.Size = new System.Drawing.Size(180, 22);
+            this.mnuProcessPayment.Size = new System.Drawing.Size(164, 22);
             this.mnuProcessPayment.Text = "Process Payment";
             this.mnuProcessPayment.Click += new System.EventHandler(this.mnuProcessPayment_Click);
             // 
             // mnuCancelOrder
             // 
             this.mnuCancelOrder.Name = "mnuCancelOrder";
-            this.mnuCancelOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuCancelOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuCancelOrder.Text = "Cancel Order";
             this.mnuCancelOrder.Click += new System.EventHandler(this.mnuCancelOrder_Click);
+            // 
+            // listOrdersToolStripMenuItem
+            // 
+            this.listOrdersToolStripMenuItem.Name = "listOrdersToolStripMenuItem";
+            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.listOrdersToolStripMenuItem.Text = "List Orders";
+            this.listOrdersToolStripMenuItem.Click += new System.EventHandler(this.listOrdersToolStripMenuItem_Click);
             // 
             // adminToolStripMenuItem
             // 
@@ -200,13 +208,6 @@
             this.label2.Size = new System.Drawing.Size(430, 106);
             this.label2.TabIndex = 3;
             this.label2.Text = "BookSYS";
-            // 
-            // listOrdersToolStripMenuItem
-            // 
-            this.listOrdersToolStripMenuItem.Name = "listOrdersToolStripMenuItem";
-            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.listOrdersToolStripMenuItem.Text = "List Orders";
-            this.listOrdersToolStripMenuItem.Click += new System.EventHandler(this.listOrdersToolStripMenuItem_Click);
             // 
             // frmMain
             // 

@@ -116,5 +116,10 @@ namespace BookSYS.Forms.Books
                 UpdateSelected((Book)cboId.SelectedItem);
             }
         }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

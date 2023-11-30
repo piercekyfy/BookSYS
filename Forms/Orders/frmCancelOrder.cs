@@ -146,5 +146,10 @@ namespace BookSYS.Forms.Clients
 
             FillBookList(db.GetBookOrdersByOrder(selectedOrder).ToList());
         }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

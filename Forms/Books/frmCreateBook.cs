@@ -113,5 +113,10 @@ namespace BookSYS.Forms.Books
             txtQuantity.Clear();
             txtISBN.Clear();
         }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
