@@ -66,7 +66,7 @@ namespace BookSYS.Forms.Clients
 
             foreach(Order order in db.GetOrdersByClient(selectedClient))
             {
-                if(order.Paid == false && order.Status != 'C')
+                if(order.Status != 'P' && order.Status != 'C')
                 {
                     cboOrderId.Items.Add(order);
                 }

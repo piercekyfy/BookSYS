@@ -12,14 +12,14 @@ using System.Windows.Forms.VisualStyles;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmCancelOrder : Form
+    public partial class frmListOrders : Form
     {
         IDBContext db;
 
         Client selectedClient = null;
         Order selectedOrder = null;
 
-        public frmCancelOrder()
+        public frmListOrders()
         {
             InitializeComponent();
 
@@ -52,6 +52,8 @@ namespace BookSYS.Forms.Clients
 
         public void UpdateSelectedClient(Client selected)
         {
+            libOrders.Items.Clear();
+            libBooks.Items.Clear();
             if (selected == null)
             {
                 this.selectedClient = null;
@@ -61,15 +63,11 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
-            Reset();
             this.selectedClient = selected;
 
             foreach(Order order in db.GetOrdersByClient(selectedClient))
             {
-                if(order.Status == 'U')
-                {
-                    cboOrderId.Items.Add(order);
-                }
+                libOrders.Items.Add(order);
             }
 
             grpOrder.Show();
@@ -97,48 +95,46 @@ namespace BookSYS.Forms.Clients
 
         #endregion
 
-        public void Reset()
-        {
-            selectedOrder = null;
-            selectedClient = null;
-            libBooks.Items.Clear();
-            cboOrderId.Text = string.Empty;
-            cboOrderId.Items.Clear();
-            lblTotal.Text = "Total: 000000.00";
-        }
-
-        public void FillBookList(List<BookOrder> bookOrders)
+        private void SetSelectedOrder(Order order)
         {
             libBooks.Items.Clear();
-
-            double totalPrice = 0;
-            foreach(BookOrder bookOrder in bookOrders)
+            if (order == null)
             {
-                libBooks.Items.Add(bookOrder);
-                totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
+                selectedOrder= null;
+                lblStatus.Text = "Status: Undispatched.";
+                lblTotal.Text = "Total: 000000.00";
+                return;
             }
 
-            lblTotal.Text = "Total: " + totalPrice.ToString();
+            selectedOrder = order;
+
+            double total = 0;
+            foreach(BookOrder book in db.GetBookOrdersByOrder(order))
+            {
+                libBooks.Items.Add(book);
+                total += book.SalePrice * book.Quantity;
+            }
+
+            lblStatus.Text = "Status: " + (order.Status == 'U' ? "Undispatched" : order.Status == 'D' ? "Dispatched" : order.Status == 'P' ? "Paid" : "Cancelled");
+            lblTotal.Text = "Total: " + total;
+            
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            db.CancelOrder(selectedOrder.OrderId);
+            db.DispatchOrder(selectedOrder.OrderId);
 
-            MessageBox.Show($"{selectedOrder} has been cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{selectedOrder} has been dispatched.", "Dispatched", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Reset();
             UpdateSelectedClient(null);
         }
 
-        private void cboOrderId_SelectedIndexChanged(object sender, EventArgs e)
+        private void libOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboOrderId.SelectedIndex == -1)
+            if (libOrders.SelectedIndex == -1)
                 return;
 
-            selectedOrder = (Order)cboOrderId.SelectedItem;
-
-            FillBookList(db.GetBookOrdersByOrder(selectedOrder).ToList());
+            SetSelectedOrder((Order)libOrders.SelectedItem);
         }
     }
 }

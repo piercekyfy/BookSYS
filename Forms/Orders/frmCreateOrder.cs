@@ -148,7 +148,7 @@ namespace BookSYS.Forms.Clients
             selectedClient = null;
             selectedBook = null;
             selectedBooks.Clear();
-            libBooks.Items.Clear();
+            lstBooks.Items.Clear();
             txtTitleSearch.Clear();
             cboBookId.Text = string.Empty;
             cboBookRevId.Text = string.Empty;
@@ -166,12 +166,12 @@ namespace BookSYS.Forms.Clients
             txtNameSearch.Clear();
             txtQuantity.Clear();
 
-            libBooks.Items.Clear();
+            lstBooks.Items.Clear();
 
             double totalPrice = 0;
             foreach(BookOrder bookOrder in selectedBooks)
             {
-                libBooks.Items.Add(bookOrder);
+                lstBooks.Items.Add(bookOrder);
                 cboBookRevId.Items.Add(bookOrder.Book);
                 totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
             }
@@ -196,7 +196,6 @@ namespace BookSYS.Forms.Clients
             order.Client = selectedClient;
             order.OrderDate = DateTime.UtcNow;
             order.Status = 'U';
-            order.Paid = false;
 
             db.AddOrder(order);
 

@@ -265,7 +265,7 @@ namespace BookSYS.Forms
             if (order == null)
                 throw new ArgumentException("Invalid OrderId");
 
-            order.Paid = true;
+            order.Status = 'P';
         }
 
         public int NextOrderId()
@@ -325,9 +325,9 @@ namespace BookSYS.Forms
 
         public void Debug_PopulateOrders()
         {
-            AddOrder(new Order(0001, clients[0], DateTime.UtcNow, 'U', false));
-            AddOrder(new Order(0002, clients[1], DateTime.UtcNow, 'U', false));
-            AddOrder(new Order(0003, clients[2], DateTime.UtcNow, 'U', false));
+            AddOrder(new Order(0001, clients[0], DateTime.UtcNow, 'U'));
+            AddOrder(new Order(0002, clients[1], DateTime.UtcNow, 'U'));
+            AddOrder(new Order(0003, clients[2], DateTime.UtcNow, 'U'));
         }
 
         public void Debug_PopulateBookOrders()

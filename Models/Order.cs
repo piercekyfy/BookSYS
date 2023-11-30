@@ -12,20 +12,18 @@ namespace BookSYS.Models
         public Client Client { get; set; }
         public DateTime OrderDate { get; set; }
         public char Status { get; set; } = 'U';
-        public bool Paid { get; set; }
 
         public Order()
         {
 
         }
 
-        public Order(int orderId, Client client, DateTime orderDate, char status, bool paid)
+        public Order(int orderId, Client client, DateTime orderDate, char status)
         {
             OrderId = orderId;
             Client = client;
             OrderDate = orderDate;
             Status = status;
-            Paid = paid;
         }
 
         public override string ToString()

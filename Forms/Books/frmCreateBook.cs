@@ -56,7 +56,7 @@ namespace BookSYS.Forms.Books
             book.ISBN = ISBN;
 
             int pageCountNum;
-            float priceNum;
+            double priceNum;
             int quantityNum;
             
             if(!int.TryParse(pageCount, out pageCountNum))
@@ -65,7 +65,7 @@ namespace BookSYS.Forms.Books
                 errorMessage = "Page Count must be a whole number.";
                 return false;
             }
-            if(!float.TryParse(price, out priceNum))
+            if(!double.TryParse(price, out priceNum))
             {
                 txtPrice.Focus();
                 errorMessage = "Price must be a decimal number.";

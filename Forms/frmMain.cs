@@ -86,6 +86,15 @@ namespace BookSYS
             Form next = new frmCancelOrder();
             next.Show();
         }
+
+        private void listOrdersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form next = new frmListOrders();
+            next.Show();
+        }
+
         #endregion
+
+
     }
 }

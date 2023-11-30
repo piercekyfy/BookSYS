@@ -32,21 +32,22 @@
             this.picBookRow = new System.Windows.Forms.PictureBox();
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.booksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuClients = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCreateBook = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateBook = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRemoveBook = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuClients = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuOpenAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCloseAccount = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCreateOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDispatchOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProcessPayment = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCancelOrder = new System.Windows.Forms.ToolStripMenuItem();
+            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
+            this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picBookRow)).BeginInit();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +86,27 @@
             this.booksToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.booksToolStripMenuItem.Text = "Books";
             // 
+            // mnuCreateBook
+            // 
+            this.mnuCreateBook.Name = "mnuCreateBook";
+            this.mnuCreateBook.Size = new System.Drawing.Size(117, 22);
+            this.mnuCreateBook.Text = "Create";
+            this.mnuCreateBook.Click += new System.EventHandler(this.mnuCreateBook_Click);
+            // 
+            // mnuUpdateBook
+            // 
+            this.mnuUpdateBook.Name = "mnuUpdateBook";
+            this.mnuUpdateBook.Size = new System.Drawing.Size(117, 22);
+            this.mnuUpdateBook.Text = "Update";
+            this.mnuUpdateBook.Click += new System.EventHandler(this.mnuUpdateBook_Click);
+            // 
+            // mnuRemoveBook
+            // 
+            this.mnuRemoveBook.Name = "mnuRemoveBook";
+            this.mnuRemoveBook.Size = new System.Drawing.Size(117, 22);
+            this.mnuRemoveBook.Text = "Remove";
+            this.mnuRemoveBook.Click += new System.EventHandler(this.mnuRemoveBook_Click);
+            // 
             // mnuClients
             // 
             this.mnuClients.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -94,6 +116,27 @@
             this.mnuClients.Name = "mnuClients";
             this.mnuClients.Size = new System.Drawing.Size(55, 20);
             this.mnuClients.Text = "Clients";
+            // 
+            // mnuOpenAccount
+            // 
+            this.mnuOpenAccount.Name = "mnuOpenAccount";
+            this.mnuOpenAccount.Size = new System.Drawing.Size(160, 22);
+            this.mnuOpenAccount.Text = "Open Account";
+            this.mnuOpenAccount.Click += new System.EventHandler(this.mnuOpenAccount_Click);
+            // 
+            // mnuUpdateAccount
+            // 
+            this.mnuUpdateAccount.Name = "mnuUpdateAccount";
+            this.mnuUpdateAccount.Size = new System.Drawing.Size(160, 22);
+            this.mnuUpdateAccount.Text = "Update Account";
+            this.mnuUpdateAccount.Click += new System.EventHandler(this.mnuUpdateAccount_Click);
+            // 
+            // mnuCloseAccount
+            // 
+            this.mnuCloseAccount.Name = "mnuCloseAccount";
+            this.mnuCloseAccount.Size = new System.Drawing.Size(160, 22);
+            this.mnuCloseAccount.Text = "Close Account";
+            this.mnuCloseAccount.Click += new System.EventHandler(this.mnuCloseAccount_Click);
             // 
             // mnuExit
             // 
@@ -108,58 +151,11 @@
             this.mnuCreateOrder,
             this.mnuDispatchOrder,
             this.mnuProcessPayment,
-            this.mnuCancelOrder});
+            this.mnuCancelOrder,
+            this.listOrdersToolStripMenuItem});
             this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
             this.ordersToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.ordersToolStripMenuItem.Text = "Orders";
-            // 
-            // adminToolStripMenuItem
-            // 
-            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.adminToolStripMenuItem.Text = "Admin";
-            // 
-            // mnuCreateBook
-            // 
-            this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(180, 22);
-            this.mnuCreateBook.Text = "Create";
-            this.mnuCreateBook.Click += new System.EventHandler(this.mnuCreateBook_Click);
-            // 
-            // mnuUpdateBook
-            // 
-            this.mnuUpdateBook.Name = "mnuUpdateBook";
-            this.mnuUpdateBook.Size = new System.Drawing.Size(180, 22);
-            this.mnuUpdateBook.Text = "Update";
-            this.mnuUpdateBook.Click += new System.EventHandler(this.mnuUpdateBook_Click);
-            // 
-            // mnuRemoveBook
-            // 
-            this.mnuRemoveBook.Name = "mnuRemoveBook";
-            this.mnuRemoveBook.Size = new System.Drawing.Size(180, 22);
-            this.mnuRemoveBook.Text = "Remove";
-            this.mnuRemoveBook.Click += new System.EventHandler(this.mnuRemoveBook_Click);
-            // 
-            // mnuOpenAccount
-            // 
-            this.mnuOpenAccount.Name = "mnuOpenAccount";
-            this.mnuOpenAccount.Size = new System.Drawing.Size(180, 22);
-            this.mnuOpenAccount.Text = "Open Account";
-            this.mnuOpenAccount.Click += new System.EventHandler(this.mnuOpenAccount_Click);
-            // 
-            // mnuUpdateAccount
-            // 
-            this.mnuUpdateAccount.Name = "mnuUpdateAccount";
-            this.mnuUpdateAccount.Size = new System.Drawing.Size(180, 22);
-            this.mnuUpdateAccount.Text = "Update Account";
-            this.mnuUpdateAccount.Click += new System.EventHandler(this.mnuUpdateAccount_Click);
-            // 
-            // mnuCloseAccount
-            // 
-            this.mnuCloseAccount.Name = "mnuCloseAccount";
-            this.mnuCloseAccount.Size = new System.Drawing.Size(180, 22);
-            this.mnuCloseAccount.Text = "Close Account";
-            this.mnuCloseAccount.Click += new System.EventHandler(this.mnuCloseAccount_Click);
             // 
             // mnuCreateOrder
             // 
@@ -189,6 +185,12 @@
             this.mnuCancelOrder.Text = "Cancel Order";
             this.mnuCancelOrder.Click += new System.EventHandler(this.mnuCancelOrder_Click);
             // 
+            // adminToolStripMenuItem
+            // 
+            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
+            this.adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.adminToolStripMenuItem.Text = "Admin";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -198,6 +200,13 @@
             this.label2.Size = new System.Drawing.Size(430, 106);
             this.label2.TabIndex = 3;
             this.label2.Text = "BookSYS";
+            // 
+            // listOrdersToolStripMenuItem
+            // 
+            this.listOrdersToolStripMenuItem.Name = "listOrdersToolStripMenuItem";
+            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listOrdersToolStripMenuItem.Text = "List Orders";
+            this.listOrdersToolStripMenuItem.Click += new System.EventHandler(this.listOrdersToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -239,5 +248,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuProcessPayment;
         private System.Windows.Forms.ToolStripMenuItem mnuCancelOrder;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem listOrdersToolStripMenuItem;
     }
 }
