@@ -88,42 +88,42 @@
             this.txtPhone.Location = new System.Drawing.Point(112, 273);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(188, 26);
-            this.txtPhone.TabIndex = 43;
+            this.txtPhone.TabIndex = 9;
             // 
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(112, 236);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(188, 26);
-            this.txtEmail.TabIndex = 42;
+            this.txtEmail.TabIndex = 8;
             // 
             // txtAdd_Eircode
             // 
             this.txtAdd_Eircode.Location = new System.Drawing.Point(162, 200);
             this.txtAdd_Eircode.Name = "txtAdd_Eircode";
             this.txtAdd_Eircode.Size = new System.Drawing.Size(188, 26);
-            this.txtAdd_Eircode.TabIndex = 41;
+            this.txtAdd_Eircode.TabIndex = 7;
             // 
             // txtAdd_County
             // 
             this.txtAdd_County.Location = new System.Drawing.Point(162, 168);
             this.txtAdd_County.Name = "txtAdd_County";
             this.txtAdd_County.Size = new System.Drawing.Size(188, 26);
-            this.txtAdd_County.TabIndex = 40;
+            this.txtAdd_County.TabIndex = 6;
             // 
             // txtAdd_City
             // 
             this.txtAdd_City.Location = new System.Drawing.Point(162, 131);
             this.txtAdd_City.Name = "txtAdd_City";
             this.txtAdd_City.Size = new System.Drawing.Size(188, 26);
-            this.txtAdd_City.TabIndex = 39;
+            this.txtAdd_City.TabIndex = 5;
             // 
             // txtAdd_Street
             // 
             this.txtAdd_Street.Location = new System.Drawing.Point(162, 99);
             this.txtAdd_Street.Name = "txtAdd_Street";
             this.txtAdd_Street.Size = new System.Drawing.Size(188, 26);
-            this.txtAdd_Street.TabIndex = 38;
+            this.txtAdd_Street.TabIndex = 4;
             // 
             // label6
             // 
@@ -180,7 +180,7 @@
             this.btnSubmit.Location = new System.Drawing.Point(196, 319);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
-            this.btnSubmit.TabIndex = 32;
+            this.btnSubmit.TabIndex = 10;
             this.btnSubmit.Text = "Update";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -210,7 +210,7 @@
             this.txtName.Location = new System.Drawing.Point(112, 42);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(188, 26);
-            this.txtName.TabIndex = 21;
+            this.txtName.TabIndex = 3;
             // 
             // label14
             // 
@@ -254,7 +254,7 @@
             this.txtNameSearch.Location = new System.Drawing.Point(77, 65);
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
-            this.txtNameSearch.TabIndex = 38;
+            this.txtNameSearch.TabIndex = 1;
             this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
@@ -273,7 +273,7 @@
             this.cboId.Location = new System.Drawing.Point(245, 66);
             this.cboId.Name = "cboId";
             this.cboId.Size = new System.Drawing.Size(126, 21);
-            this.cboId.TabIndex = 36;
+            this.cboId.TabIndex = 2;
             this.cboId.SelectedIndexChanged += new System.EventHandler(this.cboId_SelectedIndexChanged);
             // 
             // label7

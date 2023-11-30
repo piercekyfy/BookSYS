@@ -91,7 +91,7 @@
             this.btnAddBook.Location = new System.Drawing.Point(194, 90);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(154, 29);
-            this.btnAddBook.TabIndex = 48;
+            this.btnAddBook.TabIndex = 6;
             this.btnAddBook.Text = "Add";
             this.btnAddBook.UseVisualStyleBackColor = true;
             this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
@@ -101,7 +101,7 @@
             this.txtQuantity.Location = new System.Drawing.Point(96, 91);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(95, 26);
-            this.txtQuantity.TabIndex = 47;
+            this.txtQuantity.TabIndex = 5;
             // 
             // label5
             // 
@@ -128,7 +128,7 @@
             this.txtTitleSearch.Location = new System.Drawing.Point(96, 50);
             this.txtTitleSearch.Name = "txtTitleSearch";
             this.txtTitleSearch.Size = new System.Drawing.Size(95, 26);
-            this.txtTitleSearch.TabIndex = 44;
+            this.txtTitleSearch.TabIndex = 3;
             this.txtTitleSearch.TextChanged += new System.EventHandler(this.txtTitleSearch_TextChanged);
             // 
             // label3
@@ -147,7 +147,7 @@
             this.cboBookId.Location = new System.Drawing.Point(197, 50);
             this.cboBookId.Name = "cboBookId";
             this.cboBookId.Size = new System.Drawing.Size(151, 28);
-            this.cboBookId.TabIndex = 42;
+            this.cboBookId.TabIndex = 4;
             this.cboBookId.SelectedIndexChanged += new System.EventHandler(this.cboBookId_SelectedIndexChanged);
             // 
             // cboBookRevId
@@ -156,14 +156,14 @@
             this.cboBookRevId.Location = new System.Drawing.Point(6, 362);
             this.cboBookRevId.Name = "cboBookRevId";
             this.cboBookRevId.Size = new System.Drawing.Size(178, 28);
-            this.cboBookRevId.TabIndex = 40;
+            this.cboBookRevId.TabIndex = 8;
             // 
             // btnRemove
             // 
             this.btnRemove.Location = new System.Drawing.Point(190, 362);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(154, 29);
-            this.btnRemove.TabIndex = 34;
+            this.btnRemove.TabIndex = 9;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -175,14 +175,14 @@
             this.lstBooks.Location = new System.Drawing.Point(6, 123);
             this.lstBooks.Name = "lstBooks";
             this.lstBooks.Size = new System.Drawing.Size(344, 204);
-            this.lstBooks.TabIndex = 33;
+            this.lstBooks.TabIndex = 7;
             // 
             // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(96, 397);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
-            this.btnSubmit.TabIndex = 32;
+            this.btnSubmit.TabIndex = 10;
             this.btnSubmit.Text = "Place Order";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -219,7 +219,7 @@
             this.txtNameSearch.Location = new System.Drawing.Point(77, 103);
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
-            this.txtNameSearch.TabIndex = 38;
+            this.txtNameSearch.TabIndex = 1;
             this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
@@ -238,7 +238,7 @@
             this.cboClientId.Location = new System.Drawing.Point(245, 104);
             this.cboClientId.Name = "cboClientId";
             this.cboClientId.Size = new System.Drawing.Size(126, 21);
-            this.cboClientId.TabIndex = 36;
+            this.cboClientId.TabIndex = 2;
             this.cboClientId.SelectedIndexChanged += new System.EventHandler(this.cboClientId_SelectedIndexChanged);
             // 
             // label7

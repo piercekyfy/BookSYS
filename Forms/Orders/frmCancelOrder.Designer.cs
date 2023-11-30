@@ -88,7 +88,7 @@
             this.cboOrderId.Location = new System.Drawing.Point(15, 25);
             this.cboOrderId.Name = "cboOrderId";
             this.cboOrderId.Size = new System.Drawing.Size(321, 28);
-            this.cboOrderId.TabIndex = 40;
+            this.cboOrderId.TabIndex = 3;
             this.cboOrderId.SelectedIndexChanged += new System.EventHandler(this.cboOrderId_SelectedIndexChanged);
             // 
             // libBooks
@@ -98,14 +98,14 @@
             this.libBooks.Location = new System.Drawing.Point(10, 93);
             this.libBooks.Name = "libBooks";
             this.libBooks.Size = new System.Drawing.Size(344, 204);
-            this.libBooks.TabIndex = 33;
+            this.libBooks.TabIndex = 4;
             // 
             // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(96, 325);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
-            this.btnSubmit.TabIndex = 32;
+            this.btnSubmit.TabIndex = 5;
             this.btnSubmit.Text = "Cancel Order";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -142,7 +142,7 @@
             this.txtNameSearch.Location = new System.Drawing.Point(77, 103);
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
-            this.txtNameSearch.TabIndex = 38;
+            this.txtNameSearch.TabIndex = 1;
             this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
@@ -161,7 +161,7 @@
             this.cboClientId.Location = new System.Drawing.Point(245, 104);
             this.cboClientId.Name = "cboClientId";
             this.cboClientId.Size = new System.Drawing.Size(126, 21);
-            this.cboClientId.TabIndex = 36;
+            this.cboClientId.TabIndex = 2;
             this.cboClientId.SelectedIndexChanged += new System.EventHandler(this.cboClientId_SelectedIndexChanged);
             // 
             // label7

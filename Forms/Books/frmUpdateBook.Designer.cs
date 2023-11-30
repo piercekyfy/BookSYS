@@ -98,7 +98,7 @@
             this.cboId.Location = new System.Drawing.Point(245, 58);
             this.cboId.Name = "cboId";
             this.cboId.Size = new System.Drawing.Size(126, 21);
-            this.cboId.TabIndex = 6;
+            this.cboId.TabIndex = 2;
             this.cboId.SelectedIndexChanged += new System.EventHandler(this.cboId_SelectedIndexChanged);
             // 
             // grpBook
@@ -132,7 +132,7 @@
             this.txtISBN.Location = new System.Drawing.Point(117, 308);
             this.txtISBN.Name = "txtISBN";
             this.txtISBN.Size = new System.Drawing.Size(133, 26);
-            this.txtISBN.TabIndex = 36;
+            this.txtISBN.TabIndex = 9;
             // 
             // label9
             // 
@@ -149,7 +149,7 @@
             this.btnSubmit.Location = new System.Drawing.Point(196, 340);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
-            this.btnSubmit.TabIndex = 32;
+            this.btnSubmit.TabIndex = 10;
             this.btnSubmit.Text = "Update";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -159,21 +159,21 @@
             this.txtQuantity.Location = new System.Drawing.Point(117, 276);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(69, 26);
-            this.txtQuantity.TabIndex = 31;
+            this.txtQuantity.TabIndex = 8;
             // 
             // txtPrice
             // 
             this.txtPrice.Location = new System.Drawing.Point(117, 244);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(69, 26);
-            this.txtPrice.TabIndex = 30;
+            this.txtPrice.TabIndex = 7;
             // 
             // txtPageCount
             // 
             this.txtPageCount.Location = new System.Drawing.Point(117, 212);
             this.txtPageCount.Name = "txtPageCount";
             this.txtPageCount.Size = new System.Drawing.Size(69, 26);
-            this.txtPageCount.TabIndex = 29;
+            this.txtPageCount.TabIndex = 6;
             // 
             // txtDescription
             // 
@@ -181,14 +181,14 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(340, 79);
-            this.txtDescription.TabIndex = 28;
+            this.txtDescription.TabIndex = 5;
             // 
             // txtAuthor
             // 
             this.txtAuthor.Location = new System.Drawing.Point(117, 64);
             this.txtAuthor.Name = "txtAuthor";
             this.txtAuthor.Size = new System.Drawing.Size(211, 26);
-            this.txtAuthor.TabIndex = 27;
+            this.txtAuthor.TabIndex = 4;
             // 
             // label8
             // 
@@ -245,7 +245,7 @@
             this.txtTitle.Location = new System.Drawing.Point(117, 27);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(211, 26);
-            this.txtTitle.TabIndex = 21;
+            this.txtTitle.TabIndex = 3;
             // 
             // label3
             // 
@@ -272,7 +272,7 @@
             this.txtTitleSearch.Location = new System.Drawing.Point(77, 58);
             this.txtTitleSearch.Name = "txtTitleSearch";
             this.txtTitleSearch.Size = new System.Drawing.Size(124, 20);
-            this.txtTitleSearch.TabIndex = 34;
+            this.txtTitleSearch.TabIndex = 1;
             this.txtTitleSearch.TextChanged += new System.EventHandler(this.txtTitleSearch_TextChanged);
             // 
             // frmUpdateBook

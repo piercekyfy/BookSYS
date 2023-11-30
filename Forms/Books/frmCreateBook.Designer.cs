@@ -32,6 +32,8 @@
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.grpBook = new System.Windows.Forms.GroupBox();
+            this.txtISBN = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
@@ -45,8 +47,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.txtISBN = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.mnuCreateBook.SuspendLayout();
             this.grpBook.SuspendLayout();
             this.SuspendLayout();
@@ -103,12 +103,29 @@
             this.grpBook.TabStop = false;
             this.grpBook.Text = "Details";
             // 
+            // txtISBN
+            // 
+            this.txtISBN.Location = new System.Drawing.Point(117, 309);
+            this.txtISBN.Name = "txtISBN";
+            this.txtISBN.Size = new System.Drawing.Size(133, 26);
+            this.txtISBN.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.label3.Location = new System.Drawing.Point(16, 312);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 22);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "ISBN:";
+            // 
             // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(196, 337);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
-            this.btnSubmit.TabIndex = 32;
+            this.btnSubmit.TabIndex = 8;
             this.btnSubmit.Text = "Create";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -118,21 +135,21 @@
             this.txtQuantity.Location = new System.Drawing.Point(117, 276);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(69, 26);
-            this.txtQuantity.TabIndex = 31;
+            this.txtQuantity.TabIndex = 6;
             // 
             // txtPrice
             // 
             this.txtPrice.Location = new System.Drawing.Point(117, 244);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(69, 26);
-            this.txtPrice.TabIndex = 30;
+            this.txtPrice.TabIndex = 5;
             // 
             // txtPageCount
             // 
             this.txtPageCount.Location = new System.Drawing.Point(117, 212);
             this.txtPageCount.Name = "txtPageCount";
             this.txtPageCount.Size = new System.Drawing.Size(69, 26);
-            this.txtPageCount.TabIndex = 29;
+            this.txtPageCount.TabIndex = 4;
             // 
             // txtDescription
             // 
@@ -140,14 +157,14 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(340, 79);
-            this.txtDescription.TabIndex = 28;
+            this.txtDescription.TabIndex = 3;
             // 
             // txtAuthor
             // 
             this.txtAuthor.Location = new System.Drawing.Point(117, 64);
             this.txtAuthor.Name = "txtAuthor";
             this.txtAuthor.Size = new System.Drawing.Size(211, 26);
-            this.txtAuthor.TabIndex = 27;
+            this.txtAuthor.TabIndex = 2;
             // 
             // label2
             // 
@@ -204,7 +221,7 @@
             this.txtTitle.Location = new System.Drawing.Point(117, 27);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(211, 26);
-            this.txtTitle.TabIndex = 21;
+            this.txtTitle.TabIndex = 1;
             // 
             // label14
             // 
@@ -215,23 +232,6 @@
             this.label14.Size = new System.Drawing.Size(50, 22);
             this.label14.TabIndex = 20;
             this.label14.Text = "Title:";
-            // 
-            // txtISBN
-            // 
-            this.txtISBN.Location = new System.Drawing.Point(117, 309);
-            this.txtISBN.Name = "txtISBN";
-            this.txtISBN.Size = new System.Drawing.Size(133, 26);
-            this.txtISBN.TabIndex = 34;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label3.Location = new System.Drawing.Point(16, 312);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 22);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "ISBN:";
             // 
             // frmCreateBook
             // 

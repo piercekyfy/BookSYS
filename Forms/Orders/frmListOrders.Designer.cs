@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.grpOrder = new System.Windows.Forms.GroupBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.libBooks = new System.Windows.Forms.ListBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.libOrders = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,8 +41,6 @@
             this.cboClientId = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.libBooks = new System.Windows.Forms.ListBox();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.grpOrder.SuspendLayout();
             this.mnuCreateBook.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +60,25 @@
             this.grpOrder.Text = "Orders";
             this.grpOrder.Visible = false;
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.lblStatus.Location = new System.Drawing.Point(6, 161);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(181, 22);
+            this.lblStatus.TabIndex = 52;
+            this.lblStatus.Text = "Status: Undispatched";
+            // 
+            // libBooks
+            // 
+            this.libBooks.FormattingEnabled = true;
+            this.libBooks.ItemHeight = 20;
+            this.libBooks.Location = new System.Drawing.Point(6, 195);
+            this.libBooks.Name = "libBooks";
+            this.libBooks.Size = new System.Drawing.Size(344, 124);
+            this.libBooks.TabIndex = 4;
+            // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
@@ -77,7 +96,7 @@
             this.libOrders.Location = new System.Drawing.Point(6, 25);
             this.libOrders.Name = "libOrders";
             this.libOrders.Size = new System.Drawing.Size(344, 124);
-            this.libOrders.TabIndex = 33;
+            this.libOrders.TabIndex = 3;
             this.libOrders.SelectedIndexChanged += new System.EventHandler(this.libOrders_SelectedIndexChanged);
             // 
             // label1
@@ -112,7 +131,7 @@
             this.txtNameSearch.Location = new System.Drawing.Point(77, 103);
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
-            this.txtNameSearch.TabIndex = 38;
+            this.txtNameSearch.TabIndex = 1;
             this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
@@ -131,7 +150,7 @@
             this.cboClientId.Location = new System.Drawing.Point(245, 104);
             this.cboClientId.Name = "cboClientId";
             this.cboClientId.Size = new System.Drawing.Size(126, 21);
-            this.cboClientId.TabIndex = 36;
+            this.cboClientId.TabIndex = 2;
             this.cboClientId.SelectedIndexChanged += new System.EventHandler(this.cboClientId_SelectedIndexChanged);
             // 
             // label7
@@ -153,25 +172,6 @@
             this.label8.Size = new System.Drawing.Size(68, 25);
             this.label8.TabIndex = 39;
             this.label8.Text = "Client:";
-            // 
-            // libBooks
-            // 
-            this.libBooks.FormattingEnabled = true;
-            this.libBooks.ItemHeight = 20;
-            this.libBooks.Location = new System.Drawing.Point(6, 195);
-            this.libBooks.Name = "libBooks";
-            this.libBooks.Size = new System.Drawing.Size(344, 124);
-            this.libBooks.TabIndex = 51;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblStatus.Location = new System.Drawing.Point(6, 161);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(181, 22);
-            this.lblStatus.TabIndex = 52;
-            this.lblStatus.Text = "Status: Undispatched";
             // 
             // frmListOrders
             // 

@@ -125,6 +125,12 @@ namespace BookSYS.Forms.Clients
         {
             db.CancelOrder(selectedOrder.OrderId);
 
+            foreach(BookOrder bookOrder in db.GetBookOrdersByOrder(selectedOrder))
+            {
+                bookOrder.Book.Quantity += bookOrder.Quantity;
+                db.UpdateBook(bookOrder.Book);
+            }
+
             MessageBox.Show($"{selectedOrder} has been cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Reset();
