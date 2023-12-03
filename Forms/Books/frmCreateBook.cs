@@ -30,7 +30,7 @@ namespace BookSYS.Forms.Books
 
             #region Check if fields are empty.
 
-            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPageCount, txtPrice, txtQuantity, txtISBN }, out TextBox firstEmpty))
+            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPublisher, txtPrice, txtQuantity, txtISBN }, out TextBox firstEmpty))
             {
                 firstEmpty.Focus();
                 errorMessage = "Field cannot be empty.";
@@ -42,7 +42,7 @@ namespace BookSYS.Forms.Books
             string title = txtTitle.Text;
             string author = txtAuthor.Text;
             string description = txtDescription.Text;
-            string pageCount = txtPageCount.Text;
+            string publisher = txtPublisher.Text;
             string price = txtPrice.Text;
             string quantity = txtQuantity.Text;
             string ISBN = txtISBN.Text;
@@ -53,18 +53,12 @@ namespace BookSYS.Forms.Books
             book.Title = title;
             book.Author = author;
             book.Description = description;
+            book.Publisher = publisher;
             book.ISBN = ISBN;
 
-            int pageCountNum;
             double priceNum;
             int quantityNum;
-            
-            if(!int.TryParse(pageCount, out pageCountNum))
-            {
-                txtPageCount.Focus();
-                errorMessage = "Page Count must be a whole number.";
-                return false;
-            }
+           
             if(!double.TryParse(price, out priceNum))
             {
                 txtPrice.Focus();
@@ -77,8 +71,6 @@ namespace BookSYS.Forms.Books
                 errorMessage = "Quantity must be a whole number.";
                 return false;
             }
-
-            book.PageCount = pageCountNum;
             book.Price = priceNum;
             book.Quantity = quantityNum;
 
@@ -108,7 +100,7 @@ namespace BookSYS.Forms.Books
             txtTitle.Clear();
             txtAuthor.Clear();
             txtDescription.Clear();
-            txtPageCount.Clear();
+            txtPublisher.Clear();
             txtPrice.Clear();
             txtQuantity.Clear();
             txtISBN.Clear();

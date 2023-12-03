@@ -63,7 +63,7 @@ namespace BookSYS.Forms.Books
             txtTitle.Text = selected.Title;
             txtAuthor.Text = selected.Author;
             txtDescription.Text = selected.Description;
-            txtPageCount.Text = selected.PageCount.ToString();
+            txtPublisher.Text = selected.Publisher;
             txtPrice.Text = selected.Price.ToString();
             txtQuantity.Text = selected.Quantity.ToString();
             txtISBN.Text = selected.ISBN.ToString();

@@ -37,7 +37,7 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
-            this.txtPageCount = new System.Windows.Forms.TextBox();
+            this.txtPublisher = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtAuthor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@
             this.grpBook.Controls.Add(this.btnSubmit);
             this.grpBook.Controls.Add(this.txtQuantity);
             this.grpBook.Controls.Add(this.txtPrice);
-            this.grpBook.Controls.Add(this.txtPageCount);
+            this.grpBook.Controls.Add(this.txtPublisher);
             this.grpBook.Controls.Add(this.txtDescription);
             this.grpBook.Controls.Add(this.txtAuthor);
             this.grpBook.Controls.Add(this.label2);
@@ -145,12 +145,12 @@
             this.txtPrice.Size = new System.Drawing.Size(69, 26);
             this.txtPrice.TabIndex = 5;
             // 
-            // txtPageCount
+            // txtPublisher
             // 
-            this.txtPageCount.Location = new System.Drawing.Point(117, 212);
-            this.txtPageCount.Name = "txtPageCount";
-            this.txtPageCount.Size = new System.Drawing.Size(69, 26);
-            this.txtPageCount.TabIndex = 4;
+            this.txtPublisher.Location = new System.Drawing.Point(117, 212);
+            this.txtPublisher.Name = "txtPublisher";
+            this.txtPublisher.Size = new System.Drawing.Size(211, 26);
+            this.txtPublisher.TabIndex = 4;
             // 
             // txtDescription
             // 
@@ -193,9 +193,9 @@
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.label11.Location = new System.Drawing.Point(16, 216);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(72, 22);
+            this.label11.Size = new System.Drawing.Size(90, 22);
             this.label11.TabIndex = 24;
-            this.label11.Text = "Page #:";
+            this.label11.Text = "Publisher:";
             // 
             // label12
             // 
@@ -263,7 +263,7 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.TextBox txtPrice;
-        private System.Windows.Forms.TextBox txtPageCount;
+        private System.Windows.Forms.TextBox txtPublisher;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.TextBox txtAuthor;
         private System.Windows.Forms.Label label2;

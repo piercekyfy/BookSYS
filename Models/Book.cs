@@ -14,7 +14,7 @@ namespace BookSYS.Models
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
-        public int PageCount { get; set; }
+        public string Publisher { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
         public string ISBN { get; set; }
@@ -25,13 +25,13 @@ namespace BookSYS.Models
 
         }
 
-        public Book(int id, string title, string author, string description, int pageCount, double price, int quantity, string ISBN)
+        public Book(int id, string title, string author, string description, string publisher, double price, int quantity, string ISBN)
         {
             BookId = id;
             Title = title;
             Author = author;
             Description = description;
-            PageCount = pageCount;
+            Publisher = publisher;
             Price = price;
             Quantity = quantity;
             this.ISBN = ISBN;
@@ -45,7 +45,7 @@ namespace BookSYS.Models
             // Verification
 
             #region BookId
-            if(book.BookId < 0)
+            if (book.BookId < 0)
             {
                 errorMessage = "Id cannot be less than zero.";
                 return false;
@@ -69,12 +69,12 @@ namespace BookSYS.Models
             }
             #endregion
             #region Author
-            if(String.IsNullOrEmpty(book.Author))
+            if (String.IsNullOrEmpty(book.Author))
             {
                 errorMessage = "Author is a required field.";
                 return false;
             }
-            if(book.Author.Length > 24)
+            if (book.Author.Length > 24)
             {
                 errorMessage = "Author has a maximum length of 24 characters.";
                 return false;
@@ -85,45 +85,74 @@ namespace BookSYS.Models
                 return false;
             }
             #endregion
-            #region PageCount
-            if (book.PageCount <= 0)
+            #region Publisher
+            if (String.IsNullOrEmpty(book.Publisher))
             {
-                errorMessage = "Page Count cannot be less than or equal to zero.";
+                errorMessage = "Publisher is a required field";
+                return false;
+            }
+            if (book.Publisher.Length > 48)
+            {
+                errorMessage = "Publisher name cannot exceed 48 characters.";
                 return false;
             }
             #endregion
             #region Price
-            if(book.Price <= 0)
+            if (book.Price <= 0)
             {
                 errorMessage = "Price cannot be less than or equal to zero.";
                 return false;
             }
             #endregion
             #region Quantity
-            if(book.Quantity < 0)
+            if (book.Quantity < 0)
             {
                 errorMessage = "Quantity cannot be less than zero.";
                 return false;
             }
             #endregion
             #region ISBN
-            if(String.IsNullOrEmpty(book.ISBN))
+            if (String.IsNullOrEmpty(book.ISBN))
             {
                 errorMessage = "ISBN is a required field.";
                 return false;
             }
-            if(book.ISBN.Length < 7)
+            if (book.ISBN.Length != 13)
             {
-                errorMessage = "ISBN must be a 7 digit number.";
+                errorMessage = "ISBN must be a 13 digit number.";
                 return false;
             }
-            foreach (char character in book.ISBN)
+
+            int total = 0;
+            int lastNum = 0;
+
+            for (int i = 0; i < book.ISBN.Length; i++)
             {
-                if (!char.IsDigit(character))
+                if(int.TryParse(book.ISBN[i].ToString(), out int num))
                 {
-                    errorMessage = "ISBN must be a 7 digit number.";
+                    lastNum = num;
+                    if (i + 1 == book.ISBN.Length)
+                        break;
+
+                    int mul = (i + 1) % 2 == 0 ? 3 : 1;
+                    Console.WriteLine(num.ToString() + " * " + mul.ToString());
+                    total += (num * mul);
+
+                } else
+                {
+                    errorMessage = "ISBN must be a 10 or 13 digit number.";
                     return false;
                 }
+            }
+
+            int check = total % 10;
+            if (check != 0)
+                check = 10 - check;
+
+            if(check != lastNum)
+            {
+                errorMessage = "Invalid ISBN code";
+                return false;
             }
             #endregion
             #region Status

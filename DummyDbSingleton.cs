@@ -51,7 +51,7 @@ namespace BookSYS.Forms
                     storedBook.Title = book.Title;
                     storedBook.Author = book.Author;
                     storedBook.Description = book.Description;
-                    storedBook.PageCount = book.PageCount;
+                    storedBook.Publisher = book.Publisher;
                     storedBook.Price = book.Price;
                     storedBook.Quantity = book.Quantity;
                     storedBook.ISBN = book.ISBN;
@@ -311,9 +311,9 @@ namespace BookSYS.Forms
 
         public void Debug_PopulateBooks()
         {
-            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", 320, 15.45, 80, "9780520201798"));
-            AddBook(new Book(0002, "Mice and Men", "That Guy", "He shoots him! Gasp.", 200, 10, 200, "9780230201798"));
-            AddBook(new Book(0003, "Cherub", "Robert Something", "Spies!", 250, 25, 45, "8180520201798"));
+            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", "Lackington, Hughes, Harding, Mavor & Jones", 15.45, 80, " 9781861972712"));
+            AddBook(new Book(0002, "Mice and Men", "John Steinbeck", "He shoots him! Gasp.", "Penguin", 10, 200, "9788431634506"));
+            AddBook(new Book(0003, "Cherub", "Robert Muchamore", "Spies!", "Simon & Schuster", 25, 45, "9780340881538"));
         }
 
         public void Debug_PopulateClients()
