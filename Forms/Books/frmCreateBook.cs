@@ -20,7 +20,7 @@ namespace BookSYS.Forms.Books
         {
             InitializeComponent();
 
-            db = DummyDbSingleton.Instance;
+            db = DummyDBSingleton.Instance;
         }
 
         public bool ProcessInput(out Book newBook, out string errorMessage)

@@ -11,19 +11,19 @@ namespace BookSYS.Forms
     /// <summary>
     /// This class simulates a database. It does not perform any validation, including checking for existing Ids.
     /// </summary>
-    public class DummyDbSingleton : IDBContext
+    public class DummyDBSingleton : IDBContext
     {
-        private static DummyDbSingleton _instance;
-        public static DummyDbSingleton Instance
+        private static DummyDBSingleton _instance;
+        public static DummyDBSingleton Instance
         {
             get
             {
-                _instance = _instance ?? new DummyDbSingleton();
+                _instance = _instance ?? new DummyDBSingleton();
                 return _instance;
             }
         }
 
-        private DummyDbSingleton()
+        private DummyDBSingleton()
         {
             this.Debug_PopulateBooks();
             this.Debug_PopulateClients();
@@ -322,7 +322,7 @@ namespace BookSYS.Forms
 
         public void Debug_PopulateBooks()
         {
-            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", "Lackington, Hughes, Harding, Mavor & Jones", 15.45, 80, " 9781861972712"));
+            AddBook(new Book(0001, "Frankenstein", "Mary Shelly", "A monster! The scientist! Who??", "Lackington, Hughes, Harding, Mavor & Jones", 15.45, 80, "9781861972712"));
             AddBook(new Book(0002, "Mice and Men", "John Steinbeck", "He shoots him! Gasp.", "Penguin", 10, 200, "9788431634506"));
             AddBook(new Book(0003, "Cherub", "Robert Muchamore", "Spies!", "Simon & Schuster", 25, 45, "9780340881538"));
         }

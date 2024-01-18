@@ -19,7 +19,7 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            db = DummyDbSingleton.Instance;
+            db = DummyDBSingleton.Instance;
         }
 
         public bool ProcessInput(out Client newClient, out string errorMessage)

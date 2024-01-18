@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using BookSYS.Forms.Books;
-using BookSYS.Forms.Clients;
+using BookSYS.Forms;
 
 namespace BookSYS
 {
@@ -18,6 +14,7 @@ namespace BookSYS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new frmMain());
         }
     }

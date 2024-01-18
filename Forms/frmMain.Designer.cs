@@ -1,4 +1,4 @@
-﻿namespace BookSYS
+﻿namespace BookSYS.Forms
 {
     partial class frmMain
     {
@@ -47,10 +47,13 @@
             this.mnuCancelOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
             this.mnuBookPopularity = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.mnuDBConnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.picDBConnection = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBookRow)).BeginInit();
             this.mnuMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDBConnection)).BeginInit();
             this.SuspendLayout();
             // 
             // picBookRow
@@ -70,7 +73,8 @@
             this.mnuClients,
             this.mnuExit,
             this.ordersToolStripMenuItem,
-            this.adminToolStripMenuItem});
+            this.adminToolStripMenuItem,
+            this.mnuDBConnect});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Size = new System.Drawing.Size(800, 24);
@@ -162,35 +166,35 @@
             // mnuCreateOrder
             // 
             this.mnuCreateOrder.Name = "mnuCreateOrder";
-            this.mnuCreateOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuCreateOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuCreateOrder.Text = "Create Order";
             this.mnuCreateOrder.Click += new System.EventHandler(this.mnuCreateOrder_Click);
             // 
             // mnuDispatchOrder
             // 
             this.mnuDispatchOrder.Name = "mnuDispatchOrder";
-            this.mnuDispatchOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuDispatchOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuDispatchOrder.Text = "Dispatch Order";
             this.mnuDispatchOrder.Click += new System.EventHandler(this.mnuDispatchOrder_Click);
             // 
             // mnuProcessPayment
             // 
             this.mnuProcessPayment.Name = "mnuProcessPayment";
-            this.mnuProcessPayment.Size = new System.Drawing.Size(180, 22);
+            this.mnuProcessPayment.Size = new System.Drawing.Size(164, 22);
             this.mnuProcessPayment.Text = "Process Payment";
             this.mnuProcessPayment.Click += new System.EventHandler(this.mnuProcessPayment_Click);
             // 
             // mnuCancelOrder
             // 
             this.mnuCancelOrder.Name = "mnuCancelOrder";
-            this.mnuCancelOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuCancelOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuCancelOrder.Text = "Cancel Order";
             this.mnuCancelOrder.Click += new System.EventHandler(this.mnuCancelOrder_Click);
             // 
             // listOrdersToolStripMenuItem
             // 
             this.listOrdersToolStripMenuItem.Name = "listOrdersToolStripMenuItem";
-            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.listOrdersToolStripMenuItem.Text = "List Orders";
             this.listOrdersToolStripMenuItem.Click += new System.EventHandler(this.listOrdersToolStripMenuItem_Click);
             // 
@@ -202,6 +206,13 @@
             this.adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.adminToolStripMenuItem.Text = "Admin";
             // 
+            // mnuBookPopularity
+            // 
+            this.mnuBookPopularity.Name = "mnuBookPopularity";
+            this.mnuBookPopularity.Size = new System.Drawing.Size(158, 22);
+            this.mnuBookPopularity.Text = "Book Popularity";
+            this.mnuBookPopularity.Click += new System.EventHandler(this.mnuBookPopularity_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -212,12 +223,22 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "BookSYS";
             // 
-            // mnuBookPopularity
+            // mnuDBConnect
             // 
-            this.mnuBookPopularity.Name = "mnuBookPopularity";
-            this.mnuBookPopularity.Size = new System.Drawing.Size(180, 22);
-            this.mnuBookPopularity.Text = "Book Popularity";
-            this.mnuBookPopularity.Click += new System.EventHandler(this.mnuBookPopularity_Click);
+            this.mnuDBConnect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.mnuDBConnect.Name = "mnuDBConnect";
+            this.mnuDBConnect.Size = new System.Drawing.Size(96, 20);
+            this.mnuDBConnect.Text = "Connect to DB";
+            this.mnuDBConnect.Click += new System.EventHandler(this.mnuDBConnect_Click);
+            // 
+            // picDBConnection
+            // 
+            this.picDBConnection.BackColor = System.Drawing.Color.Red;
+            this.picDBConnection.Location = new System.Drawing.Point(655, 6);
+            this.picDBConnection.Name = "picDBConnection";
+            this.picDBConnection.Size = new System.Drawing.Size(13, 14);
+            this.picDBConnection.TabIndex = 5;
+            this.picDBConnection.TabStop = false;
             // 
             // frmMain
             // 
@@ -225,6 +246,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.picDBConnection);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.picBookRow);
             this.Controls.Add(this.mnuMain);
@@ -234,6 +256,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBookRow)).EndInit();
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDBConnection)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,5 +284,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem listOrdersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuBookPopularity;
+        private System.Windows.Forms.ToolStripMenuItem mnuDBConnect;
+        private System.Windows.Forms.PictureBox picDBConnection;
     }
 }

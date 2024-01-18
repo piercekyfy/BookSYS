@@ -10,14 +10,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BookSYS.Forms;
 
-namespace BookSYS
+namespace BookSYS.Forms
 {
     public partial class frmMain : Form
     {
+        private IDBContext dbContext = null;
+
         public frmMain()
         {
             InitializeComponent();
+
+            picDBConnection.BackColor = Color.Red;
+        }
+
+        private void mnuDBConnect_Click(object sender, EventArgs e)
+        {
+            var connectionForm = new frmDBConnect("studentoracle: 1521/orcl", "T00238818", (conn) =>
+            {
+                dbContext = new DBService(conn);
+                picDBConnection.BackColor = Color.LimeGreen;
+            });
+
+            connectionForm.ShowDialog();
         }
 
         #region Book

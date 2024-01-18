@@ -19,7 +19,7 @@ namespace BookSYS.Forms.Admin
         {
             InitializeComponent();
 
-            db = DummyDbSingleton.Instance;
+            db = DummyDBSingleton.Instance;
 
             List<Order> orders = db.GetPaidOrders().ToList();
 

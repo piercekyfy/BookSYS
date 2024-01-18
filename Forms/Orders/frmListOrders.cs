@@ -23,7 +23,7 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            db = DummyDbSingleton.Instance;
+            db = DummyDBSingleton.Instance;
 
             IEnumerable<Client> clients = db.GetClients();
 
