@@ -1,5 +1,6 @@
 ﻿using BookSYS.Forms.Books;
 using BookSYS.Forms.Clients;
+using BookSYS.Forms.Admin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -95,6 +96,11 @@ namespace BookSYS
 
 
         #endregion
+        private void mnuBookPopularity_Click(object sender, EventArgs e)
+        {
+            Form next = new frmBookPopularity();
+            next.Show();
+        }
 
         private void mnuExit_Click(object sender, EventArgs e)
         {

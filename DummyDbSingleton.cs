@@ -233,6 +233,17 @@ namespace BookSYS.Forms
             }
         }
 
+        public IEnumerable<Order> GetPaidOrders()
+        {
+            foreach (Order order in orders)
+            {
+                if (order.Status == 'P')
+                {
+                    yield return order;
+                }
+            }
+        }
+
         public void AddOrder(Order order)
         {
             orders.Add(order);
@@ -325,9 +336,15 @@ namespace BookSYS.Forms
 
         public void Debug_PopulateOrders()
         {
+            // Unpaid Orders
             AddOrder(new Order(0001, clients[0], DateTime.UtcNow, 'U'));
             AddOrder(new Order(0002, clients[1], DateTime.UtcNow, 'U'));
             AddOrder(new Order(0003, clients[2], DateTime.UtcNow, 'U'));
+
+            // Paid Orders
+            AddOrder(new Order(0004, clients[0], DateTime.UtcNow, 'P'));
+            AddOrder(new Order(0005, clients[1], DateTime.UtcNow, 'P'));
+            AddOrder(new Order(0006, clients[2], DateTime.UtcNow, 'P'));
         }
 
         public void Debug_PopulateBookOrders()
@@ -335,6 +352,10 @@ namespace BookSYS.Forms
             AddBookOrder(new BookOrder(orders[0], books[0], books[0].Price, 45));
             AddBookOrder(new BookOrder(orders[1], books[1], books[1].Price, 25));
             AddBookOrder(new BookOrder(orders[2], books[2], books[2].Price, 30));
+
+            AddBookOrder(new BookOrder(orders[3], books[0], books[0].Price, 4000));
+            AddBookOrder(new BookOrder(orders[4], books[1], books[1].Price, 250));
+            AddBookOrder(new BookOrder(orders[5], books[2], books[2].Price, 2));
         }
     }
 }

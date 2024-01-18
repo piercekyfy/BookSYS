@@ -36,6 +36,7 @@ namespace BookSYS
         #region Orders
 
         IEnumerable<Order> GetOrdersByClient(Client client);
+        IEnumerable<Order> GetPaidOrders();
         void AddOrder(Order order);
         void DispatchOrder(int orderId);
         void CancelOrder(int orderId);
