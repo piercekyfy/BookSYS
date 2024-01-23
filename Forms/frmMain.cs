@@ -27,34 +27,34 @@ namespace BookSYS.Forms
 
         private void mnuDBConnect_Click(object sender, EventArgs e)
         {
-            var connectionForm = new frmDBConnect("studentoracle: 1521/orcl", "T00238818", (conn) =>
+            var connectionForm = new frmDBConnect("studentoracle: 1521/orcl", (conn) =>
             {
                 dbContext = new DBService(conn);
                 picDBConnection.BackColor = Color.LimeGreen;
             });
 
-            connectionForm.ShowDialog();
+            connectionForm.ShowDialog(this);
+        }
+
+        private void OpenDBForm(DBForm form)
+        {
+            if(dbContext == null)
+            {
+                MessageBox.Show("Database connection not found. Have you logged in?", "No DB Connection!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            form.RegisterDBContext(dbContext);
+            form.Show(this);
         }
 
         #region Book
 
-        private void mnuCreateBook_Click(object sender, EventArgs e)
-        {
-            Form next = new frmCreateBook();
-            next.Show();
-        }
+        private void mnuCreateBook_Click(object sender, EventArgs e) => OpenDBForm(new frmCreateBook());
 
-        private void mnuUpdateBook_Click(object sender, EventArgs e)
-        {
-            Form next = new frmUpdateBook();
-            next.Show();
-        }
+        private void mnuUpdateBook_Click(object sender, EventArgs e) => OpenDBForm(new frmUpdateBook());
 
-        private void mnuRemoveBook_Click(object sender, EventArgs e)
-        {
-            Form next = new frmRemoveBook();
-            next.Show();
-        }
+        private void mnuRemoveBook_Click(object sender, EventArgs e) => OpenDBForm(new frmRemoveBook());
 
         #endregion
 
@@ -62,19 +62,19 @@ namespace BookSYS.Forms
         private void mnuOpenAccount_Click(object sender, EventArgs e)
         {
             Form next = new frmOpenClientAccount();
-            next.Show();
+            next.Show(this);
         }
 
         private void mnuUpdateAccount_Click(object sender, EventArgs e)
         {
             Form next = new frmUpdateClientAccount();
-            next.Show();
+            next.Show(this);
         }
 
         private void mnuCloseAccount_Click(object sender, EventArgs e)
         {
             Form next = new frmCloseClientAccount();
-            next.Show();
+            next.Show(this);
         }
 
         #endregion
@@ -83,31 +83,31 @@ namespace BookSYS.Forms
         private void mnuCreateOrder_Click(object sender, EventArgs e)
         {
             Form next = new frmCreateOrder();
-            next.Show();
+            next.Show(this);
         }
 
         private void mnuDispatchOrder_Click(object sender, EventArgs e)
         {
             Form next = new frmDispatchOrder();
-            next.Show();
+            next.Show(this);
         }
 
         private void mnuProcessPayment_Click(object sender, EventArgs e)
         {
             Form next = new frmProcessPayment();
-            next.Show();
+            next.Show(this);
         }
 
         private void mnuCancelOrder_Click(object sender, EventArgs e)
         {
             Form next = new frmCancelOrder();
-            next.Show();
+            next.Show(this);
         }
 
         private void listOrdersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form next = new frmListOrders();
-            next.Show();
+            next.Show(this);
         }
 
 
@@ -115,7 +115,7 @@ namespace BookSYS.Forms
         private void mnuBookPopularity_Click(object sender, EventArgs e)
         {
             Form next = new frmBookPopularity();
-            next.Show();
+            next.Show(this);
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

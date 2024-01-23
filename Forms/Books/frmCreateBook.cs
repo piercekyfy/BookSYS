@@ -12,15 +12,11 @@ using System.Windows.Forms;
 
 namespace BookSYS.Forms.Books
 {
-    public partial class frmCreateBook : Form
+    public partial class frmCreateBook : DBForm
     {
-        IDBContext db;
-
         public frmCreateBook()
         {
             InitializeComponent();
-
-            db = DummyDBSingleton.Instance;
         }
 
         public bool ProcessInput(out Book newBook, out string errorMessage)

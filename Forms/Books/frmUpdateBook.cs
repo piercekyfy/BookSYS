@@ -11,24 +11,21 @@ using System.Windows.Forms;
 
 namespace BookSYS.Forms.Books
 {
-    public partial class frmUpdateBook : Form
+    public partial class frmUpdateBook : DBForm
     {
-        IDBContext db;
         Book selected = null;
 
         public frmUpdateBook()
         {
             InitializeComponent();
 
-            db = DummyDBSingleton.Instance;
+            //IEnumerable<Book> books = db.GetBooks();
 
-            IEnumerable<Book> books = db.GetBooks();
-
-            if(books.Count() == 0)
-            {
-                MessageBox.Show("No Books exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if(books.Count() == 0)
+            //{
+            //    MessageBox.Show("No Books exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
         }
 
         public void UpdateIdSelection(string title)

@@ -48,8 +48,8 @@
             this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBookPopularity = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
             this.mnuDBConnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
             this.picDBConnection = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBookRow)).BeginInit();
             this.mnuMain.SuspendLayout();
@@ -79,7 +79,7 @@
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Size = new System.Drawing.Size(800, 24);
             this.mnuMain.TabIndex = 1;
-            this.mnuMain.Text = "menuStrip1";
+            this.mnuMain.Text = "mnuMain";
             // 
             // booksToolStripMenuItem
             // 
@@ -213,6 +213,14 @@
             this.mnuBookPopularity.Text = "Book Popularity";
             this.mnuBookPopularity.Click += new System.EventHandler(this.mnuBookPopularity_Click);
             // 
+            // mnuDBConnect
+            // 
+            this.mnuDBConnect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.mnuDBConnect.Name = "mnuDBConnect";
+            this.mnuDBConnect.Size = new System.Drawing.Size(96, 20);
+            this.mnuDBConnect.Text = "Connect to DB";
+            this.mnuDBConnect.Click += new System.EventHandler(this.mnuDBConnect_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -223,18 +231,10 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "BookSYS";
             // 
-            // mnuDBConnect
-            // 
-            this.mnuDBConnect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.mnuDBConnect.Name = "mnuDBConnect";
-            this.mnuDBConnect.Size = new System.Drawing.Size(96, 20);
-            this.mnuDBConnect.Text = "Connect to DB";
-            this.mnuDBConnect.Click += new System.EventHandler(this.mnuDBConnect_Click);
-            // 
             // picDBConnection
             // 
             this.picDBConnection.BackColor = System.Drawing.Color.Red;
-            this.picDBConnection.Location = new System.Drawing.Point(655, 6);
+            this.picDBConnection.Location = new System.Drawing.Point(653, 5);
             this.picDBConnection.Name = "picDBConnection";
             this.picDBConnection.Size = new System.Drawing.Size(13, 14);
             this.picDBConnection.TabIndex = 5;
@@ -265,7 +265,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picBookRow;
-        private System.Windows.Forms.MenuStrip mnuMain;
         private System.Windows.Forms.ToolStripMenuItem mnuClients;
         private System.Windows.Forms.ToolStripMenuItem mnuExit;
         private System.Windows.Forms.ToolStripMenuItem booksToolStripMenuItem;
@@ -286,5 +285,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuBookPopularity;
         private System.Windows.Forms.ToolStripMenuItem mnuDBConnect;
         private System.Windows.Forms.PictureBox picDBConnection;
+        private System.Windows.Forms.MenuStrip mnuMain;
     }
 }

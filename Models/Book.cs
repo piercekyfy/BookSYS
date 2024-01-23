@@ -135,7 +135,6 @@ namespace BookSYS.Models
                         break;
 
                     int mul = (i + 1) % 2 == 0 ? 3 : 1;
-                    Console.WriteLine(num.ToString() + " * " + mul.ToString());
                     total += (num * mul);
 
                 } else

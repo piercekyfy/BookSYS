@@ -15,13 +15,11 @@ namespace BookSYS.Forms
     public partial class frmDBConnect : Form
     {
         string hostname;
-        string user;
         Action<OracleConnection> onDatabaseConnection;
-        public frmDBConnect(string hostname, string user, Action<OracleConnection> onDatabaseConnect)
+        public frmDBConnect(string hostname, Action<OracleConnection> onDatabaseConnect)
         {
             InitializeComponent();
             this.hostname = hostname;
-            this.user = user;
             this.onDatabaseConnection = onDatabaseConnect;
         }
         
@@ -37,7 +35,7 @@ namespace BookSYS.Forms
 
             try
             {
-                OracleConnection conn = new OracleConnection($"Data Source = {hostname}; User ID = {user}; Password = {txtPass.Text};");
+                OracleConnection conn = new OracleConnection($"Data Source = {hostname}; User ID = {txtUser.Text}; Password = {txtPass.Text};");
                 conn.Open();
 
                 if(conn.State == ConnectionState.Closed )
@@ -46,13 +44,15 @@ namespace BookSYS.Forms
                     return;
                 }
 
+                conn.Close();
+
                 onDatabaseConnection?.Invoke(conn);
                 MessageBox.Show("Connected!", "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
 
-            } catch (Exception ex)
+            } catch (Exception)
             {
-                MessageBox.Show("Failed to connect!", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to connect!", "General Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

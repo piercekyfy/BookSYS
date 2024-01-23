@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BookSYS.Models;
@@ -20,7 +21,7 @@ namespace BookSYS
 
         public void AddBook(Book book)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Attempted to add a book with an Id of: " + book.BookId);
         }
 
         public void AddBookOrder(BookOrder bookOrder)
@@ -85,7 +86,21 @@ namespace BookSYS
 
         public int NextBookId()
         {
-            throw new NotImplementedException();
+            string query = "SELECT MAX(BookId) FROM Books";
+
+            OracleCommand command = new OracleCommand(query, connection);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            dr.Read();
+
+            int nextId = dr.IsDBNull(0) ? 1 : (dr.GetInt32(0) + 1);
+
+            connection.Close();
+
+            return nextId;
         }
 
         public int NextClientId()
