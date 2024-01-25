@@ -23,6 +23,7 @@ namespace BookSYS.Forms
             InitializeComponent();
 
             picDBConnection.BackColor = Color.Red;
+            dbContext = DummyDBSingleton.Instance;
         }
 
         private void mnuDBConnect_Click(object sender, EventArgs e)

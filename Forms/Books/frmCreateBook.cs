@@ -1,40 +1,57 @@
 ﻿using BookSYS.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BookSYS.Forms.Books
 {
     public partial class frmCreateBook : DBForm
     {
+        private Dictionary<string, Control> _propertyMap;
+
         public frmCreateBook()
         {
             InitializeComponent();
+
+            // Used to Focus on invalid properties through Book's validation method.
+            _propertyMap = new Dictionary<string, Control>()
+            {
+                { nameof(Book.Title), txtTitle },
+                { nameof(Book.Author), txtAuthor },
+                { nameof(Book.Description), txtDescription },
+                { nameof(Book.Publisher), txtPublisher },
+                { nameof(Book.Price), txtPrice },
+                { nameof(Book.Quantity), txtQuantity },
+                { nameof(Book.ISBN), txtISBN },
+            };
         }
 
-        public bool ProcessInput(out Book newBook, out string errorMessage)
+        private void Create()
         {
-            newBook = null;
-            errorMessage = null;
-
-            #region Check if fields are empty.
-
-            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPublisher, txtPrice, txtQuantity, txtISBN }, out TextBox firstEmpty))
+            Book book;
+            if (!ProcessInput(out book, out string invalidProperty, out string error))
             {
-                firstEmpty.Focus();
-                errorMessage = "Field cannot be empty.";
-                return false;
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (_propertyMap.TryGetValue(invalidProperty, out Control control))
+                {
+                    control.Focus();
+                }
+
+                return;
             }
 
-            #endregion
+            db.AddBook(book);
 
+            MessageBox.Show("The book: " + book.ToString() + " has been added.", "Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearInputs();
+        }
+
+        public bool ProcessInput(out Book book, out string invalidProperty, out string error)
+        {
+            book = null;
+
+            int id = db.NextBookId();
             string title = txtTitle.Text;
             string author = txtAuthor.Text;
             string description = txtDescription.Text;
@@ -42,53 +59,30 @@ namespace BookSYS.Forms.Books
             string price = txtPrice.Text;
             string quantity = txtQuantity.Text;
             string ISBN = txtISBN.Text;
-
-            Book book = new Book();
-
-            book.BookId = db.NextBookId();
-            book.Title = title;
-            book.Author = author;
-            book.Description = description;
-            book.Publisher = publisher;
-            book.ISBN = ISBN;
-
             double priceNum;
             int quantityNum;
-           
-            if(!double.TryParse(price, out priceNum))
+
+            if (!double.TryParse(price, out priceNum))
             {
-                txtPrice.Focus();
-                errorMessage = "Price must be a decimal number.";
+                invalidProperty = nameof(Book.Price);
+                error = "Price must be a decimal number.";
                 return false;
             }
-            if(!int.TryParse(quantity, out quantityNum))
+            if (!int.TryParse(quantity, out quantityNum))
             {
-                txtQuantity.Focus();
-                errorMessage = "Quantity must be a whole number.";
+                invalidProperty = nameof(Book.Quantity);
+                error = "Quantity must be a whole number.";
                 return false;
             }
-            book.Price = priceNum;
-            book.Quantity = quantityNum;
 
-            // No Errors were encountered in the view inputs
-            errorMessage = null;
-            newBook = book;
+            Book validationBook = new Book(id, title, author, description, publisher, priceNum, quantityNum, ISBN);
 
-            return Book.VerifyBook(book, out errorMessage);
-        }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Book newBook;
-            if (!ProcessInput(out newBook, out string errorMessage))
+            if(Book.Validate(validationBook, out invalidProperty, out error))
             {
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                book = validationBook;
+                return true;
             }
-
-            db.AddBook(newBook);
-            MessageBox.Show("The book: " + newBook.ToString() + " has been added.", "Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearInputs();
+            return false;
         }
 
         private void ClearInputs()
@@ -100,6 +94,11 @@ namespace BookSYS.Forms.Books
             txtPrice.Clear();
             txtQuantity.Clear();
             txtISBN.Clear();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Create();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

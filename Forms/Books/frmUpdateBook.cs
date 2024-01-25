@@ -1,34 +1,34 @@
 ﻿using BookSYS.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BookSYS.Forms.Books
 {
     public partial class frmUpdateBook : DBForm
     {
+        private Dictionary<string, Control> _propertyMap;
         Book selected = null;
 
         public frmUpdateBook()
         {
             InitializeComponent();
 
-            //IEnumerable<Book> books = db.GetBooks();
-
-            //if(books.Count() == 0)
-            //{
-            //    MessageBox.Show("No Books exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            // Used to Focus on invalid properties through Book's validation method.
+            _propertyMap = new Dictionary<string, Control>()
+            {
+                { nameof(Book.Title), txtTitle },
+                { nameof(Book.Author), txtAuthor },
+                { nameof(Book.Description), txtDescription },
+                { nameof(Book.Publisher), txtPublisher },
+                { nameof(Book.Price), txtPrice },
+                { nameof(Book.Quantity), txtQuantity },
+                { nameof(Book.ISBN), txtISBN },
+            };
         }
 
-        public void UpdateIdSelection(string title)
+        public void UpdateOptions(string title)
         {
             cboId.Items.Clear();
 
@@ -43,7 +43,7 @@ namespace BookSYS.Forms.Books
             }
         }
 
-        public void UpdateSelected(Book selected)
+        private void UpdateSelected(Book selected)
         {
             if(selected == null)
             {
@@ -67,42 +67,38 @@ namespace BookSYS.Forms.Books
             grpBook.Show();
         }
 
-        public void Update(Book book)
+        private void Update(Book selected)
         {
-            if (book == null)
+            if (selected == null)
                 return;
 
-            Book newBook = null;
+            Book book = null;
 
-            if (!ProcessInput(out newBook, out string errorMessage))
+            if (!ProcessInput(out book, out string invalidProperty, out string error))
             {
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (_propertyMap.TryGetValue(invalidProperty, out Control control))
+                {
+                    control.Focus();
+                }
+
                 return;
             }
 
-            db.UpdateBook(newBook);
-            MessageBox.Show("The book: " + newBook.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            db.UpdateBook(book);
+
+            MessageBox.Show("The book: " + book.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             UpdateSelected(null);
-            UpdateIdSelection(txtTitleSearch.Text);
+            UpdateOptions(txtTitleSearch.Text);
         }
 
-        public bool ProcessInput(out Book newBook, out string errorMessage)
+        public bool ProcessInput(out Book book, out string invalidProperty, out string error)
         {
-            newBook = null;
-            errorMessage = null;
+            book = null;
 
-            #region Check if required fields are empty.
-
-            if (!Utils.ValidateFilled(new List<TextBox> { txtTitle, txtAuthor, txtPublisher, txtPrice, txtQuantity, txtISBN }, out TextBox firstEmpty))
-            {
-                firstEmpty.Focus();
-                errorMessage = "Field cannot be empty.";
-                return false;
-            }
-
-            #endregion
-
+            int id = selected.BookId;
             string title = txtTitle.Text;
             string author = txtAuthor.Text;
             string description = txtDescription.Text;
@@ -110,41 +106,30 @@ namespace BookSYS.Forms.Books
             string price = txtPrice.Text;
             string quantity = txtQuantity.Text;
             string ISBN = txtISBN.Text;
-
-            Book book = new Book();
-
-            book.BookId = selected.BookId;
-            book.Title = title;
-            book.Author = author;
-            book.Description = description;
-            book.Publisher = publisher;
-            book.ISBN = ISBN;
-
-            float priceNum;
+            double priceNum;
             int quantityNum;
 
-            if (!float.TryParse(price, out priceNum))
+            if (!double.TryParse(price, out priceNum))
             {
-                txtPrice.Focus();
-                errorMessage = "Price must be a decimal number.";
+                invalidProperty = nameof(Book.Price);
+                error = "Price must be a decimal number.";
                 return false;
             }
             if (!int.TryParse(quantity, out quantityNum))
             {
-                txtQuantity.Focus();
-                errorMessage = "Quantity must be a whole number.";
+                invalidProperty = nameof(Book.Quantity);
+                error = "Quantity must be a whole number.";
                 return false;
             }
 
-            book.Price = priceNum;
-            book.Quantity = quantityNum;
+            Book validationBook = new Book(id, title, author, description, publisher, priceNum, quantityNum, ISBN);
 
-            // No Errors were encountered in the view inputs
-            errorMessage = null;
-            newBook = book;
-
-            // Verify the model
-            return Book.VerifyBook(book, out errorMessage);
+            if (Book.Validate(validationBook, out invalidProperty, out error))
+            {
+                book = validationBook;
+                return true;
+            }
+            return false;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -157,7 +142,7 @@ namespace BookSYS.Forms.Books
             if (String.IsNullOrEmpty(txtTitleSearch.Text))
                 return;
 
-            UpdateIdSelection(txtTitleSearch.Text);
+            UpdateOptions(txtTitleSearch.Text);
         }
 
         private void cboId_SelectedIndexChanged(object sender, EventArgs e)

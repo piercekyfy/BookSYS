@@ -38,88 +38,239 @@ namespace BookSYS.Models
             Status = 'A';
         }
 
-        public static bool VerifyBook(Book book, out string errorMessage)
+        public static bool Validate(Book book, out string invalidProperty, out string error)
         {
-            errorMessage = null;
+
+            #region BookId
+            invalidProperty = nameof(BookId);
+            if (book.BookId < 0)
+            {
+                error = "Id cannot be less than zero.";
+                return false;
+            }
+            if (book.BookId > 9999)
+            {
+                error = "Id cannot be larger than 9999.";
+                return false;
+            }
+            #endregion
+
+            #region Title
+            invalidProperty = nameof(Title);
+            
+            if (String.IsNullOrEmpty(book.Title))
+            {
+                error = "Title is a required field.";
+                return false;
+            }
+            if (book.Title.Length > 48)
+            {
+                error = "Title has a maximum length of 48 characters.";
+                return false;
+            }
+            #endregion
+
+            #region Author
+            invalidProperty = nameof(Author);
+
+            if (String.IsNullOrEmpty(book.Author))
+            {
+                error = "Author is a required field.";
+                return false;
+            }
+            if (book.Author.Length > 24)
+            {
+                error = "Author has a maximum length of 24 characters.";
+                return false;
+            }
+            if (!Regex.IsMatch(book.Author, "^[a-zA-Z ]+$"))
+            {
+                error = "Author must only contain non-numeric, non-special (excluding spaces) characters.";
+                return false;
+            }
+            #endregion
+
+            #region Publisher
+            invalidProperty = nameof(Publisher);
+
+            if (String.IsNullOrEmpty(book.Publisher))
+            {
+                error = "Publisher is a required field";
+                return false;
+            }
+            if (book.Publisher.Length > 48)
+            {
+                error = "Publisher name cannot exceed 48 characters.";
+                return false;
+            }
+            #endregion
+
+            #region Price
+            invalidProperty = nameof(Price);
+
+            if (book.Price <= 0)
+            {
+                error = "Price cannot be less than or equal to zero.";
+                return false;
+            }
+            #endregion
+
+            #region Quantity
+            invalidProperty = nameof(Quantity);
+
+            if (book.Quantity < 0)
+            {
+                error = "Quantity cannot be less than zero.";
+                return false;
+            }
+            #endregion
+
+            #region ISBN
+            invalidProperty = nameof(ISBN);
+
+            if (String.IsNullOrEmpty(book.ISBN))
+            {
+                error = "ISBN is a required field.";
+                return false;
+            }
+            if (book.ISBN.Length != 13)
+            {
+                error = "ISBN must be a 13 digit number.";
+                return false;
+            }
+
+            int total = 0;
+            int lastNum = 0;
+
+            for (int i = 0; i < book.ISBN.Length; i++)
+            {
+                if (int.TryParse(book.ISBN[i].ToString(), out int num))
+                {
+                    lastNum = num;
+                    if (i + 1 == book.ISBN.Length)
+                        break;
+
+                    int mul = (i + 1) % 2 == 0 ? 3 : 1;
+                    total += (num * mul);
+
+                }
+                else
+                {
+                    error = "ISBN must be a 10 or 13 digit number.";
+                    return false;
+                }
+            }
+
+            int check = total % 10;
+            if (check != 0)
+                check = 10 - check;
+
+            if (check != lastNum)
+            {
+                error = "Invalid ISBN code";
+                return false;
+            }
+            #endregion
+
+            #region Status
+            invalidProperty = nameof(Status);
+
+            if (book.Status != 'A' && book.Status != 'N')
+            {
+                error = "Book Status must be 'A' or 'N'";
+                return false;
+            }
+            #endregion
+            
+            // No Validation Errors
+            invalidProperty = null;
+            error = null;
+            return true;
+        }
+
+        // TODO : remove when RemoveBook and UpdateBook are changed
+        public static bool VerifyBook(Book book, out string error)
+        {
+            error = null;
 
             // Verification
 
             #region BookId
             if (book.BookId < 0)
             {
-                errorMessage = "Id cannot be less than zero.";
+                error = "Id cannot be less than zero.";
                 return false;
             }
             if (book.BookId > 9999)
             {
-                errorMessage = "Id cannot be larger than 9999.";
+                error = "Id cannot be larger than 9999.";
                 return false;
             }
             #endregion
             #region Title
             if (String.IsNullOrEmpty(book.Title))
             {
-                errorMessage = "Title is a required field.";
+                error = "Title is a required field.";
                 return false;
             }
             if (book.Title.Length > 48)
             {
-                errorMessage = "Title has a maximum length of 48 characters.";
+                error = "Title has a maximum length of 48 characters.";
                 return false;
             }
             #endregion
             #region Author
             if (String.IsNullOrEmpty(book.Author))
             {
-                errorMessage = "Author is a required field.";
+                error = "Author is a required field.";
                 return false;
             }
             if (book.Author.Length > 24)
             {
-                errorMessage = "Author has a maximum length of 24 characters.";
+                error = "Author has a maximum length of 24 characters.";
                 return false;
             }
             if (!Regex.IsMatch(book.Author, "^[a-zA-Z ]+$"))
             {
-                errorMessage = "Author must only contain non-numeric, non-special (excluding spaces) characters.";
+                error = "Author must only contain non-numeric, non-special (excluding spaces) characters.";
                 return false;
             }
             #endregion
             #region Publisher
             if (String.IsNullOrEmpty(book.Publisher))
             {
-                errorMessage = "Publisher is a required field";
+                error = "Publisher is a required field";
                 return false;
             }
             if (book.Publisher.Length > 48)
             {
-                errorMessage = "Publisher name cannot exceed 48 characters.";
+                error = "Publisher name cannot exceed 48 characters.";
                 return false;
             }
             #endregion
             #region Price
             if (book.Price <= 0)
             {
-                errorMessage = "Price cannot be less than or equal to zero.";
+                error = "Price cannot be less than or equal to zero.";
                 return false;
             }
             #endregion
             #region Quantity
             if (book.Quantity < 0)
             {
-                errorMessage = "Quantity cannot be less than zero.";
+                error = "Quantity cannot be less than zero.";
                 return false;
             }
             #endregion
             #region ISBN
             if (String.IsNullOrEmpty(book.ISBN))
             {
-                errorMessage = "ISBN is a required field.";
+                error = "ISBN is a required field.";
                 return false;
             }
             if (book.ISBN.Length != 13)
             {
-                errorMessage = "ISBN must be a 13 digit number.";
+                error = "ISBN must be a 13 digit number.";
                 return false;
             }
 
@@ -139,7 +290,7 @@ namespace BookSYS.Models
 
                 } else
                 {
-                    errorMessage = "ISBN must be a 10 or 13 digit number.";
+                    error = "ISBN must be a 10 or 13 digit number.";
                     return false;
                 }
             }
@@ -150,19 +301,19 @@ namespace BookSYS.Models
 
             if(check != lastNum)
             {
-                errorMessage = "Invalid ISBN code";
+                error = "Invalid ISBN code";
                 return false;
             }
             #endregion
             #region Status
             if(book.Status != 'A' && book.Status != 'N')
             {
-                errorMessage = "Book Status must be 'A' or 'N'";
+                error = "Book Status must be 'A' or 'N'";
                 return false;
             }
             #endregion
 
-            errorMessage = null;
+            error = null;
             return true;
         }
 
