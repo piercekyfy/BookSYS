@@ -38,6 +38,186 @@ namespace BookSYS.Models
             Status = 'O';
         }
 
+        public static bool Validate(Client client, out string invalidProperty, out string error)
+        {
+            #region ClientId
+            invalidProperty = nameof(ClientId);
+
+            if (client.ClientId < 0)
+            {
+                error = "Id cannot be less than zero.";
+                return false;
+            }
+
+            if (client.ClientId > 9999)
+            {
+                error = "Id cannot be larger than 9999.";
+                return false;
+            }
+
+            #endregion
+
+            #region Null Checks
+
+            if (String.IsNullOrEmpty(client.Name))
+            {
+                invalidProperty = nameof(Name);
+                error = "Name is a required field.";
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(client.Street))
+            {
+                invalidProperty = nameof(Street);
+                error = "Street is a required field.";
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(client.City))
+            {
+                invalidProperty = nameof(City);
+                error = "City is a required field.";
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(client.County))
+            {
+                invalidProperty = nameof(County);
+                error = "City is a required field.";
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(client.Eircode))
+            {
+                invalidProperty = nameof(Eircode);
+                error = "Eircode is a required field.";
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(client.Email))
+            {
+                invalidProperty = nameof(Email);
+                error = "Eircode is a required field.";
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(client.Phone))
+            {
+                invalidProperty = nameof(Phone);
+                error = "Phone is a required field.";
+                return false;
+            }
+
+            #endregion
+
+            #region Name
+            invalidProperty = nameof(Name);
+
+            if (client.Name.Length > 48)
+            {
+                error = "Name has a maximum length of 48 characters.";
+                return false;
+            }
+
+            #endregion
+
+            #region Street 
+            invalidProperty = nameof(Street);
+
+            if (client.Street.Length > 24)
+            {
+                error = "Street has a maximum length of 24 characters.";
+                return false;
+            }
+
+            #endregion
+
+            #region City 
+            invalidProperty = nameof(City);
+
+            if (client.City.Length > 24)
+            {
+                error = "City has a maximum length of 24 characters.";
+                return false;
+            }
+
+            #endregion
+
+            #region County
+            invalidProperty = nameof(County);
+
+            if (client.County.Length > 12)
+            {
+                error = "City has a maximum length of 12 characters.";
+                return false;
+            }
+
+            #endregion
+
+            #region Eircode
+            invalidProperty = nameof(Eircode);
+
+            if (client.Eircode.Length != 7)
+            {
+                error = "Eircode must be 7 characters long.";
+                return false;
+            }
+
+            #endregion
+
+            #region Email
+            invalidProperty = nameof(Email);
+
+            if (client.Email.Length > 32)
+            {
+                error = "Email has a maximum length of 32 characters.";
+                return false;
+            }
+
+            if (!Regex.Match(client.Email, @"([a-zA-Z][^ \n() *]*@[^ \n,@% *0-9]*)").Success)
+            {
+                error = "Invalid Email entered.";
+                return false;
+            }
+
+            #endregion
+
+            #region Phone
+            invalidProperty = nameof(Phone);
+
+            if (client.Phone.Length != 9)
+            {
+                error = "Phone number must be 9 characters long.";
+                return false;
+            }
+
+            foreach (char c in client.Phone)
+            {
+                if (!char.IsDigit(c))
+                {
+                    error = "Phone must be a number.";
+                    return false;
+                }
+            }
+
+            #endregion
+
+            #region Status
+            invalidProperty = nameof(Email);
+
+            if (client.Status != 'O' && client.Status != 'C')
+            {
+                error = "Client Status must be 'O' or 'C'";
+                return false;
+            }
+
+            #endregion
+
+            invalidProperty = null;
+            error = null;
+            return true;
+        }
+
         public static bool VerifyClient(Client client, out string errorMessage)
         {
             #region ClientId
@@ -145,7 +325,6 @@ namespace BookSYS.Models
                 }
             }
             #endregion
-            // TODO, IMPLEMENT REGEX FOR ABOVE THREE ^
             #region Status
             if(client.Status != 'O' && client.Status != 'C')
             {

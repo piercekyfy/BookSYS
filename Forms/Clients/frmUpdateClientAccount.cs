@@ -11,24 +11,26 @@ using System.Windows.Forms;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmUpdateClientAccount : Form
+    public partial class frmUpdateClientAccount : DBForm
     {
-        IDBContext db;
-        Client selected = null;
+        private Dictionary<string, Control> _propertyMap;
+        Client _selected = null;
 
         public frmUpdateClientAccount()
         {
             InitializeComponent();
 
-            db = DummyDBSingleton.Instance;
-
-            IEnumerable<Client> clients = db.GetClients();
-
-            if (clients.Count() == 0)
+            // Used to Focus on invalid properties through Client's validation method.
+            _propertyMap = new Dictionary<string, Control>()
             {
-                MessageBox.Show("No Clients exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                { nameof(Client.Name), txtName },
+                { nameof(Client.Street), txtAdd_Street },
+                { nameof(Client.City), txtAdd_City },
+                { nameof(Client.County), txtAdd_County },
+                { nameof(Client.Eircode), txtAdd_Eircode },
+                { nameof(Client.Email), txtEmail },
+                { nameof(Client.Phone), txtPhone },
+            };
         }
 
         #region Existing Client Selection
@@ -51,12 +53,12 @@ namespace BookSYS.Forms.Clients
         {
             if (selected == null)
             {
-                this.selected = null;
+                this._selected = null;
                 grpClient.Hide();
                 return;
             }
 
-            this.selected = selected;
+            this._selected = selected;
 
             grpClient.Text = "Update " + selected.ToString();
 
@@ -140,7 +142,7 @@ namespace BookSYS.Forms.Clients
 
             Client client = new Client();
 
-            client.ClientId = selected.ClientId;
+            client.ClientId = _selected.ClientId;
             client.Name = name;
             client.Street = street;
             client.City = city;
@@ -157,12 +159,6 @@ namespace BookSYS.Forms.Clients
 
             return Client.VerifyClient(client, out errorMessage);
         }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Update(selected);
-        }
-
         private void ClearInputs()
         {
             txtName.Clear();
@@ -172,6 +168,11 @@ namespace BookSYS.Forms.Clients
             txtAdd_Eircode.Clear();
             txtEmail.Clear();
             txtPhone.Clear();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Update(_selected);
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

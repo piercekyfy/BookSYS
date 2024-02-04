@@ -111,14 +111,12 @@ namespace BookSYS.Forms.Clients
         {
             libBooks.Items.Clear();
 
-            double totalPrice = 0;
-            foreach(BookOrder bookOrder in bookOrders)
+            foreach (BookOrder bookOrder in bookOrders)
             {
                 libBooks.Items.Add(bookOrder);
-                totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
             }
 
-            lblTotal.Text = "Total: " + totalPrice.ToString();
+            lblTotal.Text = "Total: " + selectedOrder.Total;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

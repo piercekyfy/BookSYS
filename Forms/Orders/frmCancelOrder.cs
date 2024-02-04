@@ -118,7 +118,7 @@ namespace BookSYS.Forms.Clients
                 totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
             }
 
-            lblTotal.Text = "Total: " + totalPrice.ToString();
+            lblTotal.Text = "Total: " + selectedOrder.Total;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

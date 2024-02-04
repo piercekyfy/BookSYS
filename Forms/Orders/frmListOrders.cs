@@ -70,6 +70,7 @@ namespace BookSYS.Forms.Clients
                 libOrders.Items.Add(order);
             }
 
+            ResetOrder();
             grpOrder.Show();
         }
 
@@ -95,29 +96,42 @@ namespace BookSYS.Forms.Clients
 
         #endregion
 
+        private void ResetOrder()
+        {
+            selectedOrder = null;
+            libBooks.Items.Clear();
+            selectedOrder = null;
+            lblStatus.Text = "Status: Undispatched.";
+            lblTotal.Text = "Total: 000000.00";
+            grpOrderSpecific.Hide();
+        }
+
         private void SetSelectedOrder(Order order)
         {
-            libBooks.Items.Clear();
+            ResetOrder();
             if (order == null)
-            {
-                selectedOrder= null;
-                lblStatus.Text = "Status: Undispatched.";
-                lblTotal.Text = "Total: 000000.00";
                 return;
-            }
 
             selectedOrder = order;
-
-            double total = 0;
-            foreach(BookOrder book in db.GetBookOrdersByOrder(order))
-            {
-                libBooks.Items.Add(book);
-                total += book.SalePrice * book.Quantity;
-            }
+            
+            grpOrderSpecific.Show();
 
             lblStatus.Text = "Status: " + (order.Status == 'U' ? "Undispatched" : order.Status == 'D' ? "Dispatched" : order.Status == 'P' ? "Paid" : "Cancelled");
-            lblTotal.Text = "Total: " + total;
-            
+            lblTotal.Text = "Total: " + order.Total;
+
+            FillBookList(db.GetBookOrdersByOrder(order).ToList());
+        }
+
+        private void FillBookList(List<BookOrder> bookOrders)
+        {
+            libBooks.Items.Clear();
+
+            foreach (BookOrder bookOrder in bookOrders)
+            {
+                libBooks.Items.Add(bookOrder);
+            }
+
+            lblTotal.Text = "Total: " + selectedOrder.Total;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

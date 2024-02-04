@@ -11,6 +11,7 @@ namespace BookSYS.Models
         public int OrderId { get; set; }
         public Client Client { get; set; }
         public DateTime OrderDate { get; set; }
+        public double Total { get; set; }
         public char Status { get; set; } = 'U';
 
         public Order()
@@ -18,11 +19,12 @@ namespace BookSYS.Models
 
         }
 
-        public Order(int orderId, Client client, DateTime orderDate, char status)
+        public Order(int orderId, Client client, DateTime orderDate, double total, char status)
         {
             OrderId = orderId;
             Client = client;
             OrderDate = orderDate;
+            Total = total;
             Status = status;
         }
 

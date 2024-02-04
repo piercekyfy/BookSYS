@@ -168,15 +168,19 @@ namespace BookSYS.Forms.Clients
 
             lstBooks.Items.Clear();
 
+            lblTotal.Text = "Total: " + CalculateTotal().ToString();
+        }
+
+        public double CalculateTotal()
+        {
             double totalPrice = 0;
-            foreach(BookOrder bookOrder in selectedBooks)
+            foreach (BookOrder bookOrder in selectedBooks)
             {
                 lstBooks.Items.Add(bookOrder);
                 cboBookRevId.Items.Add(bookOrder.Book);
                 totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
             }
-
-            lblTotal.Text = "Total: " + totalPrice.ToString();
+            return totalPrice;
         }
 
         public void PlaceOrder()
@@ -195,6 +199,7 @@ namespace BookSYS.Forms.Clients
             order.OrderId = db.NextOrderId();
             order.Client = selectedClient;
             order.OrderDate = DateTime.UtcNow;
+            order.Total = CalculateTotal();
             order.Status = 'U';
 
             db.AddOrder(order);

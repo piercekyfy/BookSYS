@@ -1,6 +1,7 @@
 ﻿using BookSYS.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,7 +10,7 @@ namespace BookSYS.Forms.Books
     public partial class frmUpdateBook : DBForm
     {
         private Dictionary<string, Control> _propertyMap;
-        Book selected = null;
+        private Book _selected = null;
 
         public frmUpdateBook()
         {
@@ -26,33 +27,24 @@ namespace BookSYS.Forms.Books
                 { nameof(Book.Quantity), txtQuantity },
                 { nameof(Book.ISBN), txtISBN },
             };
-        }
 
-        public void UpdateOptions(string title)
-        {
-            cboId.Items.Clear();
-
-            List<Book> books = db.GetBooksByApproximateTitle(title).ToList();
-
-            if (books.Count() == 0)
-                return;
-
-            foreach(Book book in books)
-            {
-                cboId.Items.Add(book);
-            }
+           Utils.SetupBookSearch(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, UpdateSelected);
         }
 
         private void UpdateSelected(Book selected)
         {
             if(selected == null)
             {
-                this.selected = null;
+                this._selected = null;
+
+                txtTitleSearch.Text = "";
+                cboId.Text = "";
+                cboId.Items.Clear();
                 grpBook.Hide();
                 return;
             }
 
-            this.selected = selected;
+            this._selected = selected;
 
             grpBook.Text = "Update " + selected.ToString();
 
@@ -90,15 +82,17 @@ namespace BookSYS.Forms.Books
 
             MessageBox.Show("The book: " + book.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            UpdateSelected(null);
-            UpdateOptions(txtTitleSearch.Text);
+            UpdateSelected(book);
+            txtTitleSearch.Text = "";
+            cboId.Text = "";
+            cboId.Items.Clear();
         }
 
         public bool ProcessInput(out Book book, out string invalidProperty, out string error)
         {
             book = null;
 
-            int id = selected.BookId;
+            int id = _selected.BookId;
             string title = txtTitle.Text;
             string author = txtAuthor.Text;
             string description = txtDescription.Text;
@@ -134,27 +128,7 @@ namespace BookSYS.Forms.Books
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Update(selected);
-        }
-
-        private void txtTitleSearch_TextChanged(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(txtTitleSearch.Text))
-                return;
-
-            UpdateOptions(txtTitleSearch.Text);
-        }
-
-        private void cboId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (cboId.SelectedIndex == -1)
-            {
-                UpdateSelected(null);
-            } else
-            {
-                UpdateSelected((Book)cboId.SelectedItem);
-            }
+            Update(_selected);
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

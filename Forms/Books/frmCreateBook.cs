@@ -26,7 +26,7 @@ namespace BookSYS.Forms.Books
             };
         }
 
-        private void Create()
+        public void Create()
         {
             Book book;
             if (!ProcessInput(out book, out string invalidProperty, out string error))

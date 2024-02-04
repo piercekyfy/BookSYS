@@ -60,11 +60,7 @@ namespace BookSYS.Forms
         #endregion
 
         #region Client
-        private void mnuOpenAccount_Click(object sender, EventArgs e)
-        {
-            Form next = new frmOpenClientAccount();
-            next.Show(this);
-        }
+        private void mnuOpenAccount_Click(object sender, EventArgs e) => OpenDBForm(new frmOpenClientAccount());
 
         private void mnuUpdateAccount_Click(object sender, EventArgs e)
         {

@@ -100,7 +100,6 @@
             this.cboId.Name = "cboId";
             this.cboId.Size = new System.Drawing.Size(126, 21);
             this.cboId.TabIndex = 2;
-            this.cboId.SelectedIndexChanged += new System.EventHandler(this.cboId_SelectedIndexChanged);
             // 
             // grpBook
             // 
@@ -274,7 +273,6 @@
             this.txtTitleSearch.Name = "txtTitleSearch";
             this.txtTitleSearch.Size = new System.Drawing.Size(124, 20);
             this.txtTitleSearch.TabIndex = 1;
-            this.txtTitleSearch.TextChanged += new System.EventHandler(this.txtTitleSearch_TextChanged);
             // 
             // frmUpdateBook
             // 

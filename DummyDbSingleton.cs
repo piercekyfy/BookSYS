@@ -337,14 +337,14 @@ namespace BookSYS.Forms
         public void Debug_PopulateOrders()
         {
             // Unpaid Orders
-            AddOrder(new Order(0001, clients[0], DateTime.UtcNow, 'U'));
-            AddOrder(new Order(0002, clients[1], DateTime.UtcNow, 'U'));
-            AddOrder(new Order(0003, clients[2], DateTime.UtcNow, 'U'));
+            AddOrder(new Order(0001, clients[0], DateTime.UtcNow, books[0].Price * 45, 'U'));
+            AddOrder(new Order(0002, clients[1], DateTime.UtcNow, books[1].Price * 25, 'U'));
+            AddOrder(new Order(0003, clients[2], DateTime.UtcNow, books[2].Price * 30, 'U'));
 
             // Paid Orders
-            AddOrder(new Order(0004, clients[0], DateTime.UtcNow, 'P'));
-            AddOrder(new Order(0005, clients[1], DateTime.UtcNow, 'P'));
-            AddOrder(new Order(0006, clients[2], DateTime.UtcNow, 'P'));
+            AddOrder(new Order(0004, clients[0], DateTime.UtcNow, books[0].Price * 4000, 'P'));
+            AddOrder(new Order(0005, clients[1], DateTime.UtcNow, books[1].Price * 250, 'P'));
+            AddOrder(new Order(0006, clients[2], DateTime.UtcNow, books[2].Price * 2, 'P'));
         }
 
         public void Debug_PopulateBookOrders()

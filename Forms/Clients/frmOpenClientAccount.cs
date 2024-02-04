@@ -5,39 +5,60 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmOpenClientAccount : Form
+    public partial class frmOpenClientAccount : DBForm
     {
-        IDBContext db;
+        private Dictionary<string, Control> _propertyMap;
 
         public frmOpenClientAccount()
         {
             InitializeComponent();
 
-            db = DummyDBSingleton.Instance;
+            // Used to Focus on invalid properties through Client's validation method.
+            _propertyMap = new Dictionary<string, Control>()
+            {
+                { nameof(Client.Name), txtName },
+                { nameof(Client.Street), txtAdd_Street },
+                { nameof(Client.City), txtAdd_City },
+                { nameof(Client.County), txtAdd_County },
+                { nameof(Client.Eircode), txtAdd_Eircode },
+                { nameof(Client.Email), txtEmail },
+                { nameof(Client.Phone), txtPhone },
+            };
         }
 
-        public bool ProcessInput(out Client newClient, out string errorMessage)
+        public void Open()
         {
-            newClient = null;
-            errorMessage = null;
-
-            #region Check if fields are empty.
-
-            if (!Utils.ValidateFilled(new List<TextBox> { txtName, txtAdd_Street, txtAdd_City, txtAdd_County, txtAdd_Eircode, txtEmail, txtPhone }, out TextBox firstEmpty))
+            Client client;
+            if(!ProcessInput(out client, out string invalidProperty, out string error))
             {
-                firstEmpty.Focus();
-                errorMessage = "Field cannot be empty.";
-                return false;
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (_propertyMap.TryGetValue(invalidProperty, out Control control))
+                {
+                    control.Focus();
+                }
+
+                return;
             }
 
-            #endregion
+            db.AddClient(client);
 
+            MessageBox.Show("The client account: " + client.ToString() + " has been opened.", "Opened", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearInputs();
+        }
+
+        public bool ProcessInput(out Client client, out string invalidProperty, out string error)
+        {
+            client = null;
+
+            int id = db.NextClientId();
             string name = txtName.Text;
             string street = txtAdd_Street.Text;
             string city = txtAdd_City.Text;
@@ -46,38 +67,14 @@ namespace BookSYS.Forms.Clients
             string email = txtEmail.Text;
             string phone = txtPhone.Text;
 
-            Client client = new Client();
+            Client validationClient = new Client(id, name, street, city, county, eircode, email, phone);
 
-            client.ClientId = db.NextClientId();
-            client.Name = name;
-            client.Street = street;
-            client.City = city;
-            client.County = county;
-            client.Eircode = eircode;
-            client.Email = email;
-            client.Phone = phone;
-            client.Status = 'O';
-
-            // No Errors need to be checked for these inputs as the Client object checks all of them.
-
-            errorMessage = null;
-            newClient = client;
-
-            return Client.VerifyClient(client, out errorMessage);
-        }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Client newClient;
-            if (!ProcessInput(out newClient, out string errorMessage))
+            if(Client.Validate(validationClient, out invalidProperty, out error))
             {
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                client = validationClient;
+                return true;
             }
-
-            db.AddClient(newClient);
-            MessageBox.Show("The client account: " + newClient.ToString() + " has been opened.", "Opened", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearInputs();
+            return false;
         }
 
         private void ClearInputs()
@@ -89,6 +86,11 @@ namespace BookSYS.Forms.Clients
             txtAdd_Eircode.Clear();
             txtEmail.Clear();
             txtPhone.Clear();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Open();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)
