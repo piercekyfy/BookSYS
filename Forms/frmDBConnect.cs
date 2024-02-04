@@ -48,12 +48,18 @@ namespace BookSYS.Forms
 
                 onDatabaseConnection?.Invoke(conn);
                 MessageBox.Show("Connected!", "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                Close();
 
             } catch (Exception)
             {
                 MessageBox.Show("Failed to connect!", "General Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnUseDummy_Click(object sender, EventArgs e)
+        {
+            onDatabaseConnection.Invoke(null);
+            Close();
         }
     }
 }

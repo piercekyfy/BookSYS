@@ -33,6 +33,7 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnUseDummy = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -80,11 +81,22 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "User:";
             // 
+            // btnUseDummy
+            // 
+            this.btnUseDummy.Location = new System.Drawing.Point(258, 116);
+            this.btnUseDummy.Name = "btnUseDummy";
+            this.btnUseDummy.Size = new System.Drawing.Size(65, 25);
+            this.btnUseDummy.TabIndex = 6;
+            this.btnUseDummy.Text = "Dummy";
+            this.btnUseDummy.UseVisualStyleBackColor = true;
+            this.btnUseDummy.Click += new System.EventHandler(this.btnUseDummy_Click);
+            // 
             // frmDBConnect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 153);
+            this.Controls.Add(this.btnUseDummy);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSubmit);
@@ -104,5 +116,6 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnUseDummy;
     }
 }

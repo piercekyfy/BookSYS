@@ -263,7 +263,6 @@
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
             this.txtNameSearch.TabIndex = 1;
-            this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
             // 
@@ -282,7 +281,6 @@
             this.cboId.Name = "cboId";
             this.cboId.Size = new System.Drawing.Size(126, 21);
             this.cboId.TabIndex = 2;
-            this.cboId.SelectedIndexChanged += new System.EventHandler(this.cboId_SelectedIndexChanged);
             // 
             // label7
             // 

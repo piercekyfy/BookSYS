@@ -25,43 +25,43 @@ namespace BookSYS
             return true;
         }
 
-        public static void SetupBookSearch(TextBox txtTitle, ComboBox cboOptions, Func<string, IEnumerable<Book>> searchProcedure, Action<Book> onSelected, Action<IEnumerable<Book>> onUpdate = null)
+        public static void SetupSearch<T>(TextBox txtEntry, ComboBox txtOptions, Func<string, IEnumerable<T>> searchProcedure, Action<T> onSelected, Action<IEnumerable<T>> onUpdate = null) where T : class
         {
-            if(txtTitle == null)
-                throw new ArgumentNullException(nameof(txtTitle));
-            if(cboOptions == null)
-                throw new ArgumentNullException (nameof(cboOptions));
+            if(txtEntry == null)
+                throw new ArgumentNullException(nameof(txtEntry));
+            if(txtOptions == null)
+                throw new ArgumentNullException (nameof(txtOptions));
             if(searchProcedure == null)
                 throw new ArgumentNullException(nameof(searchProcedure));
             if(onSelected == null)
                 throw new ArgumentNullException(nameof(onSelected));
 
-            txtTitle.Validated += (s, e) =>
+            txtEntry.Validated += (s, e) =>
             {
-                string title = txtTitle.Text;
+                string entry = txtEntry.Text;
 
-                if (String.IsNullOrEmpty(title))
+                if (String.IsNullOrEmpty(entry))
                 {
-                    cboOptions.Items.Clear();
+                    txtOptions.Items.Clear();
                     return;
                 }
 
-                IEnumerable<Book> books = searchProcedure.Invoke(title);
+                IEnumerable<T> books = searchProcedure.Invoke(entry);
 
-                cboOptions.Items.Clear();
-                cboOptions.Items.AddRange(books.ToArray());
+                txtOptions.Items.Clear();
+                txtOptions.Items.AddRange(books.ToArray());
 
                 onUpdate?.Invoke(books);
             };
 
-            cboOptions.SelectedIndexChanged += (s, e) =>
+            txtOptions.SelectedIndexChanged += (s, e) =>
             {
-                Book book = null;
+                T result = null;
 
-                if (cboOptions.SelectedIndex != -1)
-                    book = (Book)cboOptions.SelectedItem;
+                if (txtOptions.SelectedIndex != -1)
+                    result = (T)txtOptions.SelectedItem;
 
-                onSelected.Invoke(book);
+                onSelected.Invoke(result);
             };
         }
     }

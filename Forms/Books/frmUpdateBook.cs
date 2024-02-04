@@ -28,40 +28,12 @@ namespace BookSYS.Forms.Books
                 { nameof(Book.ISBN), txtISBN },
             };
 
-           Utils.SetupBookSearch(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, UpdateSelected);
+           Utils.SetupSearch<Book>(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, Select);
         }
 
-        private void UpdateSelected(Book selected)
+        public void Update()
         {
-            if(selected == null)
-            {
-                this._selected = null;
-
-                txtTitleSearch.Text = "";
-                cboId.Text = "";
-                cboId.Items.Clear();
-                grpBook.Hide();
-                return;
-            }
-
-            this._selected = selected;
-
-            grpBook.Text = "Update " + selected.ToString();
-
-            txtTitle.Text = selected.Title;
-            txtAuthor.Text = selected.Author;
-            txtDescription.Text = selected.Description;
-            txtPublisher.Text = selected.Publisher;
-            txtPrice.Text = selected.Price.ToString();
-            txtQuantity.Text = selected.Quantity.ToString();
-            txtISBN.Text = selected.ISBN.ToString();
-
-            grpBook.Show();
-        }
-
-        private void Update(Book selected)
-        {
-            if (selected == null)
+            if (_selected == null)
                 return;
 
             Book book = null;
@@ -82,10 +54,36 @@ namespace BookSYS.Forms.Books
 
             MessageBox.Show("The book: " + book.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            UpdateSelected(book);
+            Select(book);
             txtTitleSearch.Text = "";
             cboId.Text = "";
             cboId.Items.Clear();
+        }
+
+        private void Select(Book selected)
+        {
+            this._selected = selected;
+
+            if (selected == null)
+            {
+                txtTitleSearch.Text = "";
+                cboId.Text = "";
+                cboId.Items.Clear();
+                grpBook.Hide();
+                return;
+            }
+
+            grpBook.Text = "Update " + selected.ToString();
+
+            txtTitle.Text = selected.Title;
+            txtAuthor.Text = selected.Author;
+            txtDescription.Text = selected.Description;
+            txtPublisher.Text = selected.Publisher;
+            txtPrice.Text = selected.Price.ToString();
+            txtQuantity.Text = selected.Quantity.ToString();
+            txtISBN.Text = selected.ISBN.ToString();
+
+            grpBook.Show();
         }
 
         public bool ProcessInput(out Book book, out string invalidProperty, out string error)
@@ -128,12 +126,12 @@ namespace BookSYS.Forms.Books
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Update(_selected);
+            Update();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

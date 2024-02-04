@@ -23,15 +23,22 @@ namespace BookSYS.Forms
             InitializeComponent();
 
             picDBConnection.BackColor = Color.Red;
-            dbContext = DummyDBSingleton.Instance;
         }
 
         private void mnuDBConnect_Click(object sender, EventArgs e)
         {
             var connectionForm = new frmDBConnect("studentoracle: 1521/orcl", (conn) =>
             {
-                dbContext = new DBService(conn);
-                picDBConnection.BackColor = Color.LimeGreen;
+                if(conn == null)
+                {
+                    MessageBox.Show("Connection wasn't recieved, resorting to Dummy Database. If this was intended, don't worry.", "Connection Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dbContext = DummyDBSingleton.Instance;
+                    picDBConnection.BackColor = Color.Yellow;
+                } else
+                {
+                    dbContext = new DBService(conn);
+                    picDBConnection.BackColor = Color.LimeGreen;
+                }
             });
 
             connectionForm.ShowDialog(this);
@@ -62,17 +69,9 @@ namespace BookSYS.Forms
         #region Client
         private void mnuOpenAccount_Click(object sender, EventArgs e) => OpenDBForm(new frmOpenClientAccount());
 
-        private void mnuUpdateAccount_Click(object sender, EventArgs e)
-        {
-            Form next = new frmUpdateClientAccount();
-            next.Show(this);
-        }
+        private void mnuUpdateAccount_Click(object sender, EventArgs e) => OpenDBForm(new frmUpdateClientAccount());
 
-        private void mnuCloseAccount_Click(object sender, EventArgs e)
-        {
-            Form next = new frmCloseClientAccount();
-            next.Show(this);
-        }
+        private void mnuCloseAccount_Click(object sender, EventArgs e) => OpenDBForm(new frmCloseClientAccount());
 
         #endregion
 

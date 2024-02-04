@@ -31,29 +31,42 @@ namespace BookSYS.Forms.Clients
                 { nameof(Client.Email), txtEmail },
                 { nameof(Client.Phone), txtPhone },
             };
+
+            Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
         }
-
-        #region Existing Client Selection
-        public void UpdateIdSelection(string name)
+        public void Update()
         {
-            cboId.Items.Clear();
-
-            List<Client> clients = db.GetClientsByApproximateName(name).ToList();
-
-            if (clients.Count() == 0)
+            if (_selected == null)
                 return;
 
-            foreach (Client client in clients)
+            Client client;
+            if (!ProcessInput(out client, out string invalidProperty, out string error))
             {
-                cboId.Items.Add(client);
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (_propertyMap.TryGetValue(invalidProperty, out Control control))
+                {
+                    control.Focus();
+                }
+
+                return;
             }
+
+            db.UpdateClient(client);
+
+            MessageBox.Show("The client account: " + client.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Select(null);
         }
 
-        public void UpdateSelected(Client selected)
+        public void Select(Client selected)
         {
+            _selected = selected;
             if (selected == null)
             {
-                this._selected = null;
+                txtNameSearch.Text = "";
+                cboId.Text = "";
+                cboId.Items.Clear();
                 grpClient.Hide();
                 return;
             }
@@ -61,7 +74,6 @@ namespace BookSYS.Forms.Clients
             this._selected = selected;
 
             grpClient.Text = "Update " + selected.ToString();
-
 
             txtName.Text = selected.Name;
             txtAdd_Street.Text = selected.Street;
@@ -74,64 +86,11 @@ namespace BookSYS.Forms.Clients
             grpClient.Show();
         }
 
-        private void txtNameSearch_TextChanged(object sender, EventArgs e)
+        public bool ProcessInput(out Client client, out string invalidProperty, out string error)
         {
-            if (String.IsNullOrEmpty(txtNameSearch.Text))
-                return;
+            client = null;
 
-            UpdateIdSelection(txtNameSearch.Text);
-        }
-
-        private void cboId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboId.SelectedIndex == -1)
-            {
-                UpdateSelected(null);
-            }
-            else
-            {
-                UpdateSelected((Client)cboId.SelectedItem);
-            }
-        }
-
-        #endregion
-
-        public void Update(Client client)
-        {
-            if (client == null)
-                return;
-
-            Client newClient = null;
-
-            if (!ProcessInput(out newClient, out string errorMessage))
-            {
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            db.UpdateClient(newClient);
-            MessageBox.Show("The client account: " + client.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            UpdateSelected(null);
-            UpdateIdSelection(txtNameSearch.Text);
-        }
-
-        public bool ProcessInput(out Client newClient, out string errorMessage)
-        {
-            newClient = null;
-            errorMessage = null;
-
-            #region Check if fields are empty.
-
-            if (!Utils.ValidateFilled(new List<TextBox> { txtName, txtAdd_Street, txtAdd_City, txtAdd_County, txtAdd_Eircode, txtEmail, txtPhone }, out TextBox firstEmpty))
-            {
-                firstEmpty.Focus();
-                errorMessage = "Field cannot be empty.";
-                return false;
-            }
-
-            #endregion
-
+            int id = _selected.ClientId;
             string name = txtName.Text;
             string street = txtAdd_Street.Text;
             string city = txtAdd_City.Text;
@@ -140,39 +99,19 @@ namespace BookSYS.Forms.Clients
             string email = txtEmail.Text;
             string phone = txtPhone.Text;
 
-            Client client = new Client();
+            Client validationClient = new Client(id, name, street, city, county, eircode, email, phone);
 
-            client.ClientId = _selected.ClientId;
-            client.Name = name;
-            client.Street = street;
-            client.City = city;
-            client.County = county;
-            client.Eircode = eircode;
-            client.Email = email;
-            client.Phone = phone;
-            client.Status = 'O';
-
-            // No Errors need to be checked for these inputs as the Client object checks all of them.
-
-            errorMessage = null;
-            newClient = client;
-
-            return Client.VerifyClient(client, out errorMessage);
-        }
-        private void ClearInputs()
-        {
-            txtName.Clear();
-            txtAdd_Street.Clear();
-            txtAdd_City.Clear();
-            txtAdd_County.Clear();
-            txtAdd_Eircode.Clear();
-            txtEmail.Clear();
-            txtPhone.Clear();
+            if (Client.Validate(validationClient, out invalidProperty, out error))
+            {
+                client = validationClient;
+                return true;
+            }
+            return false;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Update(_selected);
+            Update();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

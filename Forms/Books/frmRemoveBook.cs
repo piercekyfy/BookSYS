@@ -8,39 +8,48 @@ namespace BookSYS.Forms.Books
 {
     public partial class frmRemoveBook : DBForm
     {
-        Book selected = null;
+        private Book _selected = null;
 
         public frmRemoveBook()
         {
             InitializeComponent();
+
+            Utils.SetupSearch<Book>(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, Select);
         }
 
-        public void UpdateIdSelection(string title)
+        public void Remove()
         {
-            cboId.Items.Clear();
+            if (_selected == null || _selected.Status == 'N')
+            {
+                Select(null);
+                return;
+            }
 
-            List<Book> books = db.GetBooksByApproximateTitle(title).ToList();
+            var confirmation = MessageBox.Show("Are you sure you wish to remove this book?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (books.Count() == 0)
+            if (confirmation == DialogResult.No || confirmation == DialogResult.None)
                 return;
 
-            foreach(Book book in books)
-            {
-                cboId.Items.Add(book);
-            }
+            db.RemoveBook(_selected.BookId);
+
+            MessageBox.Show("The book: " + _selected.ToString() + " has been removed.", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Select(null);
         }
 
-        public void UpdateSelected(Book selected)
+        public void Select(Book selected)
         {
+            this._selected = selected;
             if(selected == null)
             {
-                this.selected = null;
+                txtTitleSearch.Text = "";
+                cboId.Text = "";
+                cboId.Items.Clear();
                 grpBook.Hide();
-                UpdateIdSelection(txtTitleSearch.Text);
                 return;
             }
 
-            this.selected = selected;
+            this._selected = selected;
 
             grpBook.Text = "Remove " + selected.ToString();
 
@@ -55,55 +64,14 @@ namespace BookSYS.Forms.Books
             grpBook.Show();
         }
 
-        public void RemoveSelected()
-        {
-            if (selected == null || selected.Status == 'N')
-            {
-                UpdateSelected(null);
-                return;
-            }
-
-            var confirmation = MessageBox.Show("Are you sure you wish to remove this book?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            
-            if (confirmation == DialogResult.Yes)
-            {
-                db.RemoveBook(selected.BookId);
-            }
-
-            MessageBox.Show("The book: " + selected.ToString() + " has been removed.", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            UpdateSelected(null);
-            UpdateIdSelection(txtTitleSearch.Text);
-        }
-
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            RemoveSelected();
-        }
-
-        private void txtTitleSearch_TextChanged(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(txtTitleSearch.Text))
-                return;
-
-            UpdateIdSelection(txtTitleSearch.Text);
-        }
-
-        private void cboId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (cboId.SelectedIndex == -1)
-            {
-                UpdateSelected(null);
-            } else
-            {
-                UpdateSelected((Book)cboId.SelectedItem);
-            }
+            Remove();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

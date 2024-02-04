@@ -11,56 +11,52 @@ using System.Windows.Forms;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmCloseClientAccount : Form
+    public partial class frmCloseClientAccount : DBForm
     {
-        IDBContext db;
-        Client selected = null;
+        Client _selected = null;
 
         public frmCloseClientAccount()
         {
             InitializeComponent();
 
-            db = DummyDBSingleton.Instance;
-
-            IEnumerable<Client> clients = db.GetClients();
-
-            if (clients.Count() == 0)
-            {
-                MessageBox.Show("No Clients exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
         }
 
-        #region Existing Client Selection
-        public void UpdateIdSelection(string name)
+        public void Remove()
         {
-            cboId.Items.Clear();
-
-            List<Client> clients = db.GetClientsByApproximateName(name).ToList();
-
-            if (clients.Count() == 0)
-                return;
-
-            foreach (Client client in clients)
+            if (_selected == null)
             {
-                cboId.Items.Add(client);
+                Select(null);
+                return;
             }
+
+            var confirmation = MessageBox.Show("Are you sure you wish to close this client's account?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmation == DialogResult.Yes)
+            {
+                db.RemoveClient(_selected.ClientId);
+            }
+
+            MessageBox.Show("The client account: " + _selected.ToString() + " has been closed.", "Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Select(null);
         }
 
-        public void UpdateSelected(Client selected)
+        public void Select(Client selected)
         {
+            _selected = selected;
             if (selected == null)
             {
-                this.selected = null;
+                txtNameSearch.Text = "";
+                cboId.Text = "";
+                cboId.Items.Clear();
                 grpClient.Hide();
-                UpdateIdSelection(txtNameSearch.Text);
                 return;
             }
 
-            this.selected = selected;
+            this._selected = selected;
 
-            grpClient.Text = "Update " + selected.ToString();
-
+            grpClient.Text = "Remove " + selected.ToString();
 
             txtName.Text = selected.Name;
             txtAdd_Street.Text = selected.Street;
@@ -73,68 +69,15 @@ namespace BookSYS.Forms.Clients
             grpClient.Show();
         }
 
-        private void txtNameSearch_TextChanged(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(txtNameSearch.Text))
-                return;
-
-            UpdateIdSelection(txtNameSearch.Text);
-        }
-
-        private void cboId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboId.SelectedIndex == -1)
-            {
-                UpdateSelected(null);
-            }
-            else
-            {
-                UpdateSelected((Client)cboId.SelectedItem);
-            }
-        }
-
-        #endregion
-
-        public void RemoveSelected()
-        {
-            if (selected == null)
-            {
-                UpdateSelected(null);
-                return;
-            }
-
-            var confirmation = MessageBox.Show("Are you sure you wish to close this client's account?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (confirmation == DialogResult.Yes)
-            {
-                db.RemoveClient(selected.ClientId);
-            }
-
-            MessageBox.Show("The client account: " + selected.ToString() + " has been closed.", "Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            UpdateSelected(null);
-            UpdateIdSelection(txtNameSearch.Text);
-        }
-
+        
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            RemoveSelected();
-        }
-
-        private void ClearInputs()
-        {
-            txtName.Clear();
-            txtAdd_Street.Clear();
-            txtAdd_City.Clear();
-            txtAdd_County.Clear();
-            txtAdd_Eircode.Clear();
-            txtEmail.Clear();
-            txtPhone.Clear();
+            Remove();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
