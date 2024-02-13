@@ -35,9 +35,9 @@ CREATE OR REPLACE TYPE IdMetricPair AS OBJECT(
     Id NUMBER(4),
     Name VARCHAR(32),
     Metric NUMBER(4) );
-
+/
 CREATE OR REPLACE TYPE IdMetricPairTable AS TABLE OF IdMetricPair;
-
+/
 -- Returns a unordered table containing BookId, Name and Metric where highest indicates the closest match.
 CREATE OR REPLACE FUNCTION SearchByTitle_Books( p_Search Books.TITLE%TYPE ) RETURN IdMetricPairTable PIPELINED AS
 	CURSOR c_Books IS SELECT BookId, Title FROM Books WHERE Status != 'N';
