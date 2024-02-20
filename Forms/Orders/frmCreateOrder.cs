@@ -95,17 +95,18 @@ namespace BookSYS.Forms.Clients
 
         public void UpdateBookIdSelection(string title)
         {
-            cboBookId.Items.Clear();
+            throw new NotImplementedException();
+            //cboBookId.Items.Clear();
 
-            List<Book> books = db.GetBooksByApproximateTitle(title).ToList();
+            //List<Book> books = db.GetBooksByApproximateTitle(title).ToList();
 
-            if (books.Count() == 0)
-                return;
+            //if (books.Count() == 0)
+            //    return;
 
-            foreach (Book book in books)
-            {
-                cboBookId.Items.Add(book);
-            }
+            //foreach (Book book in books)
+            //{
+            //    cboBookId.Items.Add(book);
+            //}
         }
 
         public void UpdateSelectedBook(Book selected)

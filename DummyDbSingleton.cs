@@ -357,5 +357,15 @@ namespace BookSYS.Forms
             AddBookOrder(new BookOrder(orders[4], books[1], books[1].Price, 250));
             AddBookOrder(new BookOrder(orders[5], books[2], books[2].Price, 2));
         }
+
+        public Book GetBook(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<IdNamePair> IDBContext.GetBooksByApproximateTitle(string title)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

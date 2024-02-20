@@ -32,7 +32,7 @@ namespace BookSYS.Forms.Clients
                 { nameof(Client.Phone), txtPhone },
             };
 
-            Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
+            //Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
         }
         public void Update()
         {

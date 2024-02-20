@@ -25,7 +25,7 @@ namespace BookSYS
             return true;
         }
 
-        public static void SetupSearch<T>(TextBox txtEntry, ComboBox txtOptions, Func<string, IEnumerable<T>> searchProcedure, Action<T> onSelected, Action<IEnumerable<T>> onUpdate = null) where T : class
+        public static void SetupSearch(TextBox txtEntry, ComboBox txtOptions, Func<string, IEnumerable<IdNamePair>> searchProcedure, Action<IdNamePair> onSelected, Action<IEnumerable<IdNamePair>> onUpdate = null)
         {
             if(txtEntry == null)
                 throw new ArgumentNullException(nameof(txtEntry));
@@ -46,20 +46,20 @@ namespace BookSYS
                     return;
                 }
 
-                IEnumerable<T> books = searchProcedure.Invoke(entry);
+                IEnumerable<IdNamePair> idNames = searchProcedure.Invoke(entry);
 
                 txtOptions.Items.Clear();
-                txtOptions.Items.AddRange(books.ToArray());
+                txtOptions.Items.AddRange(idNames.ToArray());
 
-                onUpdate?.Invoke(books);
+                onUpdate?.Invoke(idNames);
             };
 
             txtOptions.SelectedIndexChanged += (s, e) =>
             {
-                T result = null;
+                IdNamePair result = null;
 
                 if (txtOptions.SelectedIndex != -1)
-                    result = (T)txtOptions.SelectedItem;
+                    result = (IdNamePair)txtOptions.SelectedItem;
 
                 onSelected.Invoke(result);
             };

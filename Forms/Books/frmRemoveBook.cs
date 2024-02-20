@@ -14,7 +14,7 @@ namespace BookSYS.Forms.Books
         {
             InitializeComponent();
 
-            Utils.SetupSearch<Book>(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, Select);
+            //Utils.SetupSearch<Book>(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, Select);
         }
 
         public void Remove()

@@ -28,7 +28,10 @@ namespace BookSYS.Forms.Books
                 { nameof(Book.ISBN), txtISBN },
             };
 
-           Utils.SetupSearch<Book>(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, Select);
+           Utils.SetupSearch(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, (idNamePair) =>
+           {
+               Select(db.GetBook(idNamePair.Id));
+           });
         }
 
         public void Update()

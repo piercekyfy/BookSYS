@@ -28,7 +28,10 @@ VALUES(0003, 'Cherub', 'Robert Muchamore', 'Spies!', 'Simon & Schuster', 25, 45,
 
 COMMIT;
 
+-- Doesn't work on uni server
+/*
 DROP TYPE IdMetricPairTable;
+
 DROP TYPE IdMetricPair;
 
 CREATE OR REPLACE TYPE IdMetricPair AS OBJECT(
@@ -38,8 +41,15 @@ CREATE OR REPLACE TYPE IdMetricPair AS OBJECT(
 /
 CREATE OR REPLACE TYPE IdMetricPairTable AS TABLE OF IdMetricPair;
 /
+
 -- Returns a unordered table containing BookId, Name and Metric where highest indicates the closest match.
 CREATE OR REPLACE FUNCTION SearchByTitle_Books( p_Search Books.TITLE%TYPE ) RETURN IdMetricPairTable PIPELINED AS
+    TYPE IdMetricPair IS RECORD(
+        Id NUMBER(4),
+        Name VARCHAR(32),
+        Metric NUMBER(4)
+    );
+    TYPE IdMetricPairTable IS TABLE OF IdMetricPair;
 	CURSOR c_Books IS SELECT BookId, Title FROM Books WHERE Status != 'N';
 
 	v_Title Books.Title%TYPE;
@@ -63,7 +73,5 @@ BEGIN
 		END IF;
     END LOOP;
 END;
-
-SELECT * FROM SearchByTitle_Books('C') ORDER BY Metric DESC;
-
+*/
 -- End Books

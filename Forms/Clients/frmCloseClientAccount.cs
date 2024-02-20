@@ -19,7 +19,7 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
+            //Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
         }
 
         public void Remove()
