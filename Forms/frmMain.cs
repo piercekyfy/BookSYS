@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BookSYS.Forms;
+using System.Diagnostics;
 
 namespace BookSYS.Forms
 {
@@ -42,6 +43,8 @@ namespace BookSYS.Forms
             });
 
             connectionForm.ShowDialog(this);
+
+            
         }
 
         private void OpenDBForm(DBForm form)

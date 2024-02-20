@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BookSYS.Models;
 using Oracle.ManagedDataAccess;
@@ -48,36 +49,47 @@ namespace BookSYS
 
         public Book GetBook(int id)
         {
-            string query = "SELECT * FROM Books WHERE Id = :ID";
+            string query = "SELECT * FROM Books WHERE BookId = :id";
 
             OracleCommand command = new OracleCommand(query, connection);
-            command.Parameters.Add("ID", id);
+            command.Parameters.Add(":id", id);
             connection.Open();
 
             OracleDataReader dr = command.ExecuteReader();
 
             dr.Read();
 
-            return new Book(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetDouble(5), dr.GetInt32(6), dr.GetString(7));
+            if(dr.IsDBNull(0))
+            {
+                throw new ArgumentException($"Book with a BookId of {id} does not exist.");
+            }
+
+            Book book = new Book(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetDouble(5), dr.GetInt32(6), dr.GetString(7));
+
+            connection.Close();
+
+            return book;
         }
 
         public IEnumerable<IdNamePair> GetBooksByApproximateTitle(string title)
         {
             string query = @"SELECT BookId, Title FROM Books 
-                            WHERE UPPER(Title) LIKE ':QUERY' OR UPPER(Title) LIKE ':QUERY%' OR UPPER(TITLE) LIKE '%:QUERY%' 
+                            WHERE UPPER(Title) LIKE :search OR UPPER(Title) LIKE :search ||'%' OR UPPER(TITLE) LIKE '%'|| :search ||'%' 
                             ORDER BY ( 
-                            CASE WHEN Title LIKE ':QUERY' THEN 3 
-                            WHEN TITLE LIKE ':QUERY%' THEN 2
-                            WHEN TITLE LIKE '%:QUERY%' THEN 1 END) ASC";
+                            CASE WHEN UPPER(Title) LIKE :search THEN 3 
+                            WHEN UPPER(TITLE) LIKE :search ||'%' THEN 2
+                            WHEN UPPER(TITLE) LIKE '%'|| :search ||'%' THEN 1 END) DESC";
+
 
             OracleCommand command = new OracleCommand(query, connection);
-            command.Parameters.Add("QUERY", title.ToUpper());
+            command.Parameters.Add("search", title.ToUpper());
+            
             connection.Open();
 
             OracleDataReader dr = command.ExecuteReader();
 
-            while(dr.Read())
-            {   
+            while (dr.Read())
+            {
                 var result = new IdNamePair(dr.GetInt32(0), dr.GetString(1));
                 Debug.WriteLine(result.Id);
                 yield return result;
