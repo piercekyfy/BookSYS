@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -91,7 +92,6 @@ namespace BookSYS
             while (dr.Read())
             {
                 var result = new IdNamePair(dr.GetInt32(0), dr.GetString(1));
-                Debug.WriteLine(result.Id);
                 yield return result;
             }
 
@@ -105,7 +105,29 @@ namespace BookSYS
 
         public void UpdateBook(Book book)
         {
-            Console.WriteLine("Attempted to update a book with an Id of: " + book.BookId);
+            string query = @"UPDATE Books
+                            SET Title = :title, Author = :author, Description = :description, Publisher = :publisher, Price = :price, Quantity = :quantity, ISBN = :isbn
+                            WHERE BookId = :id";
+            
+            OracleCommand command = new OracleCommand(query, connection);
+            // NOTE: If BindByName isn't true, it expects Parameters to be added in the order they appear in the query regardless of name.
+            command.BindByName = true;
+            
+            command.Parameters.Add("title", book.Title);
+            command.Parameters.Add("author", book.Author);
+            command.Parameters.Add("description", book.Description);
+            command.Parameters.Add("publisher", book.Publisher);
+            command.Parameters.Add("price", book.Price);
+            command.Parameters.Add("quantity", book.Quantity);
+            command.Parameters.Add("isbn", book.ISBN);
+            command.Parameters.Add("id",book.BookId );
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
         }
 
         public void RemoveBook(int bookId)

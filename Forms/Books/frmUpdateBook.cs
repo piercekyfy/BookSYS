@@ -39,8 +39,7 @@ namespace BookSYS.Forms.Books
             if (_selected == null)
                 return;
 
-            Book book = null;
-
+            Book book;
             if (!ProcessInput(out book, out string invalidProperty, out string error))
             {
                 MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

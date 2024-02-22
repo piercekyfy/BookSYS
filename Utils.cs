@@ -6,25 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
 
 namespace BookSYS
 {
     public static class Utils
     {
-        public static bool ValidateFilled(List<TextBox> textBoxes, out TextBox firstEmpty)
-        {
-            firstEmpty = null;
-            foreach (var textBox in textBoxes)
-            {
-                if (String.IsNullOrEmpty(textBox.Text))
-                {
-                    firstEmpty = textBox;
-                    return false;
-                }
-            }
-            return true;
-        }
-
         public static void SetupSearch(TextBox txtEntry, ComboBox txtOptions, Func<string, IEnumerable<IdNamePair>> searchProcedure, Action<IdNamePair> onSelected, Action<IEnumerable<IdNamePair>> onUpdate = null)
         {
             if(txtEntry == null)
