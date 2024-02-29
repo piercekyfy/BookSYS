@@ -24,7 +24,6 @@ namespace BookSYS
         void AddBook(Book book);
         void UpdateBook(Book book);
         void RemoveBook(int bookId);
-        int NextBookId();
         #endregion
 
         #region Clients
@@ -33,7 +32,6 @@ namespace BookSYS
         void AddClient(Client client);
         void UpdateClient(Client client);
         void RemoveClient(int clientId);
-        int NextClientId();
         #endregion
 
         #region Orders

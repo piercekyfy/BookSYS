@@ -24,25 +24,6 @@ namespace BookSYS
 
         #region Books
 
-        public int NextBookId()
-        {
-            string query = "SELECT MAX(BookId) FROM Books";
-
-            OracleCommand command = new OracleCommand(query, connection);
-
-            connection.Open();
-
-            OracleDataReader dr = command.ExecuteReader();
-
-            dr.Read();
-
-            int nextId = dr.IsDBNull(0) ? 1 : (dr.GetInt32(0) + 1);
-
-            connection.Close();
-
-            return nextId;
-        }
-
         public IEnumerable<Book> GetBooks()
         {
             throw new NotImplementedException();
@@ -185,12 +166,6 @@ namespace BookSYS
         }
 
         public IEnumerable<Order> GetPaidOrders()
-        {
-            throw new NotImplementedException();
-        }
-
-        
-        public int NextClientId()
         {
             throw new NotImplementedException();
         }

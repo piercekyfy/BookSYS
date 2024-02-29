@@ -58,7 +58,6 @@ namespace BookSYS.Forms.Clients
         {
             client = null;
 
-            int id = db.NextClientId();
             string name = txtName.Text;
             string street = txtAdd_Street.Text;
             string city = txtAdd_City.Text;
@@ -67,7 +66,7 @@ namespace BookSYS.Forms.Clients
             string email = txtEmail.Text;
             string phone = txtPhone.Text;
 
-            Client validationClient = new Client(id, name, street, city, county, eircode, email, phone);
+            Client validationClient = new Client(name, street, city, county, eircode, email, phone);
 
             if(Client.Validate(validationClient, out invalidProperty, out error))
             {

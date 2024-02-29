@@ -50,8 +50,6 @@ namespace BookSYS.Forms.Books
         public bool ProcessInput(out Book book, out string invalidProperty, out string error)
         {
             book = null;
-
-            int id = db.NextBookId();
             string title = txtTitle.Text;
             string author = txtAuthor.Text;
             string description = txtDescription.Text;
@@ -75,7 +73,7 @@ namespace BookSYS.Forms.Books
                 return false;
             }
 
-            Book validationBook = new Book(id, title, author, description, publisher, priceNum, quantityNum, ISBN);
+            Book validationBook = new Book(title, author, description, publisher, priceNum, quantityNum, ISBN);
 
             if(Book.Validate(validationBook, out invalidProperty, out error))
             {

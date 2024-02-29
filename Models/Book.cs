@@ -12,9 +12,13 @@ namespace BookSYS.Models
     {
         public int BookId { get; set; }
         public string Title { get; set; }
+        private const int _titleMaxLength = 64;
         public string Author { get; set; }
+        private const int _authorMaxLength = 48;
         public string Description { get; set; }
+        private const int _descriptionMaxLength = 280;
         public string Publisher { get; set; }
+        private const int _publisherMaxLength = 48;
         public double Price { get; set; }
         public int Quantity { get; set; }
         public string ISBN { get; set; }
@@ -38,23 +42,20 @@ namespace BookSYS.Models
             Status = 'A';
         }
 
+        public Book(string title, string author, string description, string publisher, double price, int quantity, string ISBN)
+        {
+            Title = title;
+            Author = author;
+            Description = description;
+            Publisher = publisher;
+            Price = price;
+            Quantity = quantity;
+            this.ISBN = ISBN;
+            Status = 'A';
+        }
+
         public static bool Validate(Book book, out string invalidProperty, out string error)
         {
-
-            #region BookId
-            invalidProperty = nameof(BookId);
-            if (book.BookId < 0)
-            {
-                error = "Id cannot be less than zero.";
-                return false;
-            }
-            if (book.BookId > 9999)
-            {
-                error = "Id cannot be larger than 9999.";
-                return false;
-            }
-            #endregion
-
             // This error should always be displayed before anything else.
             #region Null Checks 
 
@@ -87,35 +88,41 @@ namespace BookSYS.Models
 
             #region Title
             invalidProperty = nameof(Title);
-            
-            if (book.Title.Length > 48)
+
+            if (book.Title.Length > _titleMaxLength)
             {
-                error = "Title has a maximum length of 48 characters.";
+                error = $"Title has a maximum length of {_titleMaxLength} characters.";
                 return false;
             }
             #endregion
 
             #region Author
             invalidProperty = nameof(Author);
-            
-            if (book.Author.Length > 24)
+
+            if (book.Author.Length > _authorMaxLength)
             {
-                error = "Author has a maximum length of 24 characters.";
+                error = $"Author has a maximum length of {_authorMaxLength} characters.";
                 return false;
             }
-            if (!Regex.IsMatch(book.Author, "^[a-zA-Z ]+$"))
+            #endregion
+
+            #region Description
+            invalidProperty = nameof(Description);
+
+            if (book.Description.Length > _descriptionMaxLength)
             {
-                error = "Author must only contain non-numeric, non-special (excluding spaces) characters.";
+                error = $"Description has a maximum length of {_descriptionMaxLength} characters.";
                 return false;
             }
+
             #endregion
 
             #region Publisher
             invalidProperty = nameof(Publisher);
             
-            if (book.Publisher.Length > 48)
+            if (book.Publisher.Length > _publisherMaxLength)
             {
-                error = "Publisher name cannot exceed 48 characters.";
+                error = $"Publisher name cannot exceed {_publisherMaxLength} characters.";
                 return false;
             }
             #endregion

@@ -11,14 +11,18 @@ namespace BookSYS.Models
     {
         public int ClientId { get; set; }
         public string Name { get; set; }
+        private const int _nameMaxLength = 64;
         public string Street { get; set; }
+        private const int _streetMaxLength = 48;
         public string City { get; set; }
+        private const int _cityMaxLength = 48;
         public string County { get; set;}
+        private const int _countyMaxLength = 12;
         public string Eircode { get; set; }
         public string Email { get; set; }
+        private const int _emailMaxLength = 48;
         public string Phone { get; set; }
-        public char Status { get { return char.ToUpper(_status); } set { _status = value; } }
-        private char _status = 'O';
+        public char Status { get; set; }
 
         public Client()
         {
@@ -38,25 +42,20 @@ namespace BookSYS.Models
             Status = 'O';
         }
 
+        public Client(string name, string street, string city, string county, string eircode, string email, string phone)
+        {
+            Name = name;
+            Street = street;
+            City = city;
+            County = county;
+            Eircode = eircode;
+            Email = email;
+            Phone = phone;
+            Status = 'O';
+        }
+
         public static bool Validate(Client client, out string invalidProperty, out string error)
         {
-            #region ClientId
-            invalidProperty = nameof(ClientId);
-
-            if (client.ClientId < 0)
-            {
-                error = "Id cannot be less than zero.";
-                return false;
-            }
-
-            if (client.ClientId > 9999)
-            {
-                error = "Id cannot be larger than 9999.";
-                return false;
-            }
-
-            #endregion
-
             #region Null Checks
 
             if (String.IsNullOrEmpty(client.Name))
@@ -113,9 +112,9 @@ namespace BookSYS.Models
             #region Name
             invalidProperty = nameof(Name);
 
-            if (client.Name.Length > 48)
+            if (client.Name.Length > _nameMaxLength)
             {
-                error = "Name has a maximum length of 48 characters.";
+                error = $"Name has a maximum length of {_nameMaxLength} characters.";
                 return false;
             }
 
@@ -124,9 +123,9 @@ namespace BookSYS.Models
             #region Street 
             invalidProperty = nameof(Street);
 
-            if (client.Street.Length > 24)
+            if (client.Street.Length > _streetMaxLength)
             {
-                error = "Street has a maximum length of 24 characters.";
+                error = $"Street has a maximum length of {_streetMaxLength} characters.";
                 return false;
             }
 
@@ -135,9 +134,9 @@ namespace BookSYS.Models
             #region City 
             invalidProperty = nameof(City);
 
-            if (client.City.Length > 24)
+            if (client.City.Length > _cityMaxLength)
             {
-                error = "City has a maximum length of 24 characters.";
+                error = $"City has a maximum length of {_cityMaxLength} characters.";
                 return false;
             }
 
@@ -146,9 +145,9 @@ namespace BookSYS.Models
             #region County
             invalidProperty = nameof(County);
 
-            if (client.County.Length > 12)
+            if (client.County.Length > _countyMaxLength)
             {
-                error = "City has a maximum length of 12 characters.";
+                error = $"City has a maximum length of {_countyMaxLength} characters.";
                 return false;
             }
 
@@ -168,9 +167,9 @@ namespace BookSYS.Models
             #region Email
             invalidProperty = nameof(Email);
 
-            if (client.Email.Length > 32)
+            if (client.Email.Length > _emailMaxLength)
             {
-                error = "Email has a maximum length of 32 characters.";
+                error = $"Email has a maximum length of {_emailMaxLength} characters.";
                 return false;
             }
 

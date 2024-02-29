@@ -116,7 +116,8 @@ namespace BookSYS.Forms.Books
                 return false;
             }
 
-            Book validationBook = new Book(id, title, author, description, publisher, priceNum, quantityNum, ISBN);
+            Book validationBook = new Book(title, author, description, publisher, priceNum, quantityNum, ISBN);
+            validationBook.BookId = id;
 
             if (Book.Validate(validationBook, out invalidProperty, out error))
             {
