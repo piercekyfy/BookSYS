@@ -10,7 +10,7 @@ namespace BookSYS.Models
 {
     public class Book
     {
-        public int BookId { get; set; }
+        public int? BookId { get; set; } = null;
         public string Title { get; set; }
         private const int _titleMaxLength = 64;
         public string Author { get; set; }

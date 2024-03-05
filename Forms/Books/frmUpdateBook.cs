@@ -52,11 +52,12 @@ namespace BookSYS.Forms.Books
                 return;
             }
 
-            db.UpdateBook(book);
+            db.Save(book);
 
             MessageBox.Show("The book: " + book.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Select(book);
+
             txtTitleSearch.Text = "";
             cboId.Text = "";
             cboId.Items.Clear();
@@ -92,7 +93,7 @@ namespace BookSYS.Forms.Books
         {
             book = null;
 
-            int id = _selected.BookId;
+            int id = _selected.BookId.Value;
             string title = txtTitle.Text;
             string author = txtAuthor.Text;
             string description = txtDescription.Text;

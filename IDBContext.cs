@@ -9,6 +9,12 @@ namespace BookSYS
 {
     public interface IDBContext
     {
+
+        void Save(Book book);
+        void Delete(Book book);
+
+        void Save(Client client);
+
         #region Books
         /// <summary>
         /// Gets all available books (Books with a Status of 'A')

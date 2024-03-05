@@ -50,15 +50,15 @@ namespace BookSYS.Forms.Admin
                         books.Add(bookOrder.Book);
                     }
 
-                    if (bookOrdersQuantity.TryGetValue(bookOrder.Book.BookId, out int value))
+                    if (bookOrdersQuantity.TryGetValue(bookOrder.Book.BookId.Value, out int value))
                     {
-                        bookOrdersQuantity[bookOrder.Book.BookId] = value + bookOrder.Quantity;
-                        bookOrdersRevenue[bookOrder.Book.BookId] = value + (bookOrder.SalePrice * bookOrder.Quantity);
+                        bookOrdersQuantity[bookOrder.Book.BookId.Value] = value + bookOrder.Quantity;
+                        bookOrdersRevenue[bookOrder.Book.BookId.Value] = value + (bookOrder.SalePrice * bookOrder.Quantity);
                     }
                     else
                     {
-                        bookOrdersQuantity[bookOrder.Book.BookId] = bookOrder.Quantity;
-                        bookOrdersRevenue[bookOrder.Book.BookId] = bookOrder.SalePrice * bookOrder.Quantity;
+                        bookOrdersQuantity[bookOrder.Book.BookId.Value] = bookOrder.Quantity;
+                        bookOrdersRevenue[bookOrder.Book.BookId.Value] = bookOrder.SalePrice * bookOrder.Quantity;
                     }
                 }
             }
@@ -80,8 +80,8 @@ namespace BookSYS.Forms.Admin
             for (int i = 0; i < 25 && i < books.Count(); i++)
             {
                 Book book = books[i];
-                int quantity = bookOrdersQuantity[book.BookId];
-                double revenue = bookOrdersRevenue[book.BookId];
+                int quantity = bookOrdersQuantity[book.BookId.Value];
+                double revenue = bookOrdersRevenue[book.BookId.Value];
 
                 grdBooks.Rows.Insert(i, i + 1, book.BookId, book.Title, book.Author, quantity, revenue);
             }

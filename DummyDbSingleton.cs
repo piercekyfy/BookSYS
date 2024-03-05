@@ -108,7 +108,7 @@ namespace BookSYS.Forms
             {
                 if(book.BookId > largest)
                 {
-                    largest = book.BookId;
+                    largest = book.BookId.Value;
                 }
             }
 
@@ -364,6 +364,21 @@ namespace BookSYS.Forms
         }
 
         IEnumerable<IdNamePair> IDBContext.GetBooksByApproximateTitle(string title)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Book book)
         {
             throw new NotImplementedException();
         }

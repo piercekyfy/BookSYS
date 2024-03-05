@@ -41,7 +41,7 @@ namespace BookSYS.Forms.Books
                 return;
             }
 
-            db.AddBook(book);
+            db.Save(book);
 
             MessageBox.Show("The book: " + book.ToString() + " has been added.", "Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ClearInputs();

@@ -79,21 +79,23 @@ namespace BookSYS
             connection.Close();
         }
 
-        public void AddBook(Book book)
+        public void Save(Book book)
         {
-            Console.WriteLine("Attempted to add a book with an Id of: " + book.BookId);
+            if (book.BookId.HasValue)
+                Update(book);
+            else
+                Insert(book);
         }
 
-        public void UpdateBook(Book book)
+        public void Insert(Book book)
         {
-            string query = @"UPDATE Books
-                            SET Title = :title, Author = :author, Description = :description, Publisher = :publisher, Price = :price, Quantity = :quantity, ISBN = :isbn
-                            WHERE BookId = :id";
-            
+            string query = @"INSERT INTO Books (Title, Author, Description, Publisher, Price, Quantity, ISBN)
+                            VALUES( :title , :author , :description , :publisher , :price , :quantity , :isbn )";
+
             OracleCommand command = new OracleCommand(query, connection);
             // NOTE: If BindByName isn't true, it expects Parameters to be added in the order they appear in the query regardless of name.
             command.BindByName = true;
-            
+
             command.Parameters.Add("title", book.Title);
             command.Parameters.Add("author", book.Author);
             command.Parameters.Add("description", book.Description);
@@ -101,14 +103,68 @@ namespace BookSYS
             command.Parameters.Add("price", book.Price);
             command.Parameters.Add("quantity", book.Quantity);
             command.Parameters.Add("isbn", book.ISBN);
-            command.Parameters.Add("id",book.BookId );
 
             connection.Open();
 
             command.ExecuteNonQuery();
 
             connection.Close();
+        }
 
+        public void Update(Book book)
+        {
+            string query = @"UPDATE Books
+                            SET Title = :title, Author = :author, Description = :description, Publisher = :publisher, Price = :price, Quantity = :quantity, ISBN = :isbn
+                            WHERE BookId = :id";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("title", book.Title);
+            command.Parameters.Add("author", book.Author);
+            command.Parameters.Add("description", book.Description);
+            command.Parameters.Add("publisher", book.Publisher);
+            command.Parameters.Add("price", book.Price);
+            command.Parameters.Add("quantity", book.Quantity);
+            command.Parameters.Add("isbn", book.ISBN);
+            command.Parameters.Add("id", book.BookId.Value);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void Delete(Book book)
+        {
+            if (!book.BookId.HasValue)
+                throw new ArgumentNullException("Book must have a BookId to be deleted.");
+
+            string query = @"UPDATE Books
+                            SET Status = 'N'
+                            WHERE BookId = :id ";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("id", book.BookId.Value);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+             
+        public void AddBook(Book book)
+        {
+            Console.WriteLine("Attempted to add a book with an Id of: " + book.BookId);
+        }
+
+        public void UpdateBook(Book book)
+        {
+            throw new NotImplementedException();
         }
 
         public void RemoveBook(int bookId)
@@ -117,6 +173,11 @@ namespace BookSYS
         }
 
         #endregion
+
+        public void Save(Client client)
+        {
+            throw new NotImplementedException();
+        }
 
         public void AddBookOrder(BookOrder bookOrder)
         {

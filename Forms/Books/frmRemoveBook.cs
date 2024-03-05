@@ -30,7 +30,7 @@ namespace BookSYS.Forms.Books
             if (confirmation == DialogResult.No || confirmation == DialogResult.None)
                 return;
 
-            db.RemoveBook(_selected.BookId);
+            db.RemoveBook(_selected.BookId.Value);
 
             MessageBox.Show("The book: " + _selected.ToString() + " has been removed.", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
