@@ -30,21 +30,11 @@ namespace BookSYS.Forms
         {
             var connectionForm = new frmDBConnect("studentoracle: 1521/orcl", (conn) =>
             {
-                if(conn == null)
-                {
-                    MessageBox.Show("Connection wasn't recieved, resorting to Dummy Database. If this was intended, don't worry.", "Connection Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    dbContext = DummyDBSingleton.Instance;
-                    picDBConnection.BackColor = Color.Yellow;
-                } else
-                {
-                    dbContext = new DBService(conn);
-                    picDBConnection.BackColor = Color.LimeGreen;
-                }
+                dbContext = new DBService(conn);
+                picDBConnection.BackColor = Color.LimeGreen;
             });
 
             connectionForm.ShowDialog(this);
-
-            
         }
 
         private void OpenDBForm(DBForm form)

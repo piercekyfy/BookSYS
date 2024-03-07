@@ -19,7 +19,10 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            //Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
+            Utils.SetupSearch(txtNameSearch, cboId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
+            {
+                Select(db.GetClient(idNamePair.Id));
+            });
         }
 
         public void Remove()
@@ -32,10 +35,10 @@ namespace BookSYS.Forms.Clients
 
             var confirmation = MessageBox.Show("Are you sure you wish to close this client's account?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (confirmation == DialogResult.Yes)
-            {
-                db.RemoveClient(_selected.ClientId);
-            }
+            if (confirmation == DialogResult.No || confirmation == DialogResult.None)
+                return;
+
+            db.DeleteClient(_selected.ClientId.Value);
 
             MessageBox.Show("The client account: " + _selected.ToString() + " has been closed.", "Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -70,14 +73,8 @@ namespace BookSYS.Forms.Clients
         }
 
         
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Remove();
-        }
+        private void btnSubmit_Click(object sender, EventArgs e) => Remove();
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void mnuExit_Click(object sender, EventArgs e) => Close();
     }
 }

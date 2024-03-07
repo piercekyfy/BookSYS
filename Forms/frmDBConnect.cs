@@ -55,11 +55,5 @@ namespace BookSYS.Forms
                 MessageBox.Show("Failed to connect!", "General Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnUseDummy_Click(object sender, EventArgs e)
-        {
-            onDatabaseConnection.Invoke(null);
-            Close();
-        }
     }
 }

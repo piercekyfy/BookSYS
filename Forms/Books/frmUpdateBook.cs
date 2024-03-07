@@ -128,14 +128,8 @@ namespace BookSYS.Forms.Books
             return false;
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Update();
-        }
+        private void btnSubmit_Click(object sender, EventArgs e) => Update();
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void mnuExit_Click(object sender, EventArgs e) => Close();
     }
 }

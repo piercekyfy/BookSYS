@@ -24,13 +24,40 @@ namespace BookSYS
 
         #region Books
 
+        /// <summary>
+        /// Gets all books with a status of 'A'
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Book> GetBooks()
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM Books WHERE Status = 'A'";
+
+            OracleCommand command = new OracleCommand(query, connection);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Book book = new Book(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetDouble(5), dr.GetInt32(6), dr.GetString(7));
+                book.Status = dr.GetChar(8);
+
+                yield return book;
+            }
+
+            connection.Close();
         }
 
+        /// <summary>
+        /// Gets the book with the specified id regardless of its status.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown if the book does not exist in the database.</exception>
         public Book GetBook(int id)
         {
+            if (id < 0)
+                throw new ArgumentOutOfRangeException("Invalid id.");
+
             string query = "SELECT * FROM Books WHERE BookId = :id";
 
             OracleCommand command = new OracleCommand(query, connection);
@@ -53,10 +80,13 @@ namespace BookSYS
             return book;
         }
 
+        /// <summary>
+        /// Gets the id and name of all books with a status of 'A' that 1. Exactly match title, 2. Start with title and 3. Contain title; In that order.
+        /// </summary>
         public IEnumerable<IdNamePair> GetBooksByApproximateTitle(string title)
         {
             string query = @"SELECT BookId, Title FROM Books 
-                            WHERE UPPER(Title) LIKE :search OR UPPER(Title) LIKE :search ||'%' OR UPPER(TITLE) LIKE '%'|| :search ||'%' 
+                            WHERE (UPPER(Title) LIKE :search OR UPPER(Title) LIKE :search ||'%' OR UPPER(TITLE) LIKE '%'|| :search ||'%') AND Status = 'A'
                             ORDER BY ( 
                             CASE WHEN UPPER(Title) LIKE :search THEN 3 
                             WHEN UPPER(TITLE) LIKE :search ||'%' THEN 2
@@ -79,6 +109,10 @@ namespace BookSYS
             connection.Close();
         }
 
+        /// <summary>
+        /// Inserts a book without an id and updates a book with an id.
+        /// </summary>
+        /// <param name="book"></param>
         public void Save(Book book)
         {
             if (book.BookId.HasValue)
@@ -136,10 +170,14 @@ namespace BookSYS
             connection.Close();
         }
 
-        public void Delete(Book book)
+        /// <summary>
+        /// Removes a book with specified id.
+        /// </summary>
+        /// <param name="book"></param>
+        public void DeleteBook(int id)
         {
-            if (!book.BookId.HasValue)
-                throw new ArgumentNullException("Book must have a BookId to be deleted.");
+            if (id < 0)
+                throw new ArgumentNullException("Invalid Id");
 
             string query = @"UPDATE Books
                             SET Status = 'N'
@@ -148,7 +186,7 @@ namespace BookSYS
             OracleCommand command = new OracleCommand(query, connection);
             command.BindByName = true;
 
-            command.Parameters.Add("id", book.BookId.Value);
+            command.Parameters.Add("id", id);
 
             connection.Open();
 
@@ -156,38 +194,176 @@ namespace BookSYS
 
             connection.Close();
         }
-             
-        public void AddBook(Book book)
+
+        #endregion
+
+        #region Clients
+
+        public IEnumerable<Client> GetClients()
         {
-            Console.WriteLine("Attempted to add a book with an Id of: " + book.BookId);
+            string query = "SELECT * FROM Clients WHERE Status = 'O'";
+
+            OracleCommand command = new OracleCommand(query, connection);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Client client = new Client(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6), dr.GetString(7));
+
+                yield return client;
+            }
+
+            connection.Close();
         }
 
-        public void UpdateBook(Book book)
+        public Client GetClient(int id)
         {
-            throw new NotImplementedException();
+            if (id < 0)
+                throw new ArgumentException("Invalid Id");
+
+            string query = "SELECT * FROM Clients WHERE ClientId = :id";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.Parameters.Add(":id", id);
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            dr.Read();
+
+            if (dr.IsDBNull(0))
+            {
+                throw new ArgumentException($"Client with a ClientId of {id} does not exist.");
+            }
+
+            Client client = new Client(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6), dr.GetString(7));
+
+            connection.Close();
+
+            return client;
         }
 
-        public void RemoveBook(int bookId)
+        public IEnumerable<IdNamePair> GetClientsByApproximateName(string name)
         {
-            throw new NotImplementedException();
+            string query = @"SELECT ClientId, Name FROM Clients
+                            WHERE (UPPER(Name) LIKE :search OR UPPER(Name) LIKE :search ||'%' OR UPPER(Name) LIKE '%'|| :search ||'%') AND Status = 'O'
+                            ORDER BY ( 
+                            CASE WHEN UPPER(Name) LIKE :search THEN 3 
+                            WHEN UPPER(Name) LIKE :search ||'%' THEN 2
+                            WHEN UPPER(Name) LIKE '%'|| :search ||'%' THEN 1 END) DESC";
+
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.Parameters.Add("search", name.ToUpper());
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                var result = new IdNamePair(dr.GetInt32(0), dr.GetString(1));
+                yield return result;
+            }
+
+            connection.Close();
+        }
+
+        public void Save(Client client)
+        {
+            if (client.ClientId.HasValue)
+                Update(client);
+            else
+                Insert(client);
+        }
+
+        public void Insert(Client client)
+        {
+            string query = @"INSERT INTO Clients (Name, Street, City, County, Eircode, Email, Phone)
+                            VALUES( :name , :street , :city , :county , :eircode , :email , :phone)";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("name", client.Name);
+            command.Parameters.Add("street", client.Street);
+            command.Parameters.Add("city", client.City);
+            command.Parameters.Add("county", client.County);
+            command.Parameters.Add("eircode", client.Eircode);
+            command.Parameters.Add("email", client.Email);
+            command.Parameters.Add("phone", client.Phone);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void Update(Client client)
+        {
+            string query = @"UPDATE Clients
+                            SET Name = :name , Street = :street , City = :city , County = :county , Eircode = :eircode , Email = :email , Phone = :phone
+                            WHERE ClientId = :id";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("name", client.Name);
+            command.Parameters.Add("street", client.Street);
+            command.Parameters.Add("city", client.City);
+            command.Parameters.Add("county", client.County);
+            command.Parameters.Add("eircode", client.Eircode);
+            command.Parameters.Add("email", client.Email);
+            command.Parameters.Add("phone", client.Phone);
+            command.Parameters.Add("id", client.ClientId.Value);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void DeleteClient(int id)
+        {
+            if (id < 0)
+                throw new ArgumentNullException("Invalid Id");
+
+            string query = @"UPDATE Clients
+                            SET Status = 'C'
+                            WHERE ClientId = :id ";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("id", id);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
         #endregion
 
-        public void Save(Client client)
+
+        public IEnumerable<Order> GetOrdersByClient(Client client)
         {
             throw new NotImplementedException();
         }
+
 
         public void AddBookOrder(BookOrder bookOrder)
         {
             throw new NotImplementedException();
         }
 
-        public void AddClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void AddOrder(Order order)
         {
@@ -209,22 +385,6 @@ namespace BookSYS
             throw new NotImplementedException();
         }
 
-        
-
-        public IEnumerable<Client> GetClients()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Client> GetClientsByApproximateName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Order> GetOrdersByClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Order> GetPaidOrders()
         {
@@ -237,20 +397,6 @@ namespace BookSYS
         }
 
         public void PayOrder(int orderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        public void RemoveClient(int clientId)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        public void UpdateClient(Client client)
         {
             throw new NotImplementedException();
         }

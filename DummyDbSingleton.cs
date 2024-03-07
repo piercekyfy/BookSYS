@@ -11,7 +11,7 @@ namespace BookSYS.Forms
     /// <summary>
     /// This class simulates a database. It does not perform any validation, including checking for existing Ids.
     /// </summary>
-    public class DummyDBSingleton : IDBContext
+    public class DummyDBSingleton
     {
         private static DummyDBSingleton _instance;
         public static DummyDBSingleton Instance
@@ -192,9 +192,9 @@ namespace BookSYS.Forms
             int largest = -1;
             foreach (var client in clients)
             {
-                if (client.ClientId > largest)
+                if (client.ClientId.Value > largest)
                 {
-                    largest = client.ClientId;
+                    largest = client.ClientId.Value;
                 }
             }
 
@@ -363,11 +363,6 @@ namespace BookSYS.Forms
             throw new NotImplementedException();
         }
 
-        IEnumerable<IdNamePair> IDBContext.GetBooksByApproximateTitle(string title)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Save(Book book)
         {
             throw new NotImplementedException();
@@ -379,6 +374,11 @@ namespace BookSYS.Forms
         }
 
         public void Delete(Book book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Client client)
         {
             throw new NotImplementedException();
         }

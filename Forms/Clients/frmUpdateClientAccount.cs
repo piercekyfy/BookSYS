@@ -32,7 +32,10 @@ namespace BookSYS.Forms.Clients
                 { nameof(Client.Phone), txtPhone },
             };
 
-            //Utils.SetupSearch<Client>(txtNameSearch, cboId, (title) => { return db.GetClientsByApproximateName(title); }, Select);
+            Utils.SetupSearch(txtNameSearch, cboId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
+            {
+                Select(db.GetClient(idNamePair.Id));
+            });
         }
         public void Update()
         {
@@ -52,7 +55,7 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
-            db.UpdateClient(client);
+            db.Save(client);
 
             MessageBox.Show("The client account: " + client.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -90,7 +93,7 @@ namespace BookSYS.Forms.Clients
         {
             client = null;
 
-            int id = _selected.ClientId;
+            int id = _selected.ClientId.Value;
             string name = txtName.Text;
             string street = txtAdd_Street.Text;
             string city = txtAdd_City.Text;
@@ -109,14 +112,8 @@ namespace BookSYS.Forms.Clients
             return false;
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Update();
-        }
+        private void btnSubmit_Click(object sender, EventArgs e) => Update();
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void mnuExit_Click(object sender, EventArgs e) => Close();
     }
 }

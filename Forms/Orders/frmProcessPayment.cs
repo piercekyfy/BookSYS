@@ -23,7 +23,7 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            db = DummyDBSingleton.Instance;
+            db = null; //DummyDBSingleton.Instance;
 
             IEnumerable<Client> clients = db.GetClients();
 
@@ -39,7 +39,7 @@ namespace BookSYS.Forms.Clients
         {
             cboClientId.Items.Clear();
 
-            List<Client> clients = db.GetClientsByApproximateName(name).ToList();
+            List<Client> clients = null;//db.GetClientsByApproximateName(name).ToList();
 
             if (clients.Count() == 0)
                 return;

@@ -9,35 +9,23 @@ namespace BookSYS
 {
     public interface IDBContext
     {
-
-        void Save(Book book);
-        void Delete(Book book);
-
-        void Save(Client client);
+        
+        
 
         #region Books
-        /// <summary>
-        /// Gets all available books (Books with a Status of 'A')
-        /// </summary>
         IEnumerable<Book> GetBooks();
-
         Book GetBook(int id);
-
-        /// <summary>
-        /// Gets all available books (Books with a Status of 'A') whose title's contain the specified string
-        /// </summary>
         IEnumerable<IdNamePair> GetBooksByApproximateTitle(string title);
-        void AddBook(Book book);
-        void UpdateBook(Book book);
-        void RemoveBook(int bookId);
+        void Save(Book book);
+        void DeleteBook(int id);
         #endregion
 
         #region Clients
         IEnumerable<Client> GetClients();
-        IEnumerable<Client> GetClientsByApproximateName(string name);
-        void AddClient(Client client);
-        void UpdateClient(Client client);
-        void RemoveClient(int clientId);
+        Client GetClient(int id);
+        IEnumerable<IdNamePair> GetClientsByApproximateName(string name);
+        void Save(Client client);
+        void DeleteClient(int id);
         #endregion
 
         #region Orders

@@ -48,9 +48,10 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
-            db.AddClient(client);
+            db.Save(client);
 
             MessageBox.Show("The client account: " + client.ToString() + " has been opened.", "Opened", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             ClearInputs();
         }
 
@@ -87,14 +88,8 @@ namespace BookSYS.Forms.Clients
             txtPhone.Clear();
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Open();
-        }
+        private void btnSubmit_Click(object sender, EventArgs e) => Open();
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void mnuExit_Click(object sender, EventArgs e) => Close();
     }
 }

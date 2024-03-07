@@ -14,7 +14,10 @@ namespace BookSYS.Forms.Books
         {
             InitializeComponent();
 
-            //Utils.SetupSearch<Book>(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, Select);
+            Utils.SetupSearch(txtTitleSearch, cboId, (title) => { return db.GetBooksByApproximateTitle(title); }, (idNamePair) =>
+            {
+                Select(db.GetBook(idNamePair.Id));
+            });
         }
 
         public void Remove()
@@ -30,14 +33,14 @@ namespace BookSYS.Forms.Books
             if (confirmation == DialogResult.No || confirmation == DialogResult.None)
                 return;
 
-            db.RemoveBook(_selected.BookId.Value);
+            db.DeleteBook(_selected.BookId.Value);
 
             MessageBox.Show("The book: " + _selected.ToString() + " has been removed.", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Select(null);
         }
 
-        public void Select(Book selected)
+        private void Select(Book selected)
         {
             this._selected = selected;
             if(selected == null)
@@ -64,14 +67,8 @@ namespace BookSYS.Forms.Books
             grpBook.Show();
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Remove();
-        }
+        private void btnSubmit_Click(object sender, EventArgs e) => Remove();
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void mnuExit_Click(object sender, EventArgs e) => Close();
     }
 }

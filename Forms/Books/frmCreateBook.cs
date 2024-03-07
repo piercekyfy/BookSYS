@@ -44,6 +44,7 @@ namespace BookSYS.Forms.Books
             db.Save(book);
 
             MessageBox.Show("The book: " + book.ToString() + " has been added.", "Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             ClearInputs();
         }
 
@@ -94,14 +95,8 @@ namespace BookSYS.Forms.Books
             txtISBN.Clear();
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Create();
-        }
+        private void btnSubmit_Click(object sender, EventArgs e) => Create();
 
-        private void mnuExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void mnuExit_Click(object sender, EventArgs e) => Close();
     }
 }
