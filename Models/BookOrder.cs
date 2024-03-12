@@ -8,8 +8,8 @@ namespace BookSYS.Models
 {
     public class BookOrder
     {
-        public Order Order { get; set; }
-        public Book Book { get; set; }
+        public int OrderId { get; set; }
+        public int BookId { get; set; }
         public double SalePrice { get; set; }
         public int Quantity { get; set; }
 
@@ -18,17 +18,17 @@ namespace BookSYS.Models
         
         }
 
-        public BookOrder(Order order, Book book, double salePrice, int quantity)
+        public BookOrder(int orderId, int bookId, double salePrice, int quantity)
         {
-            Order = order;
-            Book = book;
+            OrderId = orderId;
+            BookId = bookId;
             SalePrice = salePrice;
             Quantity = quantity;
         }
 
         public override string ToString()
         {
-            return $"{Book.Title} * {Quantity} @ {SalePrice} ea";
+            return $"{BookId} * {Quantity} @ {SalePrice} ea";
         }
     }
 }

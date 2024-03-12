@@ -8,8 +8,8 @@ namespace BookSYS.Models
 {
     public class Order
     {
-        public int OrderId { get; set; }
-        public Client Client { get; set; }
+        public int? OrderId { get; set; } = null;
+        public int ClientId { get; set; }
         public DateTime OrderDate { get; set; }
         public double Total { get; set; }
         public char Status { get; set; } = 'U';
@@ -19,10 +19,10 @@ namespace BookSYS.Models
 
         }
 
-        public Order(int orderId, Client client, DateTime orderDate, double total, char status)
+        public Order(int orderId, int clientId, DateTime orderDate, double total, char status)
         {
             OrderId = orderId;
-            Client = client;
+            ClientId = clientId;
             OrderDate = orderDate;
             Total = total;
             Status = status;
@@ -30,7 +30,7 @@ namespace BookSYS.Models
 
         public override string ToString()
         {
-            return $"Order ({OrderId} - {OrderDate.ToString("dd/MM/yy")}) by {Client.Name}";
+            return $"Order ({OrderId} - {OrderDate.ToString("dd/MM/yy")}) by {ClientId}";
         }
     }
 }

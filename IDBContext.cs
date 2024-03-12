@@ -9,9 +9,6 @@ namespace BookSYS
 {
     public interface IDBContext
     {
-        
-        
-
         #region Books
         IEnumerable<Book> GetBooks();
         Book GetBook(int id);
@@ -29,22 +26,14 @@ namespace BookSYS
         #endregion
 
         #region Orders
-
-        IEnumerable<Order> GetOrdersByClient(Client client);
+        IEnumerable<Order> GetOrders();
         IEnumerable<Order> GetPaidOrders();
-        void AddOrder(Order order);
-        void DispatchOrder(int orderId);
-        void CancelOrder(int orderId);
-        void PayOrder(int orderId);
-        int NextOrderId();
-
-        #endregion
-
-        #region BookOrders
-
-        IEnumerable<BookOrder> GetBookOrdersByOrder(Order order);
-        void AddBookOrder(BookOrder bookOrder);
-
+        IEnumerable<Order> GetOrdersByClient(int id);
+        IEnumerable<BookOrder> GetBookOrdersByOrder(int id);
+        void Save(Order order);
+        void Insert(BookOrder bookOrder);
+        void Insert(Order order, List<BookOrder> bookOrders);
+        void DeleteOrder(int id);
         #endregion
     }
 }

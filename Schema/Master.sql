@@ -1,8 +1,15 @@
 set define off;
 
--- Start Books
+-- Drop Existing Tables
 
+DROP TABLE BookOrders;
 DROP TABLE Books;
+DROP TABLE Orders;
+DROP TABLE Clients;
+
+-- End
+
+-- Start Books
 
 CREATE TABLE Books(
     BookId NUMBER(4) CHECK(BookID >= 0),
@@ -45,8 +52,6 @@ COMMIT;
 
 -- Start Clients
 
-DROP TABLE Clients;
-
 CREATE TABLE Clients(
     ClientId NUMBER(4) CHECK(ClientId >= 0),
     Name VARCHAR2(64) NOT NULL,
@@ -85,3 +90,60 @@ VALUES('Crazy Books', '40 Pembroke Square', 'Tralee', 'Kerry', 'V92EHH3', 'crazy
 COMMIT;
 
 -- End Clients
+
+-- Start Orders
+
+CREATE TABLE Orders(
+    OrderId NUMBER(6) CHECK(OrderId >= 0),
+    ClientId NUMBER(4),
+    OrderDate DATE NOT NULL,
+    Total NUMBER(8,2) NOT NULL CHECK(Total > 0),
+    Status CHAR DEFAULT('U') NOT NULL CHECK(Status IN ('U', 'D', 'C', 'P')),
+    CONSTRAINT pk_Orders PRIMARY KEY (OrderId),
+    CONSTRAINT fk_OrdersClients FOREIGN KEY (ClientId) REFERENCES Clients(ClientId)
+);
+
+CREATE TABLE BookOrders(
+    OrderId NUMBER(6),
+    BookId NUMBER(4),
+    SalePrice NUMBER(5,2) NOT NULL CHECK(SalePrice > 0),
+    Quantity NUMBER(6) NOT NULL CHECK(Quantity > 0),
+    CONSTRAINT pk_BookOrders PRIMARY KEY (OrderId, BookId),
+    CONSTRAINT fk_BookOrdersOrders FOREIGN KEY (OrderId) REFERENCES Orders(OrderId),
+    CONSTRAINT fk_BookOrdersBooks FOREIGN KEY (BookId) REFERENCES Books(BookId)
+);
+
+CREATE OR REPLACE TRIGGER setOrderId_Orders
+BEFORE INSERT ON Orders
+FOR EACH ROW
+ENABLE
+DECLARE
+    v_maxId Orders.OrderId%TYPE;
+BEGIN
+    SELECT MAX(OrderId) INTO v_maxId FROM Orders;
+    :NEW.OrderId := COALESCE(v_maxId + 1, 0);
+END;
+
+/
+
+INSERT INTO Orders (ClientId, OrderDate, Total)
+VALUES(0000, DATE '2024-03-12', 3090);
+
+INSERT INTO Orders (ClientId, OrderDate, Total)
+VALUES(0001, DATE '2024-03-12', 1000);
+
+INSERT INTO Orders (ClientId, OrderDate, Total)
+VALUES(0002, DATE '2024-03-12', 1050);
+
+INSERT INTO BookOrders
+VALUES(0000, 0000, 15.45, 200);
+
+INSERT INTO BookOrders
+VALUES(0001, 0001, 10, 100);
+
+INSERT INTO BookOrders
+VALUES(0002, 0002, 25, 42);
+
+COMMIT;
+
+-- End Orders

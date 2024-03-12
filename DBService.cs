@@ -351,54 +351,179 @@ namespace BookSYS
 
         #endregion
 
+        #region Orders
 
-        public IEnumerable<Order> GetOrdersByClient(Client client)
+        public IEnumerable<Order> GetOrders()
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM Orders";
+
+            OracleCommand command = new OracleCommand(query, connection);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetChar(4));
+
+                yield return order;
+            }
+
+            connection.Close();
         }
-
-
-        public void AddBookOrder(BookOrder bookOrder)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        public void AddOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CancelOrder(int orderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DispatchOrder(int orderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<BookOrder> GetBookOrdersByOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public IEnumerable<Order> GetPaidOrders()
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM Orders WHERE Status = 'P'";
+
+            OracleCommand command = new OracleCommand(query, connection);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetChar(4));
+
+                yield return order;
+            }
+
+            connection.Close();
         }
 
-        public int NextOrderId()
+        public IEnumerable<Order> GetOrdersByClient(int id)
+        {
+            if (id < 0)
+                throw new ArgumentNullException("Invalid Id");
+
+            string query = "SELECT * FROM Orders WHERE ClientId = :id";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("id", id);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetChar(4));
+
+                yield return order;
+            }
+
+            connection.Close();
+        }
+
+        public IEnumerable<BookOrder> GetBookOrdersByOrder(int id)
+        {
+            if (id < 0)
+                throw new ArgumentNullException("Invalid Id");
+
+            string query = "SELECT * FROM BookOrders WHERE OrderId = :id";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("id", id);
+
+            connection.Open();
+
+            OracleDataReader dr = command.ExecuteReader();
+
+            while (dr.Read())
+            {
+                BookOrder bookOrder = new BookOrder(dr.GetInt32(0), dr.GetInt32(1), dr.GetDouble(2), dr.GetInt32(3));
+
+                yield return bookOrder;
+            }
+
+            connection.Close();
+        }
+
+        public void Save(Order order)
+        {
+            if (order.OrderId.HasValue)
+                Update(order);
+            else
+                Insert(order);
+        }
+
+        public void Insert(Order order)
+        {
+            string query = @"INSERT INTO Orders (ClientId, OrderDate, Total)
+                            VALUES( :clientId , :orderDate , :total)";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("clientId", order.ClientId);
+            command.Parameters.Add("orderDate", order.OrderDate);
+            command.Parameters.Add("total", order.Total);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void Update(Order order)
+        {
+            string query = @"UPDATE Orders
+                            SET ClientId = :clientId , OrderDate = :orderDate , Total = :total , Status = :status
+                            WHERE OrderId = :id";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("clientId", order.ClientId);
+            command.Parameters.Add("orderDate", order.OrderDate);
+            command.Parameters.Add("total", order.Total);
+            command.Parameters.Add("status", order.Status);
+            command.Parameters.Add("id", order.OrderId.Value);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void Insert(BookOrder bookOrder)
+        {
+            string query = @"INSERT INTO Orders (ClientId, OrderDate, Total)
+                            VALUES( :clientId , :orderDate , :total)";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("clientId", order.ClientId);
+            command.Parameters.Add("orderDate", order.OrderDate);
+            command.Parameters.Add("total", order.Total);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void Insert(Order order, List<BookOrder> bookOrders)
         {
             throw new NotImplementedException();
         }
 
-        public void PayOrder(int orderId)
+        public void DeleteOrder(int id)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
     }
 }
