@@ -129,7 +129,6 @@
             this.txtTitleSearch.Name = "txtTitleSearch";
             this.txtTitleSearch.Size = new System.Drawing.Size(95, 26);
             this.txtTitleSearch.TabIndex = 3;
-            this.txtTitleSearch.TextChanged += new System.EventHandler(this.txtTitleSearch_TextChanged);
             // 
             // label3
             // 
@@ -148,7 +147,6 @@
             this.cboBookId.Name = "cboBookId";
             this.cboBookId.Size = new System.Drawing.Size(151, 28);
             this.cboBookId.TabIndex = 4;
-            this.cboBookId.SelectedIndexChanged += new System.EventHandler(this.cboBookId_SelectedIndexChanged);
             // 
             // cboBookRevId
             // 
@@ -221,7 +219,6 @@
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
             this.txtNameSearch.TabIndex = 1;
-            this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
             // 
@@ -240,7 +237,6 @@
             this.cboClientId.Name = "cboClientId";
             this.cboClientId.Size = new System.Drawing.Size(126, 21);
             this.cboClientId.TabIndex = 2;
-            this.cboClientId.SelectedIndexChanged += new System.EventHandler(this.cboClientId_SelectedIndexChanged);
             // 
             // label7
             // 

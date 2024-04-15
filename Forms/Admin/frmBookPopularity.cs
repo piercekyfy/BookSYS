@@ -42,23 +42,24 @@ namespace BookSYS.Forms.Admin
 
             foreach (Order order in orders)
             {
-                foreach (BookOrder bookOrder in db.GetBookOrdersByOrder(order))
+                foreach (BookOrder bookOrder in db.GetBookOrdersByOrder(order.OrderId.Value))
                 {
-                    Console.WriteLine(bookOrder.Book.BookId);
-                    if (books.Where(x => x.BookId == bookOrder.Book.BookId).FirstOrDefault() == null)
+                    Book book = db.GetBook(bookOrder.BookId);
+
+                    if (books.Where(x => x.BookId == book.BookId).FirstOrDefault() == null)
                     {
-                        books.Add(bookOrder.Book);
+                        books.Add(book);
                     }
 
-                    if (bookOrdersQuantity.TryGetValue(bookOrder.Book.BookId.Value, out int value))
+                    if (bookOrdersQuantity.TryGetValue(book.BookId.Value, out int value))
                     {
-                        bookOrdersQuantity[bookOrder.Book.BookId.Value] = value + bookOrder.Quantity;
-                        bookOrdersRevenue[bookOrder.Book.BookId.Value] = value + (bookOrder.SalePrice * bookOrder.Quantity);
+                        bookOrdersQuantity[book.BookId.Value] = value + bookOrder.Quantity;
+                        bookOrdersRevenue[book.BookId.Value] = value + (bookOrder.SalePrice * bookOrder.Quantity);
                     }
                     else
                     {
-                        bookOrdersQuantity[bookOrder.Book.BookId.Value] = bookOrder.Quantity;
-                        bookOrdersRevenue[bookOrder.Book.BookId.Value] = bookOrder.SalePrice * bookOrder.Quantity;
+                        bookOrdersQuantity[book.BookId.Value] = bookOrder.Quantity;
+                        bookOrdersRevenue[book.BookId.Value] = bookOrder.SalePrice * bookOrder.Quantity;
                     }
                 }
             }

@@ -12,10 +12,8 @@ using System.Windows.Forms.VisualStyles;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmListOrders : Form
+    public partial class frmListOrders : DBForm
     {
-        IDBContext db;
-
         Client selectedClient = null;
         Order selectedOrder = null;
 
@@ -23,31 +21,16 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            db = null;// DummyDBSingleton.Instance;
-
-            IEnumerable<Client> clients = db.GetClients();
-
-            if (clients.Count() == 0)
+            Utils.SetupSearch(txtNameSearch, cboClientId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
             {
-                MessageBox.Show("No Clients exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                UpdateSelectedClient(db.GetClient(idNamePair.Id));
+            });
         }
 
         #region Existing Client Selection
         public void UpdateClientIdSelection(string name)
         {
-            cboClientId.Items.Clear();
-
-            List<Client> clients = null;// db.GetClientsByApproximateName(name).ToList();
-
-            if (clients.Count() == 0)
-                return;
-
-            foreach (Client client in clients)
-            {
-                cboClientId.Items.Add(client);
-            }
+            throw new NotImplementedException();
         }
 
         public void UpdateSelectedClient(Client selected)
@@ -65,7 +48,7 @@ namespace BookSYS.Forms.Clients
 
             this.selectedClient = selected;
 
-            foreach(Order order in db.GetOrdersByClient(selectedClient))
+            foreach(Order order in db.GetOrdersByClient(selectedClient.ClientId.Value))
             {
                 libOrders.Items.Add(order);
             }
@@ -76,22 +59,12 @@ namespace BookSYS.Forms.Clients
 
         private void txtNameSearch_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtNameSearch.Text)) 
-                return;
 
-            UpdateClientIdSelection(txtNameSearch.Text);
         }
 
         private void cboClientId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboClientId.SelectedIndex == -1)
-            {
-                UpdateSelectedClient(null);
-            }
-            else
-            {
-                UpdateSelectedClient((Client)cboClientId.SelectedItem);
-            }
+
         }
 
         #endregion
@@ -119,7 +92,7 @@ namespace BookSYS.Forms.Clients
             lblStatus.Text = "Status: " + (order.Status == 'U' ? "Undispatched" : order.Status == 'D' ? "Dispatched" : order.Status == 'P' ? "Paid" : "Cancelled");
             lblTotal.Text = "Total: " + order.Total;
 
-            FillBookList(db.GetBookOrdersByOrder(order).ToList());
+            FillBookList(db.GetBookOrdersByOrder(order.OrderId.Value).ToList());
         }
 
         private void FillBookList(List<BookOrder> bookOrders)
@@ -136,11 +109,7 @@ namespace BookSYS.Forms.Clients
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            db.DispatchOrder(selectedOrder.OrderId);
-
-            MessageBox.Show($"{selectedOrder} has been dispatched.", "Dispatched", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            UpdateSelectedClient(null);
+            throw new NotImplementedException();
         }
 
         private void libOrders_SelectedIndexChanged(object sender, EventArgs e)

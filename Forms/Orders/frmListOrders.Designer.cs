@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.grpOrder = new System.Windows.Forms.GroupBox();
+            this.grpOrderSpecific = new System.Windows.Forms.GroupBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.libBooks = new System.Windows.Forms.ListBox();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.libOrders = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
@@ -38,13 +42,9 @@
             this.cboClientId = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.grpOrderSpecific = new System.Windows.Forms.GroupBox();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.libBooks = new System.Windows.Forms.ListBox();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.grpOrder.SuspendLayout();
-            this.mnuCreateBook.SuspendLayout();
             this.grpOrderSpecific.SuspendLayout();
+            this.mnuCreateBook.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpOrder
@@ -59,6 +59,47 @@
             this.grpOrder.TabStop = false;
             this.grpOrder.Text = "Orders";
             this.grpOrder.Visible = false;
+            // 
+            // grpOrderSpecific
+            // 
+            this.grpOrderSpecific.Controls.Add(this.lblStatus);
+            this.grpOrderSpecific.Controls.Add(this.libBooks);
+            this.grpOrderSpecific.Controls.Add(this.lblTotal);
+            this.grpOrderSpecific.Location = new System.Drawing.Point(6, 157);
+            this.grpOrderSpecific.Name = "grpOrderSpecific";
+            this.grpOrderSpecific.Size = new System.Drawing.Size(343, 180);
+            this.grpOrderSpecific.TabIndex = 53;
+            this.grpOrderSpecific.TabStop = false;
+            this.grpOrderSpecific.Visible = false;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.lblStatus.Location = new System.Drawing.Point(6, 22);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(181, 22);
+            this.lblStatus.TabIndex = 52;
+            this.lblStatus.Text = "Status: Undispatched";
+            // 
+            // libBooks
+            // 
+            this.libBooks.FormattingEnabled = true;
+            this.libBooks.ItemHeight = 20;
+            this.libBooks.Location = new System.Drawing.Point(0, 52);
+            this.libBooks.Name = "libBooks";
+            this.libBooks.Size = new System.Drawing.Size(344, 124);
+            this.libBooks.TabIndex = 4;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.lblTotal.Location = new System.Drawing.Point(193, 22);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(146, 22);
+            this.lblTotal.TabIndex = 50;
+            this.lblTotal.Text = "Total: 000000.00";
             // 
             // libOrders
             // 
@@ -104,7 +145,6 @@
             this.txtNameSearch.Name = "txtNameSearch";
             this.txtNameSearch.Size = new System.Drawing.Size(124, 20);
             this.txtNameSearch.TabIndex = 1;
-            this.txtNameSearch.TextChanged += new System.EventHandler(this.txtNameSearch_TextChanged);
             // 
             // label10
             // 
@@ -123,7 +163,6 @@
             this.cboClientId.Name = "cboClientId";
             this.cboClientId.Size = new System.Drawing.Size(126, 21);
             this.cboClientId.TabIndex = 2;
-            this.cboClientId.SelectedIndexChanged += new System.EventHandler(this.cboClientId_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -145,47 +184,6 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "Client:";
             // 
-            // grpOrderSpecific
-            // 
-            this.grpOrderSpecific.Controls.Add(this.lblStatus);
-            this.grpOrderSpecific.Controls.Add(this.libBooks);
-            this.grpOrderSpecific.Controls.Add(this.lblTotal);
-            this.grpOrderSpecific.Location = new System.Drawing.Point(6, 157);
-            this.grpOrderSpecific.Name = "grpOrderSpecific";
-            this.grpOrderSpecific.Size = new System.Drawing.Size(343, 180);
-            this.grpOrderSpecific.TabIndex = 53;
-            this.grpOrderSpecific.TabStop = false;
-            this.grpOrderSpecific.Visible = false;
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblTotal.Location = new System.Drawing.Point(193, 22);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(146, 22);
-            this.lblTotal.TabIndex = 50;
-            this.lblTotal.Text = "Total: 000000.00";
-            // 
-            // libBooks
-            // 
-            this.libBooks.FormattingEnabled = true;
-            this.libBooks.ItemHeight = 20;
-            this.libBooks.Location = new System.Drawing.Point(0, 52);
-            this.libBooks.Name = "libBooks";
-            this.libBooks.Size = new System.Drawing.Size(344, 124);
-            this.libBooks.TabIndex = 4;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblStatus.Location = new System.Drawing.Point(6, 22);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(181, 22);
-            this.lblStatus.TabIndex = 52;
-            this.lblStatus.Text = "Status: Undispatched";
-            // 
             // frmListOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,10 +200,10 @@
             this.Name = "frmListOrders";
             this.Text = "frmListOrders";
             this.grpOrder.ResumeLayout(false);
-            this.mnuCreateBook.ResumeLayout(false);
-            this.mnuCreateBook.PerformLayout();
             this.grpOrderSpecific.ResumeLayout(false);
             this.grpOrderSpecific.PerformLayout();
+            this.mnuCreateBook.ResumeLayout(false);
+            this.mnuCreateBook.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

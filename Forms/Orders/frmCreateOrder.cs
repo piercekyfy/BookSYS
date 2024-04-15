@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,9 +14,8 @@ using System.Windows.Forms.VisualStyles;
 
 namespace BookSYS.Forms.Clients
 {
-    public partial class frmCreateOrder : Form
+    public partial class frmCreateOrder : DBForm
     {
-        IDBContext db;
         Order order = new Order();
         Client selectedClient = null;
         Book selectedBook = null;
@@ -24,31 +25,21 @@ namespace BookSYS.Forms.Clients
         {
             InitializeComponent();
 
-            db = null;// DummyDBSingleton.Instance;
-
-            IEnumerable<Client> clients = db.GetClients();
-
-            if (clients.Count() == 0)
+            Utils.SetupSearch(txtNameSearch, cboClientId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
             {
-                MessageBox.Show("No Clients exist in file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                UpdateSelectedClient(db.GetClient(idNamePair.Id));
+            });
+
+            Utils.SetupSearch(txtTitleSearch, cboBookId, (title) => { return db.GetBooksByApproximateTitle(title); }, (idNamePair) =>
+            {
+                UpdateSelectedBook(db.GetBook(idNamePair.Id));
+            });
         }
 
         #region Existing Client Selection
         public void UpdateClientIdSelection(string name)
         {
-            cboClientId.Items.Clear();
-
-            List<Client> clients = null;// db.GetClientsByApproximateName(name).ToList();
-
-            if (clients.Count() == 0)
-                return;
-
-            foreach (Client client in clients)
-            {
-                cboClientId.Items.Add(client);
-            }
+            throw new NotImplementedException();
         }
 
         public void UpdateSelectedClient(Client selected)
@@ -71,22 +62,12 @@ namespace BookSYS.Forms.Clients
 
         private void txtNameSearch_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtNameSearch.Text)) 
-                return;
 
-            UpdateClientIdSelection(txtNameSearch.Text);
         }
 
         private void cboClientId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboClientId.SelectedIndex == -1)
-            {
-                UpdateSelectedClient(null);
-            }
-            else
-            {
-                UpdateSelectedClient((Client)cboClientId.SelectedItem);
-            }
+
         }
 
         #endregion
@@ -96,17 +77,6 @@ namespace BookSYS.Forms.Clients
         public void UpdateBookIdSelection(string title)
         {
             throw new NotImplementedException();
-            //cboBookId.Items.Clear();
-
-            //List<Book> books = db.GetBooksByApproximateTitle(title).ToList();
-
-            //if (books.Count() == 0)
-            //    return;
-
-            //foreach (Book book in books)
-            //{
-            //    cboBookId.Items.Add(book);
-            //}
         }
 
         public void UpdateSelectedBook(Book selected)
@@ -124,22 +94,12 @@ namespace BookSYS.Forms.Clients
 
         private void txtTitleSearch_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtTitleSearch.Text))
-                return;
 
-            UpdateBookIdSelection(txtTitleSearch.Text);
         }
 
         private void cboBookId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboClientId.SelectedIndex == -1)
-            {
-                UpdateSelectedBook(null);
-            }
-            else
-            {
-                UpdateSelectedBook((Book)cboBookId.SelectedItem);
-            }
+
         }
 
         #endregion
@@ -177,8 +137,10 @@ namespace BookSYS.Forms.Clients
             double totalPrice = 0;
             foreach (BookOrder bookOrder in selectedBooks)
             {
+                Book book = db.GetBook(bookOrder.BookId);
+
                 lstBooks.Items.Add(bookOrder);
-                cboBookRevId.Items.Add(bookOrder.Book);
+                cboBookRevId.Items.Add(book);
                 totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
             }
             return totalPrice;
@@ -197,22 +159,24 @@ namespace BookSYS.Forms.Clients
             if (confirmation == DialogResult.No)
                 return;
 
-            order.OrderId = db.NextOrderId();
-            order.Client = selectedClient;
+            order.ClientId = selectedClient.ClientId.Value;
             order.OrderDate = DateTime.UtcNow;
             order.Total = CalculateTotal();
             order.Status = 'U';
 
-            db.AddOrder(order);
-
             string infoDisplay = $"Placed {order}, including:\n";
+
+            db.Insert(order, selectedBooks);
 
             foreach (BookOrder bookOrder in selectedBooks)
             {
-                db.AddBookOrder(bookOrder);
-                bookOrder.Book.Quantity -= bookOrder.Quantity;
-                // TODO: Replace with new book update methods
-                //db.UpdateBook(bookOrder.Book);
+                Book book = db.GetBook(bookOrder.BookId);
+
+                db.Insert(bookOrder);
+
+                book.Quantity -= bookOrder.Quantity;
+
+                db.Save(book);
 
                 infoDisplay += $"{bookOrder}\n";
             }
@@ -239,7 +203,10 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
-            BookOrder bookOrder = new BookOrder(order, book, book.Price, quantity);
+            BookOrder bookOrder = new BookOrder();
+            bookOrder.BookId = book.BookId.Value;
+            bookOrder.SalePrice = book.Price;
+            bookOrder.Quantity = quantity;
 
             selectedBooks.Add(bookOrder);
 
@@ -250,7 +217,9 @@ namespace BookSYS.Forms.Clients
         {
             foreach(BookOrder bookOrder in selectedBooks)
             {
-                if(bookOrder.Book == book)
+                Book bookOrderBook = db.GetBook(bookOrder.BookId);
+
+                if(bookOrderBook.BookId.Value == book.BookId.Value)
                 {
                     selectedBooks.Remove(bookOrder);
                     break;
@@ -276,7 +245,9 @@ namespace BookSYS.Forms.Clients
 
             foreach (BookOrder existingBookOrder in selectedBooks)
             {
-                if (existingBookOrder.Book == book)
+                Book bookOrderBook = db.GetBook(existingBookOrder.BookId);
+
+                if (bookOrderBook.BookId.Value == book.BookId.Value)
                 {
                     errorMessage = "Selected book already exists in cart. To modify quantity, remove and re-add it.";
                     return false;

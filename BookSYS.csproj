@@ -113,7 +113,6 @@
     <Compile Include="Forms\Books\frmCreateBook.Designer.cs">
       <DependentUpon>frmCreateBook.cs</DependentUpon>
     </Compile>
-    <Compile Include="DummyDBSingleton.cs" />
     <Compile Include="Forms\Books\frmRemoveBook.cs">
       <SubType>Form</SubType>
     </Compile>

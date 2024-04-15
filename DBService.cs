@@ -453,10 +453,11 @@ namespace BookSYS
                 Insert(order);
         }
 
-        public void Insert(Order order)
+        public int Insert(Order order)
         {
             string query = @"INSERT INTO Orders (ClientId, OrderDate, Total)
-                            VALUES( :clientId , :orderDate , :total)";
+                            VALUES( :clientId , :orderDate , :total)
+                            RETURNING OrderId INTO Id";
 
             OracleCommand command = new OracleCommand(query, connection);
             command.BindByName = true;
@@ -467,9 +468,13 @@ namespace BookSYS
 
             connection.Open();
 
-            command.ExecuteNonQuery();
+            int id = (int)command.ExecuteScalar();
+
+            Console.WriteLine(id);
 
             connection.Close();
+
+            return id;
         }
 
         public void Update(Order order)
@@ -496,15 +501,16 @@ namespace BookSYS
 
         public void Insert(BookOrder bookOrder)
         {
-            string query = @"INSERT INTO Orders (ClientId, OrderDate, Total)
-                            VALUES( :clientId , :orderDate , :total)";
+            string query = @"INSERT INTO BookOrders (OrderId, BookId, SalePrice, Quantity)
+                            VALUES( :orderId , :clientId , :salePrice , :quantity )";
 
             OracleCommand command = new OracleCommand(query, connection);
             command.BindByName = true;
 
-            command.Parameters.Add("clientId", order.ClientId);
-            command.Parameters.Add("orderDate", order.OrderDate);
-            command.Parameters.Add("total", order.Total);
+            command.Parameters.Add("orderId", bookOrder.OrderId);
+            command.Parameters.Add("bookId", bookOrder.BookId);
+            command.Parameters.Add("salePrice", bookOrder.SalePrice);
+            command.Parameters.Add("quantity", bookOrder.Quantity);
 
             connection.Open();
 
@@ -513,14 +519,32 @@ namespace BookSYS
             connection.Close();
         }
 
-        public void Insert(Order order, List<BookOrder> bookOrders)
+        public int Insert(Order order, List<BookOrder> bookOrders)
         {
-            throw new NotImplementedException();
+            int id = Insert(order);
+            bookOrders.ForEach(x => { x.OrderId = id; Insert(x); });
+            return id;
         }
 
         public void DeleteOrder(int id)
         {
-            throw new NotImplementedException();
+            if (id < 0)
+                throw new ArgumentNullException("Invalid Id");
+
+            string query = @"UPDATE Orders
+                            SET Status = 'C'
+                            WHERE OrderId = :orderId ";
+
+            OracleCommand command = new OracleCommand(query, connection);
+            command.BindByName = true;
+
+            command.Parameters.Add("orderId", id);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
         #endregion

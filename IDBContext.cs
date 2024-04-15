@@ -31,8 +31,9 @@ namespace BookSYS
         IEnumerable<Order> GetOrdersByClient(int id);
         IEnumerable<BookOrder> GetBookOrdersByOrder(int id);
         void Save(Order order);
+        int Insert(Order order);
         void Insert(BookOrder bookOrder);
-        void Insert(Order order, List<BookOrder> bookOrders);
+        int Insert(Order order, List<BookOrder> bookOrders);
         void DeleteOrder(int id);
         #endregion
     }

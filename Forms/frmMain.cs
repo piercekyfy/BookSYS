@@ -69,35 +69,16 @@ namespace BookSYS.Forms
         #endregion
 
         #region Order
-        private void mnuCreateOrder_Click(object sender, EventArgs e)
-        {
-            Form next = new frmCreateOrder();
-            next.Show(this);
-        }
+        private void mnuCreateOrder_Click(object sender, EventArgs e) => OpenDBForm(new frmCreateOrder());
 
-        private void mnuDispatchOrder_Click(object sender, EventArgs e)
-        {
-            Form next = new frmDispatchOrder();
-            next.Show(this);
-        }
 
-        private void mnuProcessPayment_Click(object sender, EventArgs e)
-        {
-            Form next = new frmProcessPayment();
-            next.Show(this);
-        }
+        private void mnuDispatchOrder_Click(object sender, EventArgs e) => OpenDBForm(new frmDispatchOrder());
 
-        private void mnuCancelOrder_Click(object sender, EventArgs e)
-        {
-            Form next = new frmCancelOrder();
-            next.Show(this);
-        }
+        private void mnuProcessPayment_Click(object sender, EventArgs e) => OpenDBForm(new frmProcessPayment());
 
-        private void listOrdersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form next = new frmListOrders();
-            next.Show(this);
-        }
+        private void mnuCancelOrder_Click(object sender, EventArgs e) => OpenDBForm(new frmCancelOrder());
+
+        private void listOrdersToolStripMenuItem_Click(object sender, EventArgs e) => OpenDBForm(new frmListOrders());
 
 
         #endregion
