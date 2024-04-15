@@ -36,20 +36,14 @@ namespace BookSYS.Forms.Clients
             });
         }
 
-        #region Existing Client Selection
-        public void UpdateClientIdSelection(string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateSelectedClient(Client selected)
         {
             if (selected == null)
             {
                 this.selectedClient = null;
+                txtNameSearch.Text = "";
                 cboClientId.Text = "";
                 grpOrder.Hide();
-                UpdateClientIdSelection(txtNameSearch.Text);
                 return;
             }
 
@@ -60,49 +54,18 @@ namespace BookSYS.Forms.Clients
             grpOrder.Show();
         }
 
-        private void txtNameSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboClientId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
-
-        #region Existing Book Selection
-
-        public void UpdateBookIdSelection(string title)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateSelectedBook(Book selected)
         {
             if (selected == null)
             {
                 this.selectedBook = null;
+                txtTitleSearch.Text = "";
                 cboBookId.Text = "";
-                UpdateBookIdSelection(txtTitleSearch.Text);
                 return;
             }
 
             selectedBook = selected;
         }
-
-        private void txtTitleSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboBookId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
 
         public void Reset()
         {
@@ -171,8 +134,6 @@ namespace BookSYS.Forms.Clients
             foreach (BookOrder bookOrder in selectedBooks)
             {
                 Book book = db.GetBook(bookOrder.BookId);
-
-                db.Insert(bookOrder);
 
                 book.Quantity -= bookOrder.Quantity;
 

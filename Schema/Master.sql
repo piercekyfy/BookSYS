@@ -24,6 +24,14 @@ CREATE TABLE Books(
     CONSTRAINT pk_Books PRIMARY KEY (BookId)
 );
 
+DROP SEQUENCE idSeq_Books;
+
+CREATE SEQUENCE idSeq_Books
+INCREMENT BY 1
+START WITH 0
+MINVALUE 0
+MAXVALUE 9999;
+
 CREATE OR REPLACE TRIGGER setBookId_Books
 BEFORE INSERT ON Books
 FOR EACH ROW
@@ -31,8 +39,7 @@ ENABLE
 DECLARE
     v_maxId Books.BookId%TYPE;
 BEGIN
-    SELECT MAX(BookId) INTO v_maxId FROM Books;
-    :NEW.BookId := COALESCE(v_maxId + 1, 0);
+    :NEW.BookId := idSeq_Books.NEXTVAL;
 END;
 
 /
@@ -65,6 +72,14 @@ CREATE TABLE Clients(
     CONSTRAINT pk_Clients PRIMARY KEY (ClientId)
 );
 
+DROP SEQUENCE idSeq_Clients;
+
+CREATE SEQUENCE idSeq_Clients
+INCREMENT BY 1
+START WITH 0
+MINVALUE 0
+MAXVALUE 9999;
+
 CREATE OR REPLACE TRIGGER setClientId_Clients
 BEFORE INSERT ON Clients
 FOR EACH ROW
@@ -72,8 +87,7 @@ ENABLE
 DECLARE
     v_maxId Clients.ClientId%TYPE;
 BEGIN
-    SELECT MAX(ClientId) INTO v_maxId FROM Clients;
-    :NEW.ClientId := COALESCE(v_maxId + 1, 0);
+    :New.ClientId := idSeq_Clients.NEXTVAL;
 END;
 
 /
@@ -113,6 +127,14 @@ CREATE TABLE BookOrders(
     CONSTRAINT fk_BookOrdersBooks FOREIGN KEY (BookId) REFERENCES Books(BookId)
 );
 
+DROP SEQUENCE idSeq_Orders;
+
+CREATE SEQUENCE idSeq_Orders
+INCREMENT BY 1
+START WITH 0
+MINVALUE 0
+MAXVALUE 9999;
+
 CREATE OR REPLACE TRIGGER setOrderId_Orders
 BEFORE INSERT ON Orders
 FOR EACH ROW
@@ -120,8 +142,7 @@ ENABLE
 DECLARE
     v_maxId Orders.OrderId%TYPE;
 BEGIN
-    SELECT MAX(OrderId) INTO v_maxId FROM Orders;
-    :NEW.OrderId := COALESCE(v_maxId + 1, 0);
+    :NEW.OrderId := idSeq_Orders.NEXTVAL;
 END;
 
 /

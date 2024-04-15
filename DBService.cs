@@ -456,8 +456,7 @@ namespace BookSYS
         public int Insert(Order order)
         {
             string query = @"INSERT INTO Orders (ClientId, OrderDate, Total)
-                            VALUES( :clientId , :orderDate , :total)
-                            RETURNING OrderId INTO Id";
+                            VALUES( :clientId , :orderDate , :total)";
 
             OracleCommand command = new OracleCommand(query, connection);
             command.BindByName = true;
@@ -468,9 +467,11 @@ namespace BookSYS
 
             connection.Open();
 
-            int id = (int)command.ExecuteScalar();
+            command.ExecuteNonQuery();
 
-            Console.WriteLine(id);
+            OracleCommand idCommand = new OracleCommand("SELECT idSeq_Orders.currval from dual", connection);
+
+            int id = int.Parse(idCommand.ExecuteScalar().ToString());
 
             connection.Close();
 
@@ -502,7 +503,7 @@ namespace BookSYS
         public void Insert(BookOrder bookOrder)
         {
             string query = @"INSERT INTO BookOrders (OrderId, BookId, SalePrice, Quantity)
-                            VALUES( :orderId , :clientId , :salePrice , :quantity )";
+                            VALUES( :orderId , :bookId , :salePrice , :quantity )";
 
             OracleCommand command = new OracleCommand(query, connection);
             command.BindByName = true;
@@ -522,7 +523,13 @@ namespace BookSYS
         public int Insert(Order order, List<BookOrder> bookOrders)
         {
             int id = Insert(order);
-            bookOrders.ForEach(x => { x.OrderId = id; Insert(x); });
+
+            foreach(BookOrder bookOrder in bookOrders)
+            {
+                bookOrder.OrderId = id;
+                Insert(bookOrder);
+            }
+
             return id;
         }
 
