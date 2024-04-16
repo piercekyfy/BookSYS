@@ -14,18 +14,25 @@ namespace BookSYS.Forms
 {
     public partial class frmDBConnect : Form
     {
-        string hostname;
+        static string portService = "1521/orcl";
+
         Action<OracleConnection> onDatabaseConnection;
-        public frmDBConnect(string hostname, Action<OracleConnection> onDatabaseConnect)
+        public frmDBConnect(Action<OracleConnection> onDatabaseConnect)
         {
             InitializeComponent();
-            this.hostname = hostname;
             this.onDatabaseConnection = onDatabaseConnect;
         }
         
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(txtHost.Text))
+            {
+                MessageBox.Show("You must enter a hostname.", "No Hostname Specified", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtHost.Focus();
+                return;
+            }
+
             if (String.IsNullOrEmpty(txtPass.Text))
             {
                 MessageBox.Show("You must enter a password.", "No Password Specified", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -33,9 +40,11 @@ namespace BookSYS.Forms
                 return;
             }
 
+
+
             try
             {
-                OracleConnection conn = new OracleConnection($"Data Source = {hostname}; User ID = {txtUser.Text}; Password = {txtPass.Text};");
+                OracleConnection conn = new OracleConnection($"Data Source = {txtHost.Text}: {portService}; User ID = {txtUser.Text}; Password = {txtPass.Text};");
                 conn.Open();
 
                 if(conn.State == ConnectionState.Closed )
@@ -50,7 +59,7 @@ namespace BookSYS.Forms
                 MessageBox.Show("Connected!", "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
 
-            } catch (Exception)
+            } catch (Exception ex)
             {
                 MessageBox.Show("Failed to connect!", "General Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

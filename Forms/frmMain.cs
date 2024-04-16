@@ -28,7 +28,7 @@ namespace BookSYS.Forms
 
         private void mnuDBConnect_Click(object sender, EventArgs e)
         {
-            var connectionForm = new frmDBConnect("studentoracle: 1521/orcl", (conn) =>
+            var connectionForm = new frmDBConnect((conn) =>
             {
                 dbContext = new DBService(conn);
                 picDBConnection.BackColor = Color.LimeGreen;
