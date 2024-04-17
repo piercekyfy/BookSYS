@@ -55,7 +55,15 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
-            db.Save(client);
+            try
+            {
+                db.Save(client);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to close save account, please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             MessageBox.Show("The client account: " + client.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

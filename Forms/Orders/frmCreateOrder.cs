@@ -19,7 +19,7 @@ namespace BookSYS.Forms.Clients
         Order order = new Order();
         Client selectedClient = null;
         Book selectedBook = null;
-        List<BookOrder> selectedBooks = new List<BookOrder>();
+        List<BookOrder> selectedBookOrders = new List<BookOrder>();
 
         public frmCreateOrder()
         {
@@ -27,91 +27,84 @@ namespace BookSYS.Forms.Clients
 
             Utils.SetupSearch(txtNameSearch, cboClientId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
             {
-                UpdateSelectedClient(db.GetClient(idNamePair.Id));
+                SelectClient(db.GetClient(idNamePair.Id));
             });
 
             Utils.SetupSearch(txtTitleSearch, cboBookId, (title) => { return db.GetBooksByApproximateTitle(title); }, (idNamePair) =>
             {
-                UpdateSelectedBook(db.GetBook(idNamePair.Id));
+                SelectBook(db.GetBook(idNamePair.Id));
             });
+
+            dgBookOrders.Columns.Add("OrderId", "Order Id");
+            dgBookOrders.Columns.Add("BookId", "Book Id");
+            dgBookOrders.Columns.Add("Title", "Title");
+            dgBookOrders.Columns.Add("Author", "Author");
+            dgBookOrders.Columns.Add("SalePrice", "Sale Price (€)");
+            dgBookOrders.Columns.Add("Quantity", "Quantity");
         }
 
-        public void UpdateSelectedClient(Client selected)
+        public void SelectClient(Client selected)
         {
             if (selected == null)
             {
                 this.selectedClient = null;
-                txtNameSearch.Text = "";
-                cboClientId.Text = "";
+                cboClientId.Items.Clear();
+                cboClientId.Text = String.Empty;
+                dgBookOrders.Columns.Clear();
                 grpOrder.Hide();
                 return;
             }
 
-            Reset();
             this.selectedClient = selected;
-            
 
             grpOrder.Show();
         }
 
-        public void UpdateSelectedBook(Book selected)
+        public void SelectBook(Book selected)
         {
             if (selected == null)
             {
                 this.selectedBook = null;
                 txtTitleSearch.Text = "";
                 cboBookId.Text = "";
+                txtQuantity.Text = "1";
                 return;
             }
 
             selectedBook = selected;
         }
 
-        public void Reset()
+        public double GetTotal(List<BookOrder> bookOrders)
         {
-            selectedClient = null;
-            selectedBook = null;
-            selectedBooks.Clear();
-            lstBooks.Items.Clear();
-            txtTitleSearch.Clear();
-            cboBookId.Text = string.Empty;
-            cboBookRevId.Text = string.Empty;
-            txtTitleSearch.Text = string.Empty;
-            cboBookRevId.Items.Clear();
-            cboBookId.Items.Clear();
-            lblTotal.Text = "Total: 000000.00";
+            double total = 0;
+
+            foreach (BookOrder bookOrder in bookOrders)
+            {
+                total += bookOrder.SalePrice * bookOrder.Quantity;
+            }
+
+            return total;
         }
 
-        public void UpdateBookList()
+        public void UpdateContents(List<BookOrder> bookOrders)
         {
-            cboBookRevId.SelectedIndex = -1;
+            Utils.PopulateBookOrderDataGridView(dgBookOrders, bookOrders, (i) => { return db.GetBook(i); });
+
             cboBookRevId.Items.Clear();
-            cboBookId.Items.Clear();
-            txtNameSearch.Clear();
-            txtQuantity.Clear();
 
-            lstBooks.Items.Clear();
-
-            lblTotal.Text = "Total: " + CalculateTotal().ToString();
-        }
-
-        public double CalculateTotal()
-        {
-            double totalPrice = 0;
-            foreach (BookOrder bookOrder in selectedBooks)
+            foreach (BookOrder bookOrder in bookOrders)
             {
                 Book book = db.GetBook(bookOrder.BookId);
 
-                lstBooks.Items.Add(bookOrder);
                 cboBookRevId.Items.Add(book);
-                totalPrice += bookOrder.SalePrice * bookOrder.Quantity;
             }
-            return totalPrice;
+
+            lblTotal.Text = "Total: €" + GetTotal(bookOrders);
         }
 
         public void PlaceOrder()
         {
-            if(selectedBooks.Count <= 0)
+            if(selectedBookOrders.Count <= 0)
             {
                 MessageBox.Show("No books in cart.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -124,31 +117,38 @@ namespace BookSYS.Forms.Clients
 
             order.ClientId = selectedClient.ClientId.Value;
             order.OrderDate = DateTime.UtcNow;
-            order.Total = CalculateTotal();
+            order.Total = GetTotal(selectedBookOrders);
             order.Status = 'U';
 
             string infoDisplay = $"Placed {order}, including:\n";
 
-            db.Insert(order, selectedBooks);
-
-            foreach (BookOrder bookOrder in selectedBooks)
+            try
             {
-                Book book = db.GetBook(bookOrder.BookId);
+                db.Insert(order, selectedBookOrders);
 
-                book.Quantity -= bookOrder.Quantity;
+                foreach (BookOrder bookOrder in selectedBookOrders)
+                {
+                    Book book = db.GetBook(bookOrder.BookId);
 
-                db.Save(book);
+                    book.Quantity -= bookOrder.Quantity;
 
-                infoDisplay += $"{bookOrder}\n";
+                    db.Save(book);
+
+                    infoDisplay += $"{bookOrder}\n";
+                }
+            } catch(Exception)
+            {
+                MessageBox.Show("Failed to create order, please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             MessageBox.Show(infoDisplay, "Order Placed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Reset();
-            UpdateSelectedClient(null);
+            SelectBook(null);
+            SelectClient(null);
         }
 
-        public void AddBookToCart(Book book)
+        public void AddBook(Book book)
         {
             int quantity;
 
@@ -164,30 +164,38 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
+            foreach(BookOrder existingBookOrder in selectedBookOrders)
+            {
+                if(book.BookId == existingBookOrder.BookId)
+                {
+                    MessageBox.Show("Selected book already exists in cart. To modify quantity, remove and re-add it.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             BookOrder bookOrder = new BookOrder();
+            bookOrder.OrderId = -1;
             bookOrder.BookId = book.BookId.Value;
             bookOrder.SalePrice = book.Price;
             bookOrder.Quantity = quantity;
 
-            selectedBooks.Add(bookOrder);
+            selectedBookOrders.Add(bookOrder);
 
-            UpdateBookList();
+            UpdateContents(selectedBookOrders);
         }
 
-        public void RemoveBookFromCart(Book book)
+        public void RemoveBook(Book book)
         {
-            foreach(BookOrder bookOrder in selectedBooks)
+            foreach(BookOrder bookOrder in selectedBookOrders)
             {
-                Book bookOrderBook = db.GetBook(bookOrder.BookId);
-
-                if(bookOrderBook.BookId.Value == book.BookId.Value)
+                if(bookOrder.BookId == book.BookId.Value)
                 {
-                    selectedBooks.Remove(bookOrder);
+                    selectedBookOrders.Remove(bookOrder);
                     break;
                 }
             }
 
-            UpdateBookList();
+            UpdateContents(selectedBookOrders);
         }
 
         private bool ProcessInput(Book book, int quantity, out string errorMessage)
@@ -204,17 +212,6 @@ namespace BookSYS.Forms.Clients
                 return false;
             }
 
-            foreach (BookOrder existingBookOrder in selectedBooks)
-            {
-                Book bookOrderBook = db.GetBook(existingBookOrder.BookId);
-
-                if (bookOrderBook.BookId.Value == book.BookId.Value)
-                {
-                    errorMessage = "Selected book already exists in cart. To modify quantity, remove and re-add it.";
-                    return false;
-                }
-            }
-
             errorMessage = null;
             return true;
         }
@@ -226,7 +223,8 @@ namespace BookSYS.Forms.Clients
                 MessageBox.Show("Select a book before ordering.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            AddBookToCart(selectedBook);
+
+            AddBook(selectedBook);
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -236,7 +234,7 @@ namespace BookSYS.Forms.Clients
                 return;
             }
 
-            RemoveBookFromCart((Book)cboBookRevId.SelectedItem);
+            RemoveBook((Book)cboBookRevId.SelectedItem);
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

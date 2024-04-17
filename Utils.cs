@@ -51,5 +51,27 @@ namespace BookSYS
                 onSelected.Invoke(result);
             };
         }
+
+        public static void PopulateOrderDataGridView(DataGridView control, List<Order> orders)
+        {
+            control.Rows.Clear();
+
+            foreach(Order order in orders)
+            {
+                control.Rows.Add(order.OrderId, order.OrderDate, order.Total, order.Status);
+            }
+        }
+
+        public static void PopulateBookOrderDataGridView(DataGridView control, List<BookOrder> bookOrders, Func<int, Book> bookLookup)
+        {
+            control.Rows.Clear();
+
+            foreach(BookOrder bookOrder in bookOrders)
+            {
+                Book book = bookLookup(bookOrder.BookId);
+
+                control.Rows.Add(bookOrder.OrderId, bookOrder.BookId, book.Title, book.Author, bookOrder.SalePrice, bookOrder.Quantity);
+            }
+        }
     }
 }

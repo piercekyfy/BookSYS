@@ -33,7 +33,14 @@ namespace BookSYS.Forms.Books
             if (confirmation == DialogResult.No || confirmation == DialogResult.None)
                 return;
 
-            db.DeleteBook(_selected.BookId.Value);
+            try
+            {
+                db.DeleteBook(_selected.BookId.Value);
+            } catch (Exception)
+            {
+                MessageBox.Show("Failed to delete book, please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             MessageBox.Show("The book: " + _selected.ToString() + " has been removed.", "Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

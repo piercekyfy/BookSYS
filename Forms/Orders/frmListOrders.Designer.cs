@@ -30,10 +30,7 @@
         {
             this.grpOrder = new System.Windows.Forms.GroupBox();
             this.grpOrderSpecific = new System.Windows.Forms.GroupBox();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.libBooks = new System.Windows.Forms.ListBox();
             this.lblTotal = new System.Windows.Forms.Label();
-            this.libOrders = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,19 +39,23 @@
             this.cboClientId = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.dgBookOrders = new System.Windows.Forms.DataGridView();
+            this.dgOrders = new System.Windows.Forms.DataGridView();
             this.grpOrder.SuspendLayout();
             this.grpOrderSpecific.SuspendLayout();
             this.mnuCreateBook.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgOrders)).BeginInit();
             this.SuspendLayout();
             // 
             // grpOrder
             // 
+            this.grpOrder.Controls.Add(this.dgOrders);
             this.grpOrder.Controls.Add(this.grpOrderSpecific);
-            this.grpOrder.Controls.Add(this.libOrders);
             this.grpOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.grpOrder.Location = new System.Drawing.Point(17, 142);
             this.grpOrder.Name = "grpOrder";
-            this.grpOrder.Size = new System.Drawing.Size(356, 337);
+            this.grpOrder.Size = new System.Drawing.Size(578, 441);
             this.grpOrder.TabIndex = 19;
             this.grpOrder.TabStop = false;
             this.grpOrder.Text = "Orders";
@@ -62,54 +63,24 @@
             // 
             // grpOrderSpecific
             // 
-            this.grpOrderSpecific.Controls.Add(this.lblStatus);
-            this.grpOrderSpecific.Controls.Add(this.libBooks);
+            this.grpOrderSpecific.Controls.Add(this.dgBookOrders);
             this.grpOrderSpecific.Controls.Add(this.lblTotal);
-            this.grpOrderSpecific.Location = new System.Drawing.Point(6, 157);
+            this.grpOrderSpecific.Location = new System.Drawing.Point(6, 234);
             this.grpOrderSpecific.Name = "grpOrderSpecific";
-            this.grpOrderSpecific.Size = new System.Drawing.Size(343, 180);
+            this.grpOrderSpecific.Size = new System.Drawing.Size(561, 201);
             this.grpOrderSpecific.TabIndex = 53;
             this.grpOrderSpecific.TabStop = false;
             this.grpOrderSpecific.Visible = false;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblStatus.Location = new System.Drawing.Point(6, 22);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(181, 22);
-            this.lblStatus.TabIndex = 52;
-            this.lblStatus.Text = "Status: Undispatched";
-            // 
-            // libBooks
-            // 
-            this.libBooks.FormattingEnabled = true;
-            this.libBooks.ItemHeight = 20;
-            this.libBooks.Location = new System.Drawing.Point(0, 52);
-            this.libBooks.Name = "libBooks";
-            this.libBooks.Size = new System.Drawing.Size(344, 124);
-            this.libBooks.TabIndex = 4;
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblTotal.Location = new System.Drawing.Point(193, 22);
+            this.lblTotal.Location = new System.Drawing.Point(6, 22);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(146, 22);
             this.lblTotal.TabIndex = 50;
             this.lblTotal.Text = "Total: 000000.00";
-            // 
-            // libOrders
-            // 
-            this.libOrders.FormattingEnabled = true;
-            this.libOrders.ItemHeight = 20;
-            this.libOrders.Location = new System.Drawing.Point(6, 25);
-            this.libOrders.Name = "libOrders";
-            this.libOrders.Size = new System.Drawing.Size(344, 124);
-            this.libOrders.TabIndex = 3;
-            this.libOrders.SelectedIndexChanged += new System.EventHandler(this.libOrders_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -127,7 +98,7 @@
             this.mnuExit});
             this.mnuCreateBook.Location = new System.Drawing.Point(0, 0);
             this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(392, 24);
+            this.mnuCreateBook.Size = new System.Drawing.Size(610, 24);
             this.mnuCreateBook.TabIndex = 21;
             this.mnuCreateBook.Text = "menuStrip1";
             // 
@@ -184,11 +155,37 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "Client:";
             // 
+            // dgBookOrders
+            // 
+            this.dgBookOrders.AllowUserToAddRows = false;
+            this.dgBookOrders.AllowUserToDeleteRows = false;
+            this.dgBookOrders.AllowUserToResizeColumns = false;
+            this.dgBookOrders.AllowUserToResizeRows = false;
+            this.dgBookOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgBookOrders.Location = new System.Drawing.Point(6, 47);
+            this.dgBookOrders.Name = "dgBookOrders";
+            this.dgBookOrders.ReadOnly = true;
+            this.dgBookOrders.Size = new System.Drawing.Size(539, 148);
+            this.dgBookOrders.TabIndex = 53;
+            // 
+            // dgOrders
+            // 
+            this.dgOrders.AllowUserToAddRows = false;
+            this.dgOrders.AllowUserToDeleteRows = false;
+            this.dgOrders.AllowUserToResizeColumns = false;
+            this.dgOrders.AllowUserToResizeRows = false;
+            this.dgOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgOrders.Location = new System.Drawing.Point(12, 24);
+            this.dgOrders.Name = "dgOrders";
+            this.dgOrders.ReadOnly = true;
+            this.dgOrders.Size = new System.Drawing.Size(539, 204);
+            this.dgOrders.TabIndex = 54;
+            // 
             // frmListOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 481);
+            this.ClientSize = new System.Drawing.Size(610, 595);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtNameSearch);
             this.Controls.Add(this.label10);
@@ -204,6 +201,8 @@
             this.grpOrderSpecific.PerformLayout();
             this.mnuCreateBook.ResumeLayout(false);
             this.mnuCreateBook.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,10 +219,9 @@
         private System.Windows.Forms.ComboBox cboClientId;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ListBox libOrders;
         private System.Windows.Forms.GroupBox grpOrderSpecific;
-        private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.ListBox libBooks;
         private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.DataGridView dgOrders;
+        private System.Windows.Forms.DataGridView dgBookOrders;
     }
 }

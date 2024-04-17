@@ -23,65 +23,45 @@ namespace BookSYS.Forms.Clients
 
             Utils.SetupSearch(txtNameSearch, cboClientId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
             {
-                UpdateSelectedClient(db.GetClient(idNamePair.Id));
+                SelectClient(db.GetClient(idNamePair.Id));
             });
+
+            dgOrders.Columns.Add("OrderId", "Order Id");
+            dgOrders.Columns.Add("OrderDate", "Date");
+            dgOrders.Columns.Add("Total", "Total (€)");
+            dgOrders.Columns.Add("Status", "Status");
+
+            dgBookOrders.Columns.Add("OrderId", "Order Id");
+            dgBookOrders.Columns.Add("BookId", "Book Id");
+            dgBookOrders.Columns.Add("Title", "Title");
+            dgBookOrders.Columns.Add("Author", "Author");
+            dgBookOrders.Columns.Add("SalePrice", "Sale Price (€)");
+            dgBookOrders.Columns.Add("Quantity", "Quantity");
         }
 
-        #region Existing Client Selection
-        public void UpdateClientIdSelection(string name)
+        public void SelectClient(Client selected)
         {
-            throw new NotImplementedException();
-        }
+            dgOrders.Rows.Clear();
+            dgBookOrders.Rows.Clear();
 
-        public void UpdateSelectedClient(Client selected)
-        {
-            libOrders.Items.Clear();
-            libBooks.Items.Clear();
             if (selected == null)
             {
-                this.selectedClient = null;
+                selectedClient = null;
+                selectedOrder = null;
                 cboClientId.Text = "";
                 grpOrder.Hide();
-                UpdateClientIdSelection(txtNameSearch.Text);
                 return;
             }
 
             this.selectedClient = selected;
 
-            foreach(Order order in db.GetOrdersByClient(selectedClient.ClientId.Value))
-            {
-                libOrders.Items.Add(order);
-            }
+            Utils.PopulateOrderDataGridView(dgOrders, db.GetOrdersByClient(selectedClient.ClientId.Value).ToList());
 
-            ResetOrder();
             grpOrder.Show();
         }
 
-        private void txtNameSearch_TextChanged(object sender, EventArgs e)
+        private void SelectOrder(Order order)
         {
-
-        }
-
-        private void cboClientId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
-
-        private void ResetOrder()
-        {
-            selectedOrder = null;
-            libBooks.Items.Clear();
-            selectedOrder = null;
-            lblStatus.Text = "Status: Undispatched.";
-            lblTotal.Text = "Total: 000000.00";
-            grpOrderSpecific.Hide();
-        }
-
-        private void SetSelectedOrder(Order order)
-        {
-            ResetOrder();
             if (order == null)
                 return;
 

@@ -39,7 +39,6 @@
             this.cboBookId = new System.Windows.Forms.ComboBox();
             this.cboBookRevId = new System.Windows.Forms.ComboBox();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.lstBooks = new System.Windows.Forms.ListBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
@@ -49,12 +48,15 @@
             this.cboClientId = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.dgBookOrders = new System.Windows.Forms.DataGridView();
             this.grpOrder.SuspendLayout();
             this.mnuCreateBook.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).BeginInit();
             this.SuspendLayout();
             // 
             // grpOrder
             // 
+            this.grpOrder.Controls.Add(this.dgBookOrders);
             this.grpOrder.Controls.Add(this.lblTotal);
             this.grpOrder.Controls.Add(this.btnAddBook);
             this.grpOrder.Controls.Add(this.txtQuantity);
@@ -65,12 +67,11 @@
             this.grpOrder.Controls.Add(this.cboBookId);
             this.grpOrder.Controls.Add(this.cboBookRevId);
             this.grpOrder.Controls.Add(this.btnRemove);
-            this.grpOrder.Controls.Add(this.lstBooks);
             this.grpOrder.Controls.Add(this.btnSubmit);
             this.grpOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.grpOrder.Location = new System.Drawing.Point(17, 142);
             this.grpOrder.Name = "grpOrder";
-            this.grpOrder.Size = new System.Drawing.Size(356, 442);
+            this.grpOrder.Size = new System.Drawing.Size(557, 409);
             this.grpOrder.TabIndex = 19;
             this.grpOrder.TabStop = false;
             this.grpOrder.Text = "Books";
@@ -80,7 +81,7 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblTotal.Location = new System.Drawing.Point(198, 330);
+            this.lblTotal.Location = new System.Drawing.Point(8, 326);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(146, 22);
             this.lblTotal.TabIndex = 49;
@@ -88,7 +89,7 @@
             // 
             // btnAddBook
             // 
-            this.btnAddBook.Location = new System.Drawing.Point(194, 90);
+            this.btnAddBook.Location = new System.Drawing.Point(197, 84);
             this.btnAddBook.Name = "btnAddBook";
             this.btnAddBook.Size = new System.Drawing.Size(154, 29);
             this.btnAddBook.TabIndex = 6;
@@ -98,7 +99,7 @@
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(96, 91);
+            this.txtQuantity.Location = new System.Drawing.Point(96, 87);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(95, 26);
             this.txtQuantity.TabIndex = 5;
@@ -107,7 +108,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label5.Location = new System.Drawing.Point(8, 91);
+            this.label5.Location = new System.Drawing.Point(8, 90);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 22);
             this.label5.TabIndex = 46;
@@ -143,7 +144,7 @@
             // cboBookId
             // 
             this.cboBookId.FormattingEnabled = true;
-            this.cboBookId.Location = new System.Drawing.Point(197, 50);
+            this.cboBookId.Location = new System.Drawing.Point(199, 48);
             this.cboBookId.Name = "cboBookId";
             this.cboBookId.Size = new System.Drawing.Size(151, 28);
             this.cboBookId.TabIndex = 4;
@@ -151,35 +152,26 @@
             // cboBookRevId
             // 
             this.cboBookRevId.FormattingEnabled = true;
-            this.cboBookRevId.Location = new System.Drawing.Point(6, 362);
+            this.cboBookRevId.Location = new System.Drawing.Point(263, 330);
             this.cboBookRevId.Name = "cboBookRevId";
-            this.cboBookRevId.Size = new System.Drawing.Size(178, 28);
+            this.cboBookRevId.Size = new System.Drawing.Size(153, 28);
             this.cboBookRevId.TabIndex = 8;
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(190, 362);
+            this.btnRemove.Location = new System.Drawing.Point(422, 329);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(154, 29);
+            this.btnRemove.Size = new System.Drawing.Size(123, 29);
             this.btnRemove.TabIndex = 9;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // lstBooks
-            // 
-            this.lstBooks.FormattingEnabled = true;
-            this.lstBooks.ItemHeight = 20;
-            this.lstBooks.Location = new System.Drawing.Point(6, 123);
-            this.lstBooks.Name = "lstBooks";
-            this.lstBooks.Size = new System.Drawing.Size(344, 204);
-            this.lstBooks.TabIndex = 7;
-            // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(96, 397);
+            this.btnSubmit.Location = new System.Drawing.Point(191, 364);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(154, 29);
+            this.btnSubmit.Size = new System.Drawing.Size(159, 39);
             this.btnSubmit.TabIndex = 10;
             this.btnSubmit.Text = "Place Order";
             this.btnSubmit.UseVisualStyleBackColor = true;
@@ -201,7 +193,7 @@
             this.mnuExit});
             this.mnuCreateBook.Location = new System.Drawing.Point(0, 0);
             this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(392, 24);
+            this.mnuCreateBook.Size = new System.Drawing.Size(586, 24);
             this.mnuCreateBook.TabIndex = 21;
             this.mnuCreateBook.Text = "menuStrip1";
             // 
@@ -258,11 +250,24 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "Client:";
             // 
+            // dgBookOrders
+            // 
+            this.dgBookOrders.AllowUserToAddRows = false;
+            this.dgBookOrders.AllowUserToDeleteRows = false;
+            this.dgBookOrders.AllowUserToResizeColumns = false;
+            this.dgBookOrders.AllowUserToResizeRows = false;
+            this.dgBookOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgBookOrders.Location = new System.Drawing.Point(6, 119);
+            this.dgBookOrders.Name = "dgBookOrders";
+            this.dgBookOrders.ReadOnly = true;
+            this.dgBookOrders.Size = new System.Drawing.Size(539, 204);
+            this.dgBookOrders.TabIndex = 52;
+            // 
             // frmCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 593);
+            this.ClientSize = new System.Drawing.Size(586, 563);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtNameSearch);
             this.Controls.Add(this.label10);
@@ -277,6 +282,7 @@
             this.grpOrder.PerformLayout();
             this.mnuCreateBook.ResumeLayout(false);
             this.mnuCreateBook.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,7 +301,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.ListBox lstBooks;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTitleSearch;
         private System.Windows.Forms.Label label3;
@@ -305,5 +310,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnAddBook;
         private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.DataGridView dgBookOrders;
     }
 }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.grpOrder = new System.Windows.Forms.GroupBox();
+            this.dgBookOrders = new System.Windows.Forms.DataGridView();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cboOrderId = new System.Windows.Forms.ComboBox();
-            this.libBooks = new System.Windows.Forms.ListBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
@@ -43,30 +43,44 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.grpOrder.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).BeginInit();
             this.mnuCreateBook.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpOrder
             // 
+            this.grpOrder.Controls.Add(this.dgBookOrders);
             this.grpOrder.Controls.Add(this.lblTotal);
             this.grpOrder.Controls.Add(this.label2);
             this.grpOrder.Controls.Add(this.cboOrderId);
-            this.grpOrder.Controls.Add(this.libBooks);
             this.grpOrder.Controls.Add(this.btnSubmit);
             this.grpOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.grpOrder.Location = new System.Drawing.Point(17, 142);
             this.grpOrder.Name = "grpOrder";
-            this.grpOrder.Size = new System.Drawing.Size(356, 369);
+            this.grpOrder.Size = new System.Drawing.Size(560, 344);
             this.grpOrder.TabIndex = 19;
             this.grpOrder.TabStop = false;
             this.grpOrder.Text = "Orders";
             this.grpOrder.Visible = false;
             // 
+            // dgBookOrders
+            // 
+            this.dgBookOrders.AllowUserToAddRows = false;
+            this.dgBookOrders.AllowUserToDeleteRows = false;
+            this.dgBookOrders.AllowUserToResizeColumns = false;
+            this.dgBookOrders.AllowUserToResizeRows = false;
+            this.dgBookOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgBookOrders.Location = new System.Drawing.Point(15, 93);
+            this.dgBookOrders.Name = "dgBookOrders";
+            this.dgBookOrders.ReadOnly = true;
+            this.dgBookOrders.Size = new System.Drawing.Size(539, 204);
+            this.dgBookOrders.TabIndex = 51;
+            // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblTotal.Location = new System.Drawing.Point(190, 300);
+            this.lblTotal.Location = new System.Drawing.Point(38, 300);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(146, 22);
             this.lblTotal.TabIndex = 50;
@@ -91,18 +105,9 @@
             this.cboOrderId.TabIndex = 3;
             this.cboOrderId.SelectedIndexChanged += new System.EventHandler(this.cboOrderId_SelectedIndexChanged);
             // 
-            // libBooks
-            // 
-            this.libBooks.FormattingEnabled = true;
-            this.libBooks.ItemHeight = 20;
-            this.libBooks.Location = new System.Drawing.Point(10, 93);
-            this.libBooks.Name = "libBooks";
-            this.libBooks.Size = new System.Drawing.Size(344, 204);
-            this.libBooks.TabIndex = 4;
-            // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(96, 325);
+            this.btnSubmit.Location = new System.Drawing.Point(400, 303);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
             this.btnSubmit.TabIndex = 5;
@@ -126,7 +131,7 @@
             this.mnuExit});
             this.mnuCreateBook.Location = new System.Drawing.Point(0, 0);
             this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(392, 24);
+            this.mnuCreateBook.Size = new System.Drawing.Size(586, 24);
             this.mnuCreateBook.TabIndex = 21;
             this.mnuCreateBook.Text = "menuStrip1";
             // 
@@ -187,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 526);
+            this.ClientSize = new System.Drawing.Size(586, 498);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtNameSearch);
             this.Controls.Add(this.label10);
@@ -200,6 +205,7 @@
             this.Text = "frmCancelOrder";
             this.grpOrder.ResumeLayout(false);
             this.grpOrder.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).EndInit();
             this.mnuCreateBook.ResumeLayout(false);
             this.mnuCreateBook.PerformLayout();
             this.ResumeLayout(false);
@@ -219,9 +225,9 @@
         private System.Windows.Forms.ComboBox cboClientId;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ListBox libBooks;
         private System.Windows.Forms.ComboBox cboOrderId;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.DataGridView dgBookOrders;
     }
 }

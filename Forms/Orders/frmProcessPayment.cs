@@ -16,6 +16,7 @@ namespace BookSYS.Forms.Clients
     {
         Client selectedClient = null;
         Order selectedOrder = null;
+        List<BookOrder> selectedBookOrders = null;
 
         public frmProcessPayment()
         {
@@ -23,33 +24,33 @@ namespace BookSYS.Forms.Clients
 
             Utils.SetupSearch(txtNameSearch, cboClientId, (name) => { return db.GetClientsByApproximateName(name); }, (idNamePair) =>
             {
-                UpdateSelectedClient(db.GetClient(idNamePair.Id));
+                SelectClient(db.GetClient(idNamePair.Id));
             });
+
+            dgBookOrders.Columns.Add("OrderId", "Order Id");
+            dgBookOrders.Columns.Add("BookId", "Book Id");
+            dgBookOrders.Columns.Add("Title", "Title");
+            dgBookOrders.Columns.Add("Author", "Author");
+            dgBookOrders.Columns.Add("SalePrice", "Sale Price (€)");
+            dgBookOrders.Columns.Add("Quantity", "Quantity");
         }
 
-        #region Existing Client Selection
-        public void UpdateClientIdSelection(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateSelectedClient(Client selected)
+        public void SelectClient(Client selected)
         {
             if (selected == null)
             {
                 this.selectedClient = null;
-                cboClientId.Text = "";
+                cboClientId.Items.Clear();
+                cboClientId.Text = String.Empty;
                 grpOrder.Hide();
-                UpdateClientIdSelection(txtNameSearch.Text);
                 return;
             }
 
-            Reset();
             this.selectedClient = selected;
 
-            foreach(Order order in db.GetOrdersByClient(selectedClient.ClientId.Value))
+            foreach (Order order in db.GetOrdersByClient(selectedClient.ClientId.Value))
             {
-                if(order.Status != 'P' && order.Status != 'C')
+                if (order.Status == 'U')
                 {
                     cboOrderId.Items.Add(order);
                 }
@@ -58,50 +59,42 @@ namespace BookSYS.Forms.Clients
             grpOrder.Show();
         }
 
-        private void txtNameSearch_TextChanged(object sender, EventArgs e)
+        public void SelectOrder(Order order)
         {
+            if (order == null)
+            {
+                selectedOrder = null;
+                selectedBookOrders.Clear();
+                dgBookOrders.Rows.Clear();
+                cboOrderId.Items.Clear();
+                cboOrderId.Text = String.Empty;
 
+                return;
+            }
+
+            selectedOrder = order;
+            selectedBookOrders = db.GetBookOrdersByOrder(selectedOrder.OrderId.Value).ToList();
+
+            UpdateContents(selectedBookOrders);
         }
 
-        private void cboClientId_SelectedIndexChanged(object sender, EventArgs e)
+        public double GetTotal(List<BookOrder> bookOrders)
         {
-
-        }
-
-        #endregion
-
-        public void Reset()
-        {
-            selectedOrder = null;
-            selectedClient = null;
-            libBooks.Items.Clear();
-            cboOrderId.Text = string.Empty;
-            cboOrderId.Items.Clear();
-            lblTotal.Text = "Total: 000000.00";
-        }
-
-        public void FillBookList(List<BookOrder> bookOrders)
-        {
-            libBooks.Items.Clear();
+            double total = 0;
 
             foreach (BookOrder bookOrder in bookOrders)
             {
-                libBooks.Items.Add(bookOrder);
+                total += bookOrder.SalePrice * bookOrder.Quantity;
             }
 
-            lblTotal.Text = "Total: " + selectedOrder.Total;
+            return total;
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
+        public void UpdateContents(List<BookOrder> bookOrders)
         {
-            selectedOrder.Status = 'P';
+            Utils.PopulateBookOrderDataGridView(dgBookOrders, bookOrders, (i) => { return db.GetBook(i); });
 
-            db.Save(selectedOrder);
-
-            MessageBox.Show($"{selectedOrder} has been registered as paid.", "Payment Processed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            Reset();
-            UpdateSelectedClient(null);
+            lblTotal.Text = "Total: €" + GetTotal(bookOrders);
         }
 
         private void cboOrderId_SelectedIndexChanged(object sender, EventArgs e)
@@ -109,9 +102,26 @@ namespace BookSYS.Forms.Clients
             if (cboOrderId.SelectedIndex == -1)
                 return;
 
-            selectedOrder = (Order)cboOrderId.SelectedItem;
+            SelectOrder((Order)cboOrderId.SelectedItem);
+        }
 
-            FillBookList(db.GetBookOrdersByOrder(selectedOrder.OrderId.Value).ToList());
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            selectedOrder.Status = 'P';
+
+            try
+            {
+                db.Save(selectedOrder);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to process payment, please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+            MessageBox.Show($"{selectedOrder} has been registered as paid.", "Payment Processed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            SelectClient(null);
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

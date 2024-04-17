@@ -411,7 +411,7 @@ namespace BookSYS
 
             while (dr.Read())
             {
-                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetChar(4));
+                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetString(4)[0]);
 
                 yield return order;
             }

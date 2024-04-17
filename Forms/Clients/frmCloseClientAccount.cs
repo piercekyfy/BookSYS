@@ -38,7 +38,14 @@ namespace BookSYS.Forms.Clients
             if (confirmation == DialogResult.No || confirmation == DialogResult.None)
                 return;
 
-            db.DeleteClient(_selected.ClientId.Value);
+            try
+            {
+                db.DeleteClient(_selected.ClientId.Value);
+            } catch (Exception)
+            {
+                MessageBox.Show("Failed to close client account, please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             MessageBox.Show("The client account: " + _selected.ToString() + " has been closed.", "Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

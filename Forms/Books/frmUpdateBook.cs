@@ -52,7 +52,15 @@ namespace BookSYS.Forms.Books
                 return;
             }
 
-            db.Save(book);
+            try
+            {
+                db.Save(book);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to save book, please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             MessageBox.Show("The book: " + book.ToString() + " has been updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
