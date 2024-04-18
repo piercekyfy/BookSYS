@@ -11,15 +11,23 @@ using System.Windows.Forms;
 
 namespace BookSYS.Forms.Admin
 {
-    public partial class frmBookPopularity : Form
+    public partial class frmBookPopularity : DBForm
     {
-        IDBContext db;
-
         public frmBookPopularity()
         {
             InitializeComponent();
 
-            db = null;// DummyDBSingleton.Instance;
+            grdBooks.Columns.Add("colRanking", "Ranking");
+            grdBooks.Columns.Add("colId", "BookId");
+            grdBooks.Columns.Add("colTitle", "Title");
+            grdBooks.Columns.Add("colAuthor", "Author");
+            grdBooks.Columns.Add("colQuantity", "Quantity Sold");
+            grdBooks.Columns.Add("colRevenue", "Revenue (€)");
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             List<Order> orders = db.GetPaidOrders().ToList();
 
@@ -29,20 +37,14 @@ namespace BookSYS.Forms.Admin
                 return;
             }
 
-            grdBooks.Columns.Add("colRanking", "Ranking");
-            grdBooks.Columns.Add("colId", "BookId");
-            grdBooks.Columns.Add("colTitle", "Title");
-            grdBooks.Columns.Add("colAuthor", "Author");
-            grdBooks.Columns.Add("colQuantity", "Quantity Sold");
-            grdBooks.Columns.Add("colRevenue", "Revenue (€)");
-
             List<Book> books = new List<Book>();
             Dictionary<int, int> bookOrdersQuantity = new Dictionary<int, int>();
             Dictionary<int, double> bookOrdersRevenue = new Dictionary<int, double>();
 
             foreach (Order order in orders)
             {
-                foreach (BookOrder bookOrder in db.GetBookOrdersByOrder(order.OrderId.Value))
+                List<BookOrder> bookOrders = db.GetBookOrdersByOrder(order.OrderId.Value).ToList();
+                foreach (BookOrder bookOrder in bookOrders)
                 {
                     Book book = db.GetBook(bookOrder.BookId);
 
@@ -86,8 +88,6 @@ namespace BookSYS.Forms.Admin
 
                 grdBooks.Rows.Insert(i, i + 1, book.BookId, book.Title, book.Author, quantity, revenue);
             }
-
-
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

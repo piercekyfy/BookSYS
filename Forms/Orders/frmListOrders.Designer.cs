@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.grpOrder = new System.Windows.Forms.GroupBox();
+            this.dgOrders = new System.Windows.Forms.DataGridView();
             this.grpOrderSpecific = new System.Windows.Forms.GroupBox();
-            this.lblTotal = new System.Windows.Forms.Label();
+            this.dgBookOrders = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,13 +40,11 @@
             this.cboClientId = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.dgBookOrders = new System.Windows.Forms.DataGridView();
-            this.dgOrders = new System.Windows.Forms.DataGridView();
             this.grpOrder.SuspendLayout();
-            this.grpOrderSpecific.SuspendLayout();
-            this.mnuCreateBook.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgOrders)).BeginInit();
+            this.grpOrderSpecific.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).BeginInit();
+            this.mnuCreateBook.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpOrder
@@ -61,10 +60,23 @@
             this.grpOrder.Text = "Orders";
             this.grpOrder.Visible = false;
             // 
+            // dgOrders
+            // 
+            this.dgOrders.AllowUserToAddRows = false;
+            this.dgOrders.AllowUserToDeleteRows = false;
+            this.dgOrders.AllowUserToResizeColumns = false;
+            this.dgOrders.AllowUserToResizeRows = false;
+            this.dgOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgOrders.Location = new System.Drawing.Point(12, 24);
+            this.dgOrders.Name = "dgOrders";
+            this.dgOrders.ReadOnly = true;
+            this.dgOrders.Size = new System.Drawing.Size(555, 204);
+            this.dgOrders.TabIndex = 54;
+            this.dgOrders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgOrders_CellClick);
+            // 
             // grpOrderSpecific
             // 
             this.grpOrderSpecific.Controls.Add(this.dgBookOrders);
-            this.grpOrderSpecific.Controls.Add(this.lblTotal);
             this.grpOrderSpecific.Location = new System.Drawing.Point(6, 234);
             this.grpOrderSpecific.Name = "grpOrderSpecific";
             this.grpOrderSpecific.Size = new System.Drawing.Size(561, 201);
@@ -72,15 +84,18 @@
             this.grpOrderSpecific.TabStop = false;
             this.grpOrderSpecific.Visible = false;
             // 
-            // lblTotal
+            // dgBookOrders
             // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.lblTotal.Location = new System.Drawing.Point(6, 22);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(146, 22);
-            this.lblTotal.TabIndex = 50;
-            this.lblTotal.Text = "Total: 000000.00";
+            this.dgBookOrders.AllowUserToAddRows = false;
+            this.dgBookOrders.AllowUserToDeleteRows = false;
+            this.dgBookOrders.AllowUserToResizeColumns = false;
+            this.dgBookOrders.AllowUserToResizeRows = false;
+            this.dgBookOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgBookOrders.Location = new System.Drawing.Point(6, 15);
+            this.dgBookOrders.Name = "dgBookOrders";
+            this.dgBookOrders.ReadOnly = true;
+            this.dgBookOrders.Size = new System.Drawing.Size(549, 170);
+            this.dgBookOrders.TabIndex = 53;
             // 
             // label1
             // 
@@ -155,32 +170,6 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "Client:";
             // 
-            // dgBookOrders
-            // 
-            this.dgBookOrders.AllowUserToAddRows = false;
-            this.dgBookOrders.AllowUserToDeleteRows = false;
-            this.dgBookOrders.AllowUserToResizeColumns = false;
-            this.dgBookOrders.AllowUserToResizeRows = false;
-            this.dgBookOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgBookOrders.Location = new System.Drawing.Point(6, 47);
-            this.dgBookOrders.Name = "dgBookOrders";
-            this.dgBookOrders.ReadOnly = true;
-            this.dgBookOrders.Size = new System.Drawing.Size(539, 148);
-            this.dgBookOrders.TabIndex = 53;
-            // 
-            // dgOrders
-            // 
-            this.dgOrders.AllowUserToAddRows = false;
-            this.dgOrders.AllowUserToDeleteRows = false;
-            this.dgOrders.AllowUserToResizeColumns = false;
-            this.dgOrders.AllowUserToResizeRows = false;
-            this.dgOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgOrders.Location = new System.Drawing.Point(12, 24);
-            this.dgOrders.Name = "dgOrders";
-            this.dgOrders.ReadOnly = true;
-            this.dgOrders.Size = new System.Drawing.Size(539, 204);
-            this.dgOrders.TabIndex = 54;
-            // 
             // frmListOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,12 +186,11 @@
             this.Name = "frmListOrders";
             this.Text = "frmListOrders";
             this.grpOrder.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgOrders)).EndInit();
             this.grpOrderSpecific.ResumeLayout(false);
-            this.grpOrderSpecific.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).EndInit();
             this.mnuCreateBook.ResumeLayout(false);
             this.mnuCreateBook.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +208,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox grpOrderSpecific;
-        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.DataGridView dgOrders;
         private System.Windows.Forms.DataGridView dgBookOrders;
     }

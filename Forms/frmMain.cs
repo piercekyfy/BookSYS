@@ -82,11 +82,12 @@ namespace BookSYS.Forms
 
 
         #endregion
-        private void mnuBookPopularity_Click(object sender, EventArgs e)
-        {
-            Form next = new frmBookPopularity();
-            next.Show(this);
-        }
+
+        #region Analysis
+
+        private void mnuBookPopularity_Click(object sender, EventArgs e) => OpenDBForm(new frmBookPopularity());
+
+        #endregion
 
         private void mnuExit_Click(object sender, EventArgs e)
         {

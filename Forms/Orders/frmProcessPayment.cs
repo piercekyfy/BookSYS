@@ -42,6 +42,7 @@ namespace BookSYS.Forms.Clients
                 this.selectedClient = null;
                 cboClientId.Items.Clear();
                 cboClientId.Text = String.Empty;
+                cboOrderId.Items.Clear();
                 grpOrder.Hide();
                 return;
             }
@@ -66,8 +67,6 @@ namespace BookSYS.Forms.Clients
                 selectedOrder = null;
                 selectedBookOrders.Clear();
                 dgBookOrders.Rows.Clear();
-                cboOrderId.Items.Clear();
-                cboOrderId.Text = String.Empty;
 
                 return;
             }

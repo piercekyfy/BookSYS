@@ -62,6 +62,7 @@ namespace BookSYS
 
             OracleCommand command = new OracleCommand(query, connection);
             command.Parameters.Add(":id", id);
+
             connection.Open();
 
             OracleDataReader dr = command.ExecuteReader();
@@ -353,26 +354,6 @@ namespace BookSYS
 
         #region Orders
 
-        public IEnumerable<Order> GetOrders()
-        {
-            string query = "SELECT * FROM Orders";
-
-            OracleCommand command = new OracleCommand(query, connection);
-
-            connection.Open();
-
-            OracleDataReader dr = command.ExecuteReader();
-
-            while (dr.Read())
-            {
-                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetChar(4));
-
-                yield return order;
-            }
-
-            connection.Close();
-        }
-
         public IEnumerable<Order> GetPaidOrders()
         {
             string query = "SELECT * FROM Orders WHERE Status = 'P'";
@@ -385,7 +366,7 @@ namespace BookSYS
 
             while (dr.Read())
             {
-                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetChar(4));
+                Order order = new Order(dr.GetInt32(0), dr.GetInt32(1), dr.GetDateTime(2), dr.GetDouble(3), dr.GetString(4)[0]);
 
                 yield return order;
             }

@@ -26,7 +26,6 @@ namespace BookSYS
         #endregion
 
         #region Orders
-        IEnumerable<Order> GetOrders();
         IEnumerable<Order> GetPaidOrders();
         IEnumerable<Order> GetOrdersByClient(int id);
         IEnumerable<BookOrder> GetBookOrdersByOrder(int id);

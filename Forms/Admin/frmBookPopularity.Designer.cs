@@ -42,7 +42,7 @@
             this.mnuExit});
             this.mnuCreateBook.Location = new System.Drawing.Point(0, 0);
             this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(688, 24);
+            this.mnuCreateBook.Size = new System.Drawing.Size(675, 24);
             this.mnuCreateBook.TabIndex = 1;
             this.mnuCreateBook.Text = "menuStrip1";
             // 
@@ -57,7 +57,7 @@
             // grdBooks
             // 
             this.grdBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdBooks.Location = new System.Drawing.Point(12, 76);
+            this.grdBooks.Location = new System.Drawing.Point(0, 76);
             this.grdBooks.Name = "grdBooks";
             this.grdBooks.Size = new System.Drawing.Size(664, 208);
             this.grdBooks.TabIndex = 2;
@@ -76,7 +76,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(688, 296);
+            this.ClientSize = new System.Drawing.Size(675, 296);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grdBooks);
             this.Controls.Add(this.mnuCreateBook);

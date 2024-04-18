@@ -71,6 +71,7 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(211, 20);
             this.txtUser.TabIndex = 2;
+            this.txtUser.Text = "T00238818";
             // 
             // label2
             // 

@@ -15,6 +15,7 @@ namespace BookSYS.Forms.Clients
     public partial class frmListOrders : DBForm
     {
         Client selectedClient = null;
+        List<Order> orders = new List<Order>();
         Order selectedOrder = null;
 
         public frmListOrders()
@@ -49,13 +50,21 @@ namespace BookSYS.Forms.Clients
                 selectedClient = null;
                 selectedOrder = null;
                 cboClientId.Text = "";
+
+                dgOrders.Rows.Clear();
+                orders.Clear();
                 grpOrder.Hide();
+
+                SelectOrder(null);
+
                 return;
             }
 
             this.selectedClient = selected;
 
-            Utils.PopulateOrderDataGridView(dgOrders, db.GetOrdersByClient(selectedClient.ClientId.Value).ToList());
+            orders = db.GetOrdersByClient(selectedClient.ClientId.Value).ToList();
+
+            Utils.PopulateOrderDataGridView(dgOrders, orders);
 
             grpOrder.Show();
         }
@@ -63,46 +72,37 @@ namespace BookSYS.Forms.Clients
         private void SelectOrder(Order order)
         {
             if (order == null)
-                return;
-
-            selectedOrder = order;
-            
-            grpOrderSpecific.Show();
-
-            lblStatus.Text = "Status: " + (order.Status == 'U' ? "Undispatched" : order.Status == 'D' ? "Dispatched" : order.Status == 'P' ? "Paid" : "Cancelled");
-            lblTotal.Text = "Total: " + order.Total;
-
-            FillBookList(db.GetBookOrdersByOrder(order.OrderId.Value).ToList());
-        }
-
-        private void FillBookList(List<BookOrder> bookOrders)
-        {
-            libBooks.Items.Clear();
-
-            foreach (BookOrder bookOrder in bookOrders)
             {
-                libBooks.Items.Add(bookOrder);
+                grpOrderSpecific.Hide();
+                dgBookOrders.Rows.Clear();
             }
 
-            lblTotal.Text = "Total: " + selectedOrder.Total;
+            selectedOrder = order;
+
+            grpOrderSpecific.Show();
+
+            UpdateContents(db.GetBookOrdersByOrder(order.OrderId.Value).ToList());
+
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
+        public void UpdateContents(List<BookOrder> bookOrders)
         {
-            throw new NotImplementedException();
-        }
-
-        private void libOrders_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (libOrders.SelectedIndex == -1)
-                return;
-
-            SetSelectedOrder((Order)libOrders.SelectedItem);
+            Utils.PopulateBookOrderDataGridView(dgBookOrders, bookOrders, (i) => { return db.GetBook(i); });
         }
 
         private void mnuExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dgOrders_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Order order = orders.Where(x => x.OrderId == (int)dgOrders.Rows[e.RowIndex].Cells["OrderId"].Value).FirstOrDefault();
+
+            if (order == null)
+                return;
+
+            SelectOrder(order);
         }
     }
 }

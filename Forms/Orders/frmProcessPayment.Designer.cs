@@ -28,52 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
-            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.label8 = new System.Windows.Forms.Label();
             this.txtNameSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.cboClientId = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.cboOrderId = new System.Windows.Forms.ComboBox();
             this.grpOrder = new System.Windows.Forms.GroupBox();
             this.dgBookOrders = new System.Windows.Forms.DataGridView();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.cboOrderId = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.mnuCreateBook.SuspendLayout();
+            this.mnuCreateBook = new System.Windows.Forms.MenuStrip();
+            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
             this.grpOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).BeginInit();
+            this.mnuCreateBook.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.label1.Location = new System.Drawing.Point(12, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(200, 29);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Process Payment";
-            // 
-            // mnuCreateBook
-            // 
-            this.mnuCreateBook.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuExit});
-            this.mnuCreateBook.Location = new System.Drawing.Point(0, 0);
-            this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(586, 24);
-            this.mnuCreateBook.TabIndex = 21;
-            this.mnuCreateBook.Text = "menuStrip1";
-            // 
-            // mnuExit
-            // 
-            this.mnuExit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(38, 20);
-            this.mnuExit.Text = "Exit";
-            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
             // label8
             // 
@@ -119,14 +91,6 @@
             this.label7.Size = new System.Drawing.Size(32, 22);
             this.label7.TabIndex = 43;
             this.label7.Text = "ID:";
-            // 
-            // cboOrderId
-            // 
-            this.cboOrderId.FormattingEnabled = true;
-            this.cboOrderId.Location = new System.Drawing.Point(15, 25);
-            this.cboOrderId.Name = "cboOrderId";
-            this.cboOrderId.Size = new System.Drawing.Size(321, 28);
-            this.cboOrderId.TabIndex = 3;
             // 
             // grpOrder
             // 
@@ -177,14 +141,52 @@
             this.label2.TabIndex = 41;
             this.label2.Text = "Order Contents:";
             // 
+            // cboOrderId
+            // 
+            this.cboOrderId.FormattingEnabled = true;
+            this.cboOrderId.Location = new System.Drawing.Point(15, 25);
+            this.cboOrderId.Name = "cboOrderId";
+            this.cboOrderId.Size = new System.Drawing.Size(321, 28);
+            this.cboOrderId.TabIndex = 3;
+            this.cboOrderId.SelectedIndexChanged += new System.EventHandler(this.cboOrderId_SelectedIndexChanged);
+            // 
             // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(400, 303);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(154, 29);
             this.btnSubmit.TabIndex = 5;
-            this.btnSubmit.Text = "Cancel Order";
+            this.btnSubmit.Text = "Register as Paid";
             this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // mnuCreateBook
+            // 
+            this.mnuCreateBook.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuExit});
+            this.mnuCreateBook.Location = new System.Drawing.Point(0, 0);
+            this.mnuCreateBook.Name = "mnuCreateBook";
+            this.mnuCreateBook.Size = new System.Drawing.Size(586, 24);
+            this.mnuCreateBook.TabIndex = 21;
+            this.mnuCreateBook.Text = "menuStrip1";
+            // 
+            // mnuExit
+            // 
+            this.mnuExit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.mnuExit.Name = "mnuExit";
+            this.mnuExit.Size = new System.Drawing.Size(38, 20);
+            this.mnuExit.Text = "Exit";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.label1.Location = new System.Drawing.Point(12, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(200, 29);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Process Payment";
             // 
             // frmProcessPayment
             // 
@@ -201,11 +203,11 @@
             this.Controls.Add(this.label1);
             this.Name = "frmProcessPayment";
             this.Text = "frmProcessPayment";
-            this.mnuCreateBook.ResumeLayout(false);
-            this.mnuCreateBook.PerformLayout();
             this.grpOrder.ResumeLayout(false);
             this.grpOrder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgBookOrders)).EndInit();
+            this.mnuCreateBook.ResumeLayout(false);
+            this.mnuCreateBook.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
