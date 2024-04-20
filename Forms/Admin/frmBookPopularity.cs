@@ -18,11 +18,12 @@ namespace BookSYS.Forms.Admin
             InitializeComponent();
 
             grdBooks.Columns.Add("colRanking", "Ranking");
+            grdBooks.Columns.Add("colRevenue", "Revenue (€)");
+            grdBooks.Columns.Add("colQuantity", "Quantity Sold");
             grdBooks.Columns.Add("colId", "BookId");
             grdBooks.Columns.Add("colTitle", "Title");
             grdBooks.Columns.Add("colAuthor", "Author");
-            grdBooks.Columns.Add("colQuantity", "Quantity Sold");
-            grdBooks.Columns.Add("colRevenue", "Revenue (€)");
+            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -86,7 +87,7 @@ namespace BookSYS.Forms.Admin
                 int quantity = bookOrdersQuantity[book.BookId.Value];
                 double revenue = bookOrdersRevenue[book.BookId.Value];
 
-                grdBooks.Rows.Insert(i, i + 1, book.BookId, book.Title, book.Author, quantity, revenue);
+                grdBooks.Rows.Insert(i, i + 1, revenue, quantity, book.BookId, book.Title, book.Author);
             }
         }
 

@@ -50,14 +50,16 @@ namespace BookSYS.Forms.Clients
                 this.selectedClient = null;
                 cboClientId.Items.Clear();
                 cboClientId.Text = String.Empty;
-                dgBookOrders.Columns.Clear();
-                grpOrder.Hide();
+                dgBookOrders.Rows.Clear();
+                grpOrder.Enabled = false;
+                SelectBook(null);
+
                 return;
             }
 
             this.selectedClient = selected;
 
-            grpOrder.Show();
+            grpOrder.Enabled = true;
         }
 
         public void SelectBook(Book selected)

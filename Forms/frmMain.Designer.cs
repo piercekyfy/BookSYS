@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.ToolStripMenuItem booksToolStripMenuItem;
             System.Windows.Forms.ToolStripMenuItem mnuClients;
             System.Windows.Forms.ToolStripMenuItem mnuExit;
             System.Windows.Forms.ToolStripMenuItem ordersToolStripMenuItem;
             System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
-            this.picBookRow = new System.Windows.Forms.PictureBox();
-            this.mnuMain = new System.Windows.Forms.MenuStrip();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.mnuCreateBook = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateBook = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRemoveBook = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,10 +46,13 @@
             this.mnuCancelOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBookPopularity = new System.Windows.Forms.ToolStripMenuItem();
+            this.picBookRow = new System.Windows.Forms.PictureBox();
+            this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuDBConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.picDBConnection = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.mnuYearlyRevenue = new System.Windows.Forms.ToolStripMenuItem();
             booksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             mnuClients = new System.Windows.Forms.ToolStripMenuItem();
             mnuExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,32 +62,6 @@
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDBConnection)).BeginInit();
             this.SuspendLayout();
-            // 
-            // picBookRow
-            // 
-            this.picBookRow.Image = ((System.Drawing.Image)(resources.GetObject("picBookRow.Image")));
-            this.picBookRow.Location = new System.Drawing.Point(0, 271);
-            this.picBookRow.Name = "picBookRow";
-            this.picBookRow.Size = new System.Drawing.Size(801, 179);
-            this.picBookRow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBookRow.TabIndex = 0;
-            this.picBookRow.TabStop = false;
-            // 
-            // mnuMain
-            // 
-            this.mnuMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(121)))), ((int)(((byte)(107)))));
-            this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            booksToolStripMenuItem,
-            mnuClients,
-            mnuExit,
-            ordersToolStripMenuItem,
-            adminToolStripMenuItem,
-            this.mnuDBConnect});
-            this.mnuMain.Location = new System.Drawing.Point(0, 0);
-            this.mnuMain.Name = "mnuMain";
-            this.mnuMain.Size = new System.Drawing.Size(800, 24);
-            this.mnuMain.TabIndex = 1;
-            this.mnuMain.Text = "mnuMain";
             // 
             // booksToolStripMenuItem
             // 
@@ -102,7 +77,7 @@
             // 
             this.mnuCreateBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(180, 22);
+            this.mnuCreateBook.Size = new System.Drawing.Size(117, 22);
             this.mnuCreateBook.Text = "Create";
             this.mnuCreateBook.Click += new System.EventHandler(this.mnuCreateBook_Click);
             // 
@@ -110,7 +85,7 @@
             // 
             this.mnuUpdateBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuUpdateBook.Name = "mnuUpdateBook";
-            this.mnuUpdateBook.Size = new System.Drawing.Size(180, 22);
+            this.mnuUpdateBook.Size = new System.Drawing.Size(117, 22);
             this.mnuUpdateBook.Text = "Update";
             this.mnuUpdateBook.Click += new System.EventHandler(this.mnuUpdateBook_Click);
             // 
@@ -118,7 +93,7 @@
             // 
             this.mnuRemoveBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuRemoveBook.Name = "mnuRemoveBook";
-            this.mnuRemoveBook.Size = new System.Drawing.Size(180, 22);
+            this.mnuRemoveBook.Size = new System.Drawing.Size(117, 22);
             this.mnuRemoveBook.Text = "Remove";
             this.mnuRemoveBook.Click += new System.EventHandler(this.mnuRemoveBook_Click);
             // 
@@ -137,7 +112,7 @@
             // 
             this.mnuOpenAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuOpenAccount.Name = "mnuOpenAccount";
-            this.mnuOpenAccount.Size = new System.Drawing.Size(180, 22);
+            this.mnuOpenAccount.Size = new System.Drawing.Size(160, 22);
             this.mnuOpenAccount.Text = "Open Account";
             this.mnuOpenAccount.Click += new System.EventHandler(this.mnuOpenAccount_Click);
             // 
@@ -145,7 +120,7 @@
             // 
             this.mnuUpdateAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuUpdateAccount.Name = "mnuUpdateAccount";
-            this.mnuUpdateAccount.Size = new System.Drawing.Size(180, 22);
+            this.mnuUpdateAccount.Size = new System.Drawing.Size(160, 22);
             this.mnuUpdateAccount.Text = "Update Account";
             this.mnuUpdateAccount.Click += new System.EventHandler(this.mnuUpdateAccount_Click);
             // 
@@ -153,7 +128,7 @@
             // 
             this.mnuCloseAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCloseAccount.Name = "mnuCloseAccount";
-            this.mnuCloseAccount.Size = new System.Drawing.Size(180, 22);
+            this.mnuCloseAccount.Size = new System.Drawing.Size(160, 22);
             this.mnuCloseAccount.Text = "Close Account";
             this.mnuCloseAccount.Click += new System.EventHandler(this.mnuCloseAccount_Click);
             // 
@@ -181,7 +156,7 @@
             // 
             this.mnuCreateOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCreateOrder.Name = "mnuCreateOrder";
-            this.mnuCreateOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuCreateOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuCreateOrder.Text = "Create Order";
             this.mnuCreateOrder.Click += new System.EventHandler(this.mnuCreateOrder_Click);
             // 
@@ -189,7 +164,7 @@
             // 
             this.mnuDispatchOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuDispatchOrder.Name = "mnuDispatchOrder";
-            this.mnuDispatchOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuDispatchOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuDispatchOrder.Text = "Dispatch Order";
             this.mnuDispatchOrder.Click += new System.EventHandler(this.mnuDispatchOrder_Click);
             // 
@@ -197,7 +172,7 @@
             // 
             this.mnuProcessPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuProcessPayment.Name = "mnuProcessPayment";
-            this.mnuProcessPayment.Size = new System.Drawing.Size(180, 22);
+            this.mnuProcessPayment.Size = new System.Drawing.Size(164, 22);
             this.mnuProcessPayment.Text = "Process Payment";
             this.mnuProcessPayment.Click += new System.EventHandler(this.mnuProcessPayment_Click);
             // 
@@ -205,7 +180,7 @@
             // 
             this.mnuCancelOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCancelOrder.Name = "mnuCancelOrder";
-            this.mnuCancelOrder.Size = new System.Drawing.Size(180, 22);
+            this.mnuCancelOrder.Size = new System.Drawing.Size(164, 22);
             this.mnuCancelOrder.Text = "Cancel Order";
             this.mnuCancelOrder.Click += new System.EventHandler(this.mnuCancelOrder_Click);
             // 
@@ -213,14 +188,15 @@
             // 
             this.listOrdersToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.listOrdersToolStripMenuItem.Name = "listOrdersToolStripMenuItem";
-            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.listOrdersToolStripMenuItem.Text = "List Orders";
             this.listOrdersToolStripMenuItem.Click += new System.EventHandler(this.listOrdersToolStripMenuItem_Click);
             // 
             // adminToolStripMenuItem
             // 
             adminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuBookPopularity});
+            this.mnuBookPopularity,
+            this.mnuYearlyRevenue});
             adminToolStripMenuItem.Name = "adminToolStripMenuItem";
             adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             adminToolStripMenuItem.Text = "Admin";
@@ -232,6 +208,32 @@
             this.mnuBookPopularity.Size = new System.Drawing.Size(180, 22);
             this.mnuBookPopularity.Text = "Book Popularity";
             this.mnuBookPopularity.Click += new System.EventHandler(this.mnuBookPopularity_Click);
+            // 
+            // picBookRow
+            // 
+            this.picBookRow.Image = ((System.Drawing.Image)(resources.GetObject("picBookRow.Image")));
+            this.picBookRow.Location = new System.Drawing.Point(0, 271);
+            this.picBookRow.Name = "picBookRow";
+            this.picBookRow.Size = new System.Drawing.Size(801, 179);
+            this.picBookRow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBookRow.TabIndex = 0;
+            this.picBookRow.TabStop = false;
+            // 
+            // mnuMain
+            // 
+            this.mnuMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(121)))), ((int)(((byte)(107)))));
+            this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            booksToolStripMenuItem,
+            mnuClients,
+            mnuExit,
+            ordersToolStripMenuItem,
+            adminToolStripMenuItem,
+            this.mnuDBConnect});
+            this.mnuMain.Location = new System.Drawing.Point(0, 0);
+            this.mnuMain.Name = "mnuMain";
+            this.mnuMain.Size = new System.Drawing.Size(800, 24);
+            this.mnuMain.TabIndex = 1;
+            this.mnuMain.Text = "mnuMain";
             // 
             // mnuDBConnect
             // 
@@ -269,6 +271,14 @@
             this.label1.Size = new System.Drawing.Size(301, 21);
             this.label1.TabIndex = 6;
             this.label1.Text = "Book wholesales, made wholesome.";
+            // 
+            // mnuYearlyRevenue
+            // 
+            this.mnuYearlyRevenue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
+            this.mnuYearlyRevenue.Name = "mnuYearlyRevenue";
+            this.mnuYearlyRevenue.Size = new System.Drawing.Size(180, 22);
+            this.mnuYearlyRevenue.Text = "Yearly Revenue";
+            this.mnuYearlyRevenue.Click += new System.EventHandler(this.mnuYearlyRevenue_Click);
             // 
             // frmMain
             // 
@@ -313,5 +323,6 @@
         private System.Windows.Forms.PictureBox picDBConnection;
         private System.Windows.Forms.MenuStrip mnuMain;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem mnuYearlyRevenue;
     }
 }

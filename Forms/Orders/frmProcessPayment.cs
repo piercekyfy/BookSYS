@@ -42,8 +42,12 @@ namespace BookSYS.Forms.Clients
                 this.selectedClient = null;
                 cboClientId.Items.Clear();
                 cboClientId.Text = String.Empty;
+                cboOrderId.Text = String.Empty;
                 cboOrderId.Items.Clear();
-                grpOrder.Hide();
+
+                grpOrder.Enabled = false;
+                dgBookOrders.Rows.Clear();
+
                 return;
             }
 
@@ -51,13 +55,13 @@ namespace BookSYS.Forms.Clients
 
             foreach (Order order in db.GetOrdersByClient(selectedClient.ClientId.Value))
             {
-                if (order.Status == 'U')
+                if (order.Status == 'D')
                 {
                     cboOrderId.Items.Add(order);
                 }
             }
 
-            grpOrder.Show();
+            grpOrder.Enabled = true;
         }
 
         public void SelectOrder(Order order)

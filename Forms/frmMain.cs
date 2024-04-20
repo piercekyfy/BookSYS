@@ -87,6 +87,8 @@ namespace BookSYS.Forms
 
         private void mnuBookPopularity_Click(object sender, EventArgs e) => OpenDBForm(new frmBookPopularity());
 
+        private void mnuYearlyRevenue_Click(object sender, EventArgs e) => OpenDBForm(new frmRevenueAnalysis());
+
         #endregion
 
         private void mnuExit_Click(object sender, EventArgs e)

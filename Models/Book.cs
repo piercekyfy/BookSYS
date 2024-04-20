@@ -16,7 +16,7 @@ namespace BookSYS.Models
         public string Author { get; set; }
         private const int _authorMaxLength = 48;
         public string Description { get; set; }
-        private const int _descriptionMaxLength = 280;
+        private const int _descriptionMaxLength = 480;
         public string Publisher { get; set; }
         private const int _publisherMaxLength = 48;
         public double Price { get; set; }

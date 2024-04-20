@@ -48,12 +48,12 @@ namespace BookSYS.Forms.Clients
             if (selected == null)
             {
                 selectedClient = null;
-                selectedOrder = null;
                 cboClientId.Text = "";
 
                 dgOrders.Rows.Clear();
                 orders.Clear();
-                grpOrder.Hide();
+
+                grpOrder.Enabled = false;
 
                 SelectOrder(null);
 
@@ -66,20 +66,19 @@ namespace BookSYS.Forms.Clients
 
             Utils.PopulateOrderDataGridView(dgOrders, orders);
 
-            grpOrder.Show();
+            grpOrder.Enabled = true;
         }
 
         private void SelectOrder(Order order)
         {
             if (order == null)
             {
-                grpOrderSpecific.Hide();
+                selectedOrder = null;
                 dgBookOrders.Rows.Clear();
+                return;
             }
 
             selectedOrder = order;
-
-            grpOrderSpecific.Show();
 
             UpdateContents(db.GetBookOrdersByOrder(order.OrderId.Value).ToList());
 

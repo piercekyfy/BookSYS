@@ -42,7 +42,12 @@ namespace BookSYS.Forms.Clients
                 this.selectedClient = null;
                 cboClientId.Items.Clear();
                 cboClientId.Text = String.Empty;
-                grpOrder.Hide();
+                cboOrderId.Text = String.Empty;
+                cboOrderId.Items.Clear();
+
+                grpOrder.Enabled = false;
+                dgBookOrders.Rows.Clear();
+
                 return;
             }
 
@@ -56,7 +61,7 @@ namespace BookSYS.Forms.Clients
                 }
             }
 
-            grpOrder.Show();
+            grpOrder.Enabled = true;
         }
 
         public void SelectOrder(Order order)

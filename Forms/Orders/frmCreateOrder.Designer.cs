@@ -73,13 +73,13 @@
             this.grpOrder.Controls.Add(this.cboBookRevId);
             this.grpOrder.Controls.Add(this.btnRemove);
             this.grpOrder.Controls.Add(this.btnSubmit);
+            this.grpOrder.Enabled = false;
             this.grpOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.grpOrder.Location = new System.Drawing.Point(0, 144);
             this.grpOrder.Name = "grpOrder";
             this.grpOrder.Size = new System.Drawing.Size(573, 403);
             this.grpOrder.TabIndex = 19;
             this.grpOrder.TabStop = false;
-            this.grpOrder.Visible = false;
             // 
             // label3
             // 
@@ -142,7 +142,7 @@
             this.dgBookOrders.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(140)))), ((int)(((byte)(93)))));
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(88)))), ((int)(((byte)(103)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
