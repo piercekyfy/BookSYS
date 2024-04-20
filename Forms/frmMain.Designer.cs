@@ -29,28 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.Windows.Forms.ToolStripMenuItem booksToolStripMenuItem;
+            System.Windows.Forms.ToolStripMenuItem mnuClients;
+            System.Windows.Forms.ToolStripMenuItem mnuExit;
+            System.Windows.Forms.ToolStripMenuItem ordersToolStripMenuItem;
+            System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
             this.picBookRow = new System.Windows.Forms.PictureBox();
             this.mnuMain = new System.Windows.Forms.MenuStrip();
-            this.booksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCreateBook = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateBook = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRemoveBook = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuClients = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuOpenAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpdateAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCloseAccount = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCreateOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDispatchOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProcessPayment = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCancelOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.listOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBookPopularity = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDBConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.picDBConnection = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            booksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            mnuClients = new System.Windows.Forms.ToolStripMenuItem();
+            mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picBookRow)).BeginInit();
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDBConnection)).BeginInit();
@@ -68,12 +74,13 @@
             // 
             // mnuMain
             // 
+            this.mnuMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(121)))), ((int)(((byte)(107)))));
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.booksToolStripMenuItem,
-            this.mnuClients,
-            this.mnuExit,
-            this.ordersToolStripMenuItem,
-            this.adminToolStripMenuItem,
+            booksToolStripMenuItem,
+            mnuClients,
+            mnuExit,
+            ordersToolStripMenuItem,
+            adminToolStripMenuItem,
             this.mnuDBConnect});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
@@ -83,133 +90,146 @@
             // 
             // booksToolStripMenuItem
             // 
-            this.booksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            booksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuCreateBook,
             this.mnuUpdateBook,
             this.mnuRemoveBook});
-            this.booksToolStripMenuItem.Name = "booksToolStripMenuItem";
-            this.booksToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.booksToolStripMenuItem.Text = "Books";
+            booksToolStripMenuItem.Name = "booksToolStripMenuItem";
+            booksToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            booksToolStripMenuItem.Text = "Books";
             // 
             // mnuCreateBook
             // 
+            this.mnuCreateBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCreateBook.Name = "mnuCreateBook";
-            this.mnuCreateBook.Size = new System.Drawing.Size(117, 22);
+            this.mnuCreateBook.Size = new System.Drawing.Size(180, 22);
             this.mnuCreateBook.Text = "Create";
             this.mnuCreateBook.Click += new System.EventHandler(this.mnuCreateBook_Click);
             // 
             // mnuUpdateBook
             // 
+            this.mnuUpdateBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuUpdateBook.Name = "mnuUpdateBook";
-            this.mnuUpdateBook.Size = new System.Drawing.Size(117, 22);
+            this.mnuUpdateBook.Size = new System.Drawing.Size(180, 22);
             this.mnuUpdateBook.Text = "Update";
             this.mnuUpdateBook.Click += new System.EventHandler(this.mnuUpdateBook_Click);
             // 
             // mnuRemoveBook
             // 
+            this.mnuRemoveBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuRemoveBook.Name = "mnuRemoveBook";
-            this.mnuRemoveBook.Size = new System.Drawing.Size(117, 22);
+            this.mnuRemoveBook.Size = new System.Drawing.Size(180, 22);
             this.mnuRemoveBook.Text = "Remove";
             this.mnuRemoveBook.Click += new System.EventHandler(this.mnuRemoveBook_Click);
             // 
             // mnuClients
             // 
-            this.mnuClients.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            mnuClients.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(121)))), ((int)(((byte)(107)))));
+            mnuClients.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuOpenAccount,
             this.mnuUpdateAccount,
             this.mnuCloseAccount});
-            this.mnuClients.Name = "mnuClients";
-            this.mnuClients.Size = new System.Drawing.Size(55, 20);
-            this.mnuClients.Text = "Clients";
+            mnuClients.Name = "mnuClients";
+            mnuClients.Size = new System.Drawing.Size(55, 20);
+            mnuClients.Text = "Clients";
             // 
             // mnuOpenAccount
             // 
+            this.mnuOpenAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuOpenAccount.Name = "mnuOpenAccount";
-            this.mnuOpenAccount.Size = new System.Drawing.Size(160, 22);
+            this.mnuOpenAccount.Size = new System.Drawing.Size(180, 22);
             this.mnuOpenAccount.Text = "Open Account";
             this.mnuOpenAccount.Click += new System.EventHandler(this.mnuOpenAccount_Click);
             // 
             // mnuUpdateAccount
             // 
+            this.mnuUpdateAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuUpdateAccount.Name = "mnuUpdateAccount";
-            this.mnuUpdateAccount.Size = new System.Drawing.Size(160, 22);
+            this.mnuUpdateAccount.Size = new System.Drawing.Size(180, 22);
             this.mnuUpdateAccount.Text = "Update Account";
             this.mnuUpdateAccount.Click += new System.EventHandler(this.mnuUpdateAccount_Click);
             // 
             // mnuCloseAccount
             // 
+            this.mnuCloseAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCloseAccount.Name = "mnuCloseAccount";
-            this.mnuCloseAccount.Size = new System.Drawing.Size(160, 22);
+            this.mnuCloseAccount.Size = new System.Drawing.Size(180, 22);
             this.mnuCloseAccount.Text = "Close Account";
             this.mnuCloseAccount.Click += new System.EventHandler(this.mnuCloseAccount_Click);
             // 
             // mnuExit
             // 
-            this.mnuExit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(38, 20);
-            this.mnuExit.Text = "Exit";
-            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            mnuExit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            mnuExit.Name = "mnuExit";
+            mnuExit.Size = new System.Drawing.Size(38, 20);
+            mnuExit.Text = "Exit";
+            mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
             // ordersToolStripMenuItem
             // 
-            this.ordersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            ordersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuCreateOrder,
             this.mnuDispatchOrder,
             this.mnuProcessPayment,
             this.mnuCancelOrder,
             this.listOrdersToolStripMenuItem});
-            this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
-            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.ordersToolStripMenuItem.Text = "Orders";
+            ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
+            ordersToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            ordersToolStripMenuItem.Text = "Orders";
             // 
             // mnuCreateOrder
             // 
+            this.mnuCreateOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCreateOrder.Name = "mnuCreateOrder";
-            this.mnuCreateOrder.Size = new System.Drawing.Size(164, 22);
+            this.mnuCreateOrder.Size = new System.Drawing.Size(180, 22);
             this.mnuCreateOrder.Text = "Create Order";
             this.mnuCreateOrder.Click += new System.EventHandler(this.mnuCreateOrder_Click);
             // 
             // mnuDispatchOrder
             // 
+            this.mnuDispatchOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuDispatchOrder.Name = "mnuDispatchOrder";
-            this.mnuDispatchOrder.Size = new System.Drawing.Size(164, 22);
+            this.mnuDispatchOrder.Size = new System.Drawing.Size(180, 22);
             this.mnuDispatchOrder.Text = "Dispatch Order";
             this.mnuDispatchOrder.Click += new System.EventHandler(this.mnuDispatchOrder_Click);
             // 
             // mnuProcessPayment
             // 
+            this.mnuProcessPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuProcessPayment.Name = "mnuProcessPayment";
-            this.mnuProcessPayment.Size = new System.Drawing.Size(164, 22);
+            this.mnuProcessPayment.Size = new System.Drawing.Size(180, 22);
             this.mnuProcessPayment.Text = "Process Payment";
             this.mnuProcessPayment.Click += new System.EventHandler(this.mnuProcessPayment_Click);
             // 
             // mnuCancelOrder
             // 
+            this.mnuCancelOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuCancelOrder.Name = "mnuCancelOrder";
-            this.mnuCancelOrder.Size = new System.Drawing.Size(164, 22);
+            this.mnuCancelOrder.Size = new System.Drawing.Size(180, 22);
             this.mnuCancelOrder.Text = "Cancel Order";
             this.mnuCancelOrder.Click += new System.EventHandler(this.mnuCancelOrder_Click);
             // 
             // listOrdersToolStripMenuItem
             // 
+            this.listOrdersToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.listOrdersToolStripMenuItem.Name = "listOrdersToolStripMenuItem";
-            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.listOrdersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.listOrdersToolStripMenuItem.Text = "List Orders";
             this.listOrdersToolStripMenuItem.Click += new System.EventHandler(this.listOrdersToolStripMenuItem_Click);
             // 
             // adminToolStripMenuItem
             // 
-            this.adminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            adminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuBookPopularity});
-            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.adminToolStripMenuItem.Text = "Admin";
+            adminToolStripMenuItem.Name = "adminToolStripMenuItem";
+            adminToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            adminToolStripMenuItem.Text = "Admin";
             // 
             // mnuBookPopularity
             // 
+            this.mnuBookPopularity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(173)))), ((int)(((byte)(153)))));
             this.mnuBookPopularity.Name = "mnuBookPopularity";
-            this.mnuBookPopularity.Size = new System.Drawing.Size(158, 22);
+            this.mnuBookPopularity.Size = new System.Drawing.Size(180, 22);
             this.mnuBookPopularity.Text = "Book Popularity";
             this.mnuBookPopularity.Click += new System.EventHandler(this.mnuBookPopularity_Click);
             // 
@@ -240,12 +260,23 @@
             this.picDBConnection.TabIndex = 5;
             this.picDBConnection.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Lucida Calligraphy", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(252, 196);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(301, 21);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Book wholesales, made wholesome.";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.picDBConnection);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.picBookRow);
@@ -265,11 +296,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picBookRow;
-        private System.Windows.Forms.ToolStripMenuItem mnuClients;
-        private System.Windows.Forms.ToolStripMenuItem mnuExit;
-        private System.Windows.Forms.ToolStripMenuItem booksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ordersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuCreateBook;
         private System.Windows.Forms.ToolStripMenuItem mnuUpdateBook;
         private System.Windows.Forms.ToolStripMenuItem mnuRemoveBook;
@@ -286,5 +312,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuDBConnect;
         private System.Windows.Forms.PictureBox picDBConnection;
         private System.Windows.Forms.MenuStrip mnuMain;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -82,7 +82,7 @@ namespace BookSYS.Models
             if (String.IsNullOrEmpty(client.County))
             {
                 invalidProperty = nameof(County);
-                error = "City is a required field.";
+                error = "County is a required field.";
                 return false;
             }
 
@@ -96,7 +96,7 @@ namespace BookSYS.Models
             if (String.IsNullOrEmpty(client.Email))
             {
                 invalidProperty = nameof(Email);
-                error = "Eircode is a required field.";
+                error = "Email is a required field.";
                 return false;
             }
 

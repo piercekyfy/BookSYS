@@ -80,11 +80,21 @@ namespace BookSYS.Forms.Books
                 txtTitleSearch.Text = "";
                 cboId.Text = "";
                 cboId.Items.Clear();
-                grpBook.Hide();
+                grpBook.Enabled = false;
+
+                grpBook.Text = "";
+                txtTitle.Text = "";
+                txtAuthor.Text = "";
+                txtDescription.Text = "";
+                txtPublisher.Text = "";
+                txtPrice.Text = "";
+                txtQuantity.Text = "";
+                txtISBN.Text = "";
+
                 return;
             }
 
-            grpBook.Text = "Update " + selected.ToString();
+            grpBook.Text = selected.ToString();
 
             txtTitle.Text = selected.Title;
             txtAuthor.Text = selected.Author;
@@ -94,7 +104,7 @@ namespace BookSYS.Forms.Books
             txtQuantity.Text = selected.Quantity.ToString();
             txtISBN.Text = selected.ISBN.ToString();
 
-            grpBook.Show();
+            grpBook.Enabled = true;
         }
 
         public bool ProcessInput(out Book book, out string invalidProperty, out string error)

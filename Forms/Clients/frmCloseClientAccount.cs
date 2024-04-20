@@ -60,13 +60,23 @@ namespace BookSYS.Forms.Clients
                 txtNameSearch.Text = "";
                 cboId.Text = "";
                 cboId.Items.Clear();
-                grpClient.Hide();
+
+                grpClient.Text = "";
+
+                txtName.Text = "";
+                txtAdd_Street.Text = "";
+                txtAdd_City.Text = "";
+                txtAdd_County.Text = "";
+                txtAdd_Eircode.Text = "";
+                txtEmail.Text = "";
+                txtPhone.Text = "";
+
                 return;
             }
 
             this._selected = selected;
 
-            grpClient.Text = "Remove " + selected.ToString();
+            grpClient.Text = selected.ToString();
 
             txtName.Text = selected.Name;
             txtAdd_Street.Text = selected.Street;
@@ -75,8 +85,6 @@ namespace BookSYS.Forms.Clients
             txtAdd_Eircode.Text = selected.Eircode;
             txtEmail.Text = selected.Email;
             txtPhone.Text = selected.Phone;
-
-            grpClient.Show();
         }
 
         
